@@ -11,7 +11,7 @@ import React from 'react';
 import {apiUrl} from '../../../../reusable/apiHost';
 import CreateSlider from './CreateSlider';
 import EditSlider from './EditSlider';
-import Ed from './CreateSlider';
+import $ from 'jquery'
 // Scripts
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/popper.min.js';
@@ -20,6 +20,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css";
 import {
   CBadge,
   CCard,
@@ -39,6 +41,19 @@ class Sliders extends React.Component {
           msg       : '',
           sliderById: [],
         }
+        this.config = {
+            page_size: 10,
+            length_menu: [10, 20, 50],
+            show_filter: true,
+            show_pagination: true,
+            filename: "restaurents",
+            button: {
+                excel: true,
+                print: true,
+                csv: true
+            }
+        }
+
         this.fetchSliders = this.fetchSliders.bind(this);
         this.handleEditSlider = this.handleEditSlider.bind(this);
     }
@@ -109,6 +124,7 @@ class Sliders extends React.Component {
             this.setState({
                 sliders: obj.data
             })
+            $('#myTable').DataTable();
            }else{
             this.props.history.push('/admin')
            }
@@ -154,7 +170,7 @@ class Sliders extends React.Component {
                 { 
                     data.length ? 
                         
-                    <table id="example1" className="table table-striped table-bordered dataTable dtr-inline table-hover ">
+                    <table id="myTable" className="table table-striped table-bordered dataTable dtr-inline table-hover">
                         
                         <thead>
                             <tr>
@@ -163,7 +179,7 @@ class Sliders extends React.Component {
                             <th>Description</th>
                             <th>Image</th>
                             <th>priority</th>
-                            <th style={{width:"10%"}}>Action</th>
+                            <th style={{width:"11%"}}>Action</th>
                             </tr>
                         </thead>
 
