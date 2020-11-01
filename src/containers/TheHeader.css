@@ -1,0 +1,49 @@
+
+@keyframes blink {
+  79% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  80% {
+    color: blue;
+    text-shadow: none;
+  }
+  80.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  81% {
+    color: blue;
+    text-shadow: none;
+  }
+  81.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  82% {
+    color: blue;
+    text-shadow: none;
+  }
+  82.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+}
+.blink span {
+  animation: blink linear infinite 2s;
+  font: inherit;
+  color: white;
+}
+
+
+.blink-text{
+    font-size: 25px;
+    font-family: cursive;
+    color: red;
+    animation: blink 1s linear infinite;
+}
+@keyframes blink{
+0%{opacity: 0;}
+50%{opacity: .5;}
+100%{opacity: 1;}
+}
