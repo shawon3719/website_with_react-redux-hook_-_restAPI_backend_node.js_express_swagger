@@ -14,7 +14,7 @@ import {
   import 'react-toastify/dist/ReactToastify.css';
   import $ from 'jquery';
 
-class createSlider extends Component {
+class editSlider extends Component {
     constructor(props) 
     {
         super(props);
@@ -37,18 +37,6 @@ class createSlider extends Component {
                         }
         }
     }
-
-    checkValidate = () => {
-        
-        if (this.state.title != '' && this.state.description != '' && this.state.image != '' && this.state.priority != '') {
-          return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
     handleImageChange(e){
         e.preventDefault();
         this.setState({image: e.target.files[0]})
@@ -94,6 +82,18 @@ class createSlider extends Component {
             });
       }
 
+
+      componentWillReceiveProps(nextProps) {
+        this.setState({
+            title: nextProps.title,
+            description: nextProps.description,
+            created_by: nextProps.created_by,
+            priority: nextProps.priority,
+        });
+    }
+
+
+
       onSubmit(e){
         e.preventDefault();
         const token = localStorage.getItem('x-auth-token');
@@ -133,12 +133,12 @@ class createSlider extends Component {
     render() {
         const {errors} = this.state;
         return (
-            <div className="modal fade" id="createSliders" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <ToastContainer />
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-success text-white">
-                            <h5 className="modal-title" id="createSliders">Create New Base Link</h5>
+                            <h5 className="modal-title" id="editModal">Create New Base Link</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -149,13 +149,13 @@ class createSlider extends Component {
                                     <CCol md="6">
                                         <CFormGroup>
                                             <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
-                                            <CInput className={errors.title} id="title" name='title' onChange={this.handleChange} placeholder="Enter Slider's Title." />
+                                            <CInput value={this.state.title} className={errors.title} id="title" name='title' onChange={this.handleChange} placeholder="Enter Slider's Title." />
                                         </CFormGroup>
                                     </CCol>
                                     <CCol md="6">
                                         <CFormGroup>
                                             <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                                            <CInput type="text" className={errors.description} name='description' onChange={this.handleChange} id="description" placeholder="Enter slider's description." />
+                                            <CInput value={this.state.description} type="text" className={errors.description} name='description' onChange={this.handleChange} id="description" placeholder="Enter slider's description." />
                                         </CFormGroup>
                                     </CCol>
                                     <CCol md="6">
@@ -167,7 +167,7 @@ class createSlider extends Component {
                                     <CCol md="6">
                                         <CFormGroup>
                                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                                            <CInput type="number" className={errors.priority} name='priority' onChange={this.handleChange} id="priority" placeholder="Enter slider's priority." />
+                                            <CInput value={this.state.priority} type="number" className={errors.priority} name='priority' onChange={this.handleChange} id="priority" placeholder="Enter slider's priority." />
                                         </CFormGroup>
                                     </CCol>
                                 </CFormGroup>
@@ -189,4 +189,4 @@ class createSlider extends Component {
     }
 }
 
-export default createSlider;
+export default editSlider;

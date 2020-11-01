@@ -26,11 +26,9 @@ class TheHeader extends React.Component {
           email: ''
       }
   }
-  componentDidMount() {
-    this.setState({
-      email: "hello"
-    })
-  }
+  // componentDidMount() {
+  //  alert("hello")
+  // }
   
 
   render () {

@@ -1,4 +1,4 @@
-# KYANC Website React version
+# Website in React with RestAPI in Backend Using Node.js & Express
 
 ## Author 
 This project is authored by [Masudul Hasan Shawon](https://github.com/shawon3719)
@@ -9,7 +9,7 @@ This project is authored by [Masudul Hasan Shawon](https://github.com/shawon3719
 
 ``` bash
 # clone the repo
-$ git clone https://github.com/shawon3719
+$ git clone https://github.com/shawon3719/website_with_React_-_RestAPI_backend_node.js_express_swagger.git
 
 # go into app's directory
 $ cd my-project
@@ -39,11 +39,20 @@ see also:
 ### Basic usage
 
 ``` bash
-# dev server with hot reload at http://localhost:3002
+# dev server with hot reload at http://localhost:3003
 $ npm start
 ```
 
-Navigate to [http://localhost:3002](http://localhost:3002). The app will automatically reload if you change any of the source files.
+Navigate to [http://localhost:3003](http://localhost:3003). The app will automatically reload if you change any of the source files.
+
+### Start Server
+``` bash
+# dev server with hot reload at http://localhost:3004/api-docs
+$ npm run server
+```
+
+Navigate to [http://localhost:3004/api-docs](http://localhost:3004/api-docs). Here you will find swagger ui to get details about API. The app will automatically restrat with Nodemon if you change any of the source files.
+
 
 ### Build
 
@@ -59,11 +68,15 @@ $ npm run build
 Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
 
 ```
-CoreUI-React#v3.0.0
+Shawon-React#v3.0.0
 ├── public/          #static files
 │   └── index.html   #html template
 │
+├── api/             #static files
+│   ├── userAPI      #user API Setup
+│   └── SliderAPI    #slider API Setup
 ├── src/             #project root
+├── auth/            #token validation
 │   ├── assets/      #assets - js icons object
 │   ├── containers/  #container source - template layout
 |   │   ├── _nav.js  #sidebar config
@@ -76,7 +89,9 @@ CoreUI-React#v3.0.0
 │   ├── index.js
 │   ├── routes.js    #routes config
 │   └── store.js     #template state example 
+├── validation/      #user request body validation
 │
+├── server.js/       #server config
 └── package.json
 ```
 ## Creators

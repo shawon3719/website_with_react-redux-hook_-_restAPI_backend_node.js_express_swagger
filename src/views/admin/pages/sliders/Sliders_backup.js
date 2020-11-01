@@ -10,16 +10,12 @@
 import React from 'react';
 import {apiUrl} from '../../../../reusable/apiHost';
 import CreateSlider from './CreateSlider';
-import EditSlider from './EditSlider';
-import Ed from './CreateSlider';
 // Scripts
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/popper.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 // Styles
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {
   CBadge,
   CCard,
@@ -36,11 +32,9 @@ class Sliders extends React.Component {
         super(props)
         this.state = {
           sliders   : [],
-          msg       : '',
-          sliderById: [],
+          msg       : ''
         }
         this.fetchSliders = this.fetchSliders.bind(this);
-        this.handleEditSlider = this.handleEditSlider.bind(this);
     }
 
     // ================= Authentication check ==================
@@ -52,38 +46,6 @@ class Sliders extends React.Component {
         }else{
             return true;
         }
-    }
-
-    handleEditSlider(id){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+token);
-
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
-
-        fetch(apiUrl+"sliders/slider/"+id, requestOptions)
-        .then(response => response.text())
-        .then((response) => {
-            var obj = JSON.parse(response);
-           if(obj.data != null){
-            this.setState({
-                sliderById: obj.data
-            })
-           }else{
-            toast.warn(""+obj.message+"!",{
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true
-              });
-           }
-        })
-        .catch(error => console.log('error', error));
-
     }
     
     
@@ -124,7 +86,6 @@ class Sliders extends React.Component {
 
     render() {
         const data = this.state.sliders;
-        const ModalData = this.state.sliderById;
         return (
 
     <div>
@@ -172,15 +133,14 @@ class Sliders extends React.Component {
                                         <td>
                                             <button 
                                                 className='btn btn-info btn-xs'
-                                                  onClick={this.handleEditSlider.bind(this,slider.id)}
-                                                  data-toggle="modal" data-target="#editModal"
+                                                //   onClick={this.handleEditCat.bind(this,cat.categoryId)}
+                                                //   data-toggle="modal" data-target="#editModal"
                                                 >
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </button>
 
                                             <button 
                                                 className='btn btn-danger btn-xs ml-1'
-                                                // onClick={() => props.deleteSlider(this,slider.id)}
                                                 //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
                                                 >
                                                 <i class="fa fa-trash"></i>
@@ -218,12 +178,6 @@ class Sliders extends React.Component {
             </CCard>
             <CreateSlider
                 saveModalDetails={this.saveModalDetails}
-            />
-             <EditSlider
-                title = {ModalData.title}
-                description = {ModalData.description}
-                created_by = {ModalData.created_by}
-                priority = {ModalData.priority}
             />
       </div>
 

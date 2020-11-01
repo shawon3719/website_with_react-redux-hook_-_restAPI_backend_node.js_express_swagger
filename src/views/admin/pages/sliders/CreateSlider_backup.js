@@ -37,18 +37,6 @@ class createSlider extends Component {
                         }
         }
     }
-
-    checkValidate = () => {
-        
-        if (this.state.title != '' && this.state.description != '' && this.state.image != '' && this.state.priority != '') {
-          return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
     handleImageChange(e){
         e.preventDefault();
         this.setState({image: e.target.files[0]})
