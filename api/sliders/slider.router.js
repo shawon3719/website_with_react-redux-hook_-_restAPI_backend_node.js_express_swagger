@@ -27,7 +27,7 @@ const {
     }
   });
   
-  router.get("/all", checkToken, getSliders);
+  router.get("/all", getSliders);
   router.post("/create",checkToken, upload.single('image'), addSliderValidation, createSlider);
   router.get("/slider/:id", checkToken, getSliderBySliderId);
   router.patch("/update", checkToken, upload.single('image'), updateSlider);

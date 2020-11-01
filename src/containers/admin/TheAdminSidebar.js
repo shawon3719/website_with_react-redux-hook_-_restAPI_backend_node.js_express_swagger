@@ -10,6 +10,7 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
+  CImg,
 } from '@coreui/react'
 
 import CIcon from '@coreui/icons-react'
@@ -27,15 +28,17 @@ const TheAdminSidebar = () => {
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
       <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
-          className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
-        />
-        <CIcon
-          className="c-sidebar-brand-minimized"
-          name="sygnet"
-          height={35}
+      <CImg
+            src={'/ati-logo.png'}
+            className="c-sidebar-brand-full px-4"
+            alt="admin@atilimited.net"
+            height={35}
+          />
+          <CImg
+            src={'/favicon.png'}
+            className="c-sidebar-brand-minimized"
+            alt="admin@atilimited.net"
+            height={35}
         />
       </CSidebarBrand>
       <CSidebarNav>

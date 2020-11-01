@@ -93,7 +93,7 @@ class SignIn extends React.Component {
     render () {
         return(
            
-          <div className="c-app c-default-layout flex-row align-items-center">
+    <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
       <ToastContainer />
         <CRow className="justify-content-center">

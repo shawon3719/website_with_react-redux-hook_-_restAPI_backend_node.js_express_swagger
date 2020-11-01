@@ -54,6 +54,8 @@ class Sliders extends React.Component {
         }
     }
 
+    // ================= Get Slider By ID ==================
+
     handleEditSlider(id){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+token);
@@ -87,7 +89,7 @@ class Sliders extends React.Component {
     }
     
     
-    // ============= Get All the Sliders Group Data =================
+    // ============= Get All the Sliders Data =================
     
     fetchSliders(){
         var myHeaders = new Headers();
@@ -128,6 +130,13 @@ class Sliders extends React.Component {
         return (
 
     <div>
+            <div className="db-breadcrumb">
+                <h4 className="breadcrumb-title">Sliders</h4>
+                <ul className="db-breadcrumb-list">
+                <li><a href="#"><i className="fa fa-home" />Home</a></li>
+                <li>Sliders</li>
+                </ul>
+            </div>	
             <CCard>
                 <CCardHeader className="bg-info">
                     All Sliders List
