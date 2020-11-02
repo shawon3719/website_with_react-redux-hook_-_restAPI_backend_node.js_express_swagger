@@ -26,7 +26,7 @@ class SignIn extends React.Component {
             password: '',
             auth_token: '',
             errors: '',
-            error_body: '',
+            error_body: ''
         }
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -55,6 +55,8 @@ class SignIn extends React.Component {
           .then((response) => {
                 var obj = JSON.parse(response);
                 window.localStorage.setItem('x-auth-token', obj.token);
+                window.localStorage.setItem('profile_image', obj.data.profile);
+                window.localStorage.setItem('profile_name', obj.data.firstName+' '+obj.data.lastName);
                 var token = obj.token;
                 console.log(token)
                 if(token){

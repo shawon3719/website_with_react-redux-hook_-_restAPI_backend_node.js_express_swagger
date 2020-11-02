@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Dashboard extends React.Component {
       <div className="db-breadcrumb">
         <h4 className="breadcrumb-title">Dashboard</h4>
         <ul className="db-breadcrumb-list">
-          <li><a href="#"><i className="fa fa-home" />Home</a></li>
+          <li><Link to="/admin-index"><i className="fa fa-home" />Home</Link></li>
           <li>Dashboard</li>
         </ul>
       </div>	

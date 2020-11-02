@@ -27,7 +27,7 @@ const TheAdminSidebar = () => {
       show={show}
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/">
+      <CSidebarBrand className="d-md-down-none" to="/admin-index">
       <CImg
             src={'/ati-logo.png'}
             className="c-sidebar-brand-full px-4"

@@ -1,5 +1,5 @@
 /**
- * Fetch, update and create Sliders data from database using API.
+ * Fetch, update and create Page data from database using API.
  * Send data of specific id to edit page.
  * Handle delete method
  * React and JSX
@@ -9,8 +9,8 @@
  */
 import React from 'react';
 import {apiUrl} from '../../../../reusable/apiHost';
-import CreateSlider from './CreateSlider';
-import EditSlider from './EditSlider';
+import CreatePage from './CreatePage';
+import EditPage from './EditPage';
 import $ from 'jquery'
 // Scripts
 import 'jquery/dist/jquery.min.js';
@@ -34,13 +34,13 @@ import { Link } from 'react-router-dom';
 
 const token = localStorage.getItem('x-auth-token');
 
-class Sliders extends React.Component {
+class Pages extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          sliders   : [],
+          pages   : [],
           msg       : '',
-          sliderById: [],
+          pageById: [],
         }
         this.config = {
             page_size: 10,
@@ -55,8 +55,8 @@ class Sliders extends React.Component {
             }
         }
 
-        this.fetchSliders = this.fetchSliders.bind(this);
-        this.handleEditSlider = this.handleEditSlider.bind(this);
+        this.fetchPages = this.fetchPages.bind(this);
+        this.handleEditPage = this.handleEditPage.bind(this);
     }
 
     // ================= Authentication check ==================
@@ -70,9 +70,9 @@ class Sliders extends React.Component {
         }
     }
 
-    // ================= Get Slider By ID ==================
+    // ================= Get Page By ID ==================
 
-    handleEditSlider(id){
+    handleEditPage(id){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+token);
 
@@ -82,13 +82,13 @@ class Sliders extends React.Component {
         redirect: 'follow'
         };
 
-        fetch(apiUrl+"sliders/slider/"+id, requestOptions)
+        fetch(apiUrl+"pages/page/"+id, requestOptions)
         .then(response => response.text())
         .then((response) => {
             var obj = JSON.parse(response);
            if(obj.data != null){
             this.setState({
-                sliderById: obj.data
+                pageById: obj.data
             })
            }else{
             toast.warn(""+obj.message+"!",{
@@ -105,9 +105,9 @@ class Sliders extends React.Component {
     }
     
     
-    // ============= Get All the Sliders Data =================
+    // ============= Get All the Pages Data =================
     
-    fetchSliders(){
+    fetchPages(){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+token);
 
@@ -117,13 +117,13 @@ class Sliders extends React.Component {
         redirect: 'follow'
         };
 
-        fetch(apiUrl+"sliders/all", requestOptions)
+        fetch(apiUrl+"pages/all", requestOptions)
         .then(response => response.text())
         .then((response) => {
             var obj = JSON.parse(response);
            if(obj.data != null){
             this.setState({
-                sliders: obj.data
+                pages: obj.data
             })
             $('#myTable').DataTable();
            }else{
@@ -137,31 +137,31 @@ class Sliders extends React.Component {
     
       componentDidMount() {
         this.checkAuth() ?
-         (this.fetchSliders())
+         (this.fetchPages())
         : this.props.history.push('/admin')
     }
 
     render() {
-        const data = this.state.sliders;
-        const ModalData = this.state.sliderById;
+        const data = this.state.pages;
+        const ModalData = this.state.pageById;
         return (
 
     <div>
             <div className="db-breadcrumb">
-                <h4 className="breadcrumb-title">Sliders</h4>
+                <h4 className="breadcrumb-title">Pages</h4>
                 <ul className="db-breadcrumb-list">
                 <li><Link to="/admin-index"><i className="fa fa-home" />Home</Link></li>
-                <li>Sliders</li>
+                <li>Pages</li>
                 </ul>
             </div>	
             <CCard>
                 <CCardHeader className="bg-info">
-                    All Sliders List
+                    All Pages List
                     <CButton
                     className="btn btn-sm btn-success"
                     style={{float:"right", border:'.001em solid #22963c'}}
                     data-toggle="modal"
-                    data-target="#createSliders"
+                    data-target="#createPages"
                     >
                         <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
                     </CButton>
@@ -187,18 +187,18 @@ class Sliders extends React.Component {
                         <tbody >
                             
                             {
-                                data.map((slider,key) =>{
+                                data.map((page,key) =>{
                                 return(
                                     <tr>
                                         <td>{key+1}</td>
-                                        <td>{slider.title}</td>
-                                        <td>{slider.description}</td>
-                                        <td><img src={slider.image} width="100"/></td>
-                                        <td>{slider.priority}</td>
+                                        <td>{page.title}</td>
+                                        <td>{page.description}</td>
+                                        <td><img src={page.image} width="100"/></td>
+                                        <td>{page.priority}</td>
                                         <td>
                                             <button 
                                                 className='btn btn-info btn-xs'
-                                                  onClick={this.handleEditSlider.bind(this,slider.id)}
+                                                  onClick={this.handleEditPage.bind(this,page.id)}
                                                   data-toggle="modal" data-target="#editModal"
                                                 >
                                                 <i class="fa fa-pencil-square-o"></i>
@@ -206,7 +206,7 @@ class Sliders extends React.Component {
 
                                             <button 
                                                 className='btn btn-danger btn-xs ml-1'
-                                                // onClick={() => props.deleteSlider(this,slider.id)}
+                                                // onClick={() => props.deletePage(this,page.id)}
                                                 //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
                                                 >
                                                 <i class="fa fa-trash"></i>
@@ -242,10 +242,10 @@ class Sliders extends React.Component {
                 
                 </CCardBody>
             </CCard>
-            <CreateSlider
+            <CreatePage
                 saveModalDetails={this.saveModalDetails}
             />
-             <EditSlider
+             <EditPage
                 title = {ModalData.title}
                 description = {ModalData.description}
                 created_by = {ModalData.created_by}
@@ -257,4 +257,4 @@ class Sliders extends React.Component {
     }
 }
 
-export default Sliders;
+export default Pages;

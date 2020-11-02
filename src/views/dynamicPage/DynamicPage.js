@@ -81,15 +81,14 @@ componentDidUpdate() {
         <div className="section-area bg-gray section-sp1 our-story">
           <div className="container">
             <div className="row align-items-center d-flex">
-              <div className="col-lg-5 col-md-12 heading-bx">
+              <div className="col-lg-8 col-md-12 heading-bx">
                 <h2 className="m-b10">{this.state.title}</h2>
                 <p style={{textAlign: "justify"}} >{this.state.description}</p>
                 {/* <a href="#" className="btn">Read More</a> */}
               </div>
-              <div className="col-lg-7 col-md-12 heading-bx p-lr">
+              <div className="col-lg-4 col-md-12 heading-bx p-lr">
                 <div className="video-bx">
                   <img src={this.state.image} alt={this.state.title+"_iamge"} />
-                  {/* <a target="_blank" href="https://www.youtube.com/watch?v=NvIS7AOCzTs" className="popup-youtube video"><i className="fa fa-play" /></a> */}
                 </div>
               </div>
             </div>
