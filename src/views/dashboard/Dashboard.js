@@ -64,8 +64,8 @@ const content = [
 const token = localStorage.getItem('x-auth-token');
 
 class Dashboard extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
         sliders: []
     }

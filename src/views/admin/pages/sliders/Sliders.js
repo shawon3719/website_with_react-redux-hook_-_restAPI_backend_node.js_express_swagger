@@ -186,7 +186,7 @@ class Sliders extends React.Component {
                         <tbody >
                             
                             {
-                                this.state.sliders.map((slider,key) =>{
+                                data.map((slider,key) =>{
                                 return(
                                     <tr>
                                         <td>{key+1}</td>
