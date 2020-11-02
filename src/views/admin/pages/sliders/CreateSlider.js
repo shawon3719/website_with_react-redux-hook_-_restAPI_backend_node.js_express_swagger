@@ -25,7 +25,7 @@ class createSlider extends Component {
             title       : '',
             description : '',
             image       : '',
-            created_by  : "admin",
+            created_by  : localStorage.getItem('profile_name'),
             priority    : '',
             sliders     : [],
             errors      : 

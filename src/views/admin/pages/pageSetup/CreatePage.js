@@ -7,6 +7,7 @@ import {
     CInput,
     CLabel,
     CSelect,
+    CInputCheckbox,
   } from '@coreui/react'
   import CIcon from '@coreui/icons-react';
   import {apiUrl} from '../../../../reusable/apiHost';
@@ -22,19 +23,20 @@ class createPage extends Component {
         this.handleImageChange = this.handleImageChange.bind(this);
         this.state = 
         {
-            title       : '',
-            description : '',
-            image       : '',
-            created_by  : "admin",
-            priority    : '',
-            pages     : [],
-            errors      : 
-                        {
-                            title: '',
-                            description: '',
-                            priority    : '',
-                            image: ''
-                        }
+            title           : '',
+            description     : '',
+            image           : '',
+            created_by      : localStorage.getItem('profile_name'),
+            priority        : '',
+            active_status   : true,
+            pages           : [],
+            errors          : 
+                            {
+                                title: '',
+                                description: '',
+                                priority    : '',
+                                image: ''
+                            }
         }
     }
 
@@ -106,6 +108,7 @@ class createPage extends Component {
         formdata.append("image", this.state.image, this.state.image.name);
         formdata.append("created_by", this.state.created_by);
         formdata.append("priority", this.state.priority);
+        formdata.append("active_status", this.state.active_status == true ? 1 : 0);
         
         var requestOptions = {
           method: 'POST',
@@ -164,10 +167,28 @@ class createPage extends Component {
                                             <CInput type="file" className={errors.image} onChange={this.handleImageChange} id="image"  />
                                         </CFormGroup>
                                     </CCol>
-                                    <CCol md="6">
+                                    <CCol md="3">
                                         <CFormGroup>
                                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
                                             <CInput type="number" className={errors.priority} name='priority' onChange={this.handleChange} id="priority" placeholder="Enter page's priority." />
+                                        </CFormGroup>
+                                    </CCol>
+                                    <CCol md="3">
+                                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
+                                            <CInputCheckbox
+                                                id="activeStatus"
+                                                name="active_status"
+                                                checked={this.state.active_status}
+                                                onChange={e=> {  this.setState({
+                                                                    [e.target.name]: e.target.checked
+                                                                })
+                                                            }
+                                                        }
+                                                custom
+                                            />
+                                            <CLabel variant="custom-checkbox" htmlFor="activeStatus">
+                                            Active
+                                            </CLabel>
                                         </CFormGroup>
                                     </CCol>
                                 </CFormGroup>

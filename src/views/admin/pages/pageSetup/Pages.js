@@ -179,7 +179,8 @@ class Pages extends React.Component {
                             <th>Title</th>
                             <th>Description</th>
                             <th>Image</th>
-                            <th>priority</th>
+                            <th>Priority</th>
+                            <th>Status</th>
                             <th style={{width:"11%"}}>Action</th>
                             </tr>
                         </thead>
@@ -195,6 +196,7 @@ class Pages extends React.Component {
                                         <td>{page.description}</td>
                                         <td><img src={page.image} width="100"/></td>
                                         <td>{page.priority}</td>
+                                        <td><span className={page.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{page.active_status == 1? 'active' : 'inactive'}</span></td>
                                         <td>
                                             <button 
                                                 className='btn btn-info btn-xs'
@@ -224,7 +226,8 @@ class Pages extends React.Component {
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Image</th>
-                                <th>priority</th>
+                                <th>Priority</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -246,10 +249,12 @@ class Pages extends React.Component {
                 saveModalDetails={this.saveModalDetails}
             />
              <EditPage
-                title = {ModalData.title}
-                description = {ModalData.description}
-                created_by = {ModalData.created_by}
-                priority = {ModalData.priority}
+                id              = {ModalData.id}
+                title           = {ModalData.title}
+                description     = {ModalData.description}
+                created_by      = {ModalData.created_by}
+                priority        = {ModalData.priority}
+                active_status   = {ModalData.active_status == 1 ? true : false}
             />
       </div>
 

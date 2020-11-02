@@ -3,9 +3,9 @@ const joi = require("joi");
 const schema = {
   page: joi.object({
     title: joi.string().max(100).required(),
-    description: joi.string().max(1000).required(),
-    created_by: joi.string().valid("admin", "super_admin"),
-    updated_by: joi.string().valid("admin", "super_admin"),
+    description: joi.string().max(10000000).required(),
+    created_by: joi.string(),
+    updated_by: joi.string(),
     priority: joi.number().integer().required(),
     active_status: joi.number().integer().required(),
     // image: joi.required(),

@@ -163,17 +163,19 @@ class TheHeader extends React.Component {
                 <li className="active"><Link to="/philosophy">Philosophy</Link></li>
                 <li className="active"><Link to="/gallery">Photo Gallery</Link></li>
                 <li className="active"><Link to="/contact">Contact Us</Link></li>
-                {/* <li className="active bg-template notice"><Link to="#"><span>Notice</span></Link></li> */}
                 <li className="active bg-template blink"><Link to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
                
                   <ul className="sub-menu">
-                  {
-                    this.state.pages.map((page,key) =>{
-                      return(
-                    <li><Link to={'/page/id='+page.id}>{page.title}</Link></li>
+                    {
+                      this.state.pages.map((page,key) =>{
+                        if(page.active_status == 1 ){
+                          return(
+                            <li><Link to={'/page/id='+page.id}>{page.title}</Link></li>
                           )
-                                })
-                            }
+                        }
+                      
+                      })
+                    }
                     <li><Link to="#">BSc. Mid-term Exam</Link></li>
                     <li><Link to="#">Diploma Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
                     <li><Link to="#">BSc. Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>

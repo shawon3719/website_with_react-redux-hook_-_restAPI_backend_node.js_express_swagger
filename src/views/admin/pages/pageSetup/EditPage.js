@@ -7,6 +7,7 @@ import {
     CInput,
     CLabel,
     CSelect,
+    CInputCheckbox,
   } from '@coreui/react'
   import CIcon from '@coreui/icons-react';
   import {apiUrl} from '../../../../reusable/apiHost';
@@ -22,19 +23,21 @@ class editPage extends Component {
         this.handleImageChange = this.handleImageChange.bind(this);
         this.state = 
         {
-            title       : '',
-            description : '',
-            image       : '',
-            created_by  : "admin",
-            priority    : '',
-            pages     : [],
-            errors      : 
-                        {
-                            title: '',
-                            description: '',
-                            priority    : '',
-                            image: ''
-                        }
+            id              : '',
+            title           : '',
+            description     : '',
+            image           : '',
+            created_by      : localStorage.getItem('profile_name'),
+            priority        : '',
+            active_status   : '',
+            pages           : [],
+            errors          : 
+                            {
+                                title: '',
+                                description: '',
+                                priority    : '',
+                                image: ''
+                            }
         }
     }
     handleImageChange(e){
@@ -85,50 +88,55 @@ class editPage extends Component {
 
       componentWillReceiveProps(nextProps) {
         this.setState({
-            title: nextProps.title,
-            description: nextProps.description,
-            created_by: nextProps.created_by,
-            priority: nextProps.priority,
+            id              : nextProps.id,
+            title           : nextProps.title,
+            description     : nextProps.description,
+            created_by      : nextProps.created_by,
+            priority        : nextProps.priority,
+            active_status   : nextProps.active_status
         });
     }
 
 
 
-      onSubmit(e){
+    onSubmit(e){
         e.preventDefault();
         const token = localStorage.getItem('x-auth-token');
+
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+token);
-        
+
         var formdata = new FormData();
+        formdata.append("id", this.state.id);
         formdata.append("title", this.state.title);
         formdata.append("description", this.state.description);
         formdata.append("image", this.state.image, this.state.image.name);
-        formdata.append("created_by", this.state.created_by);
         formdata.append("priority", this.state.priority);
-        
-        var requestOptions = {
-          method: 'POST',
-          headers: myHeaders,
-          body: formdata,
-          redirect: 'follow'
-        };
-        
-        fetch(apiUrl+"pages/create", requestOptions)
-          .then(response => response.text())
-          .then((response) => {
-            var obj = JSON.parse(response);
-            toast.success("✓ "+obj.message+"!",{
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true
-            });
-        })
-          .catch(error => console.log('error', error));
+        formdata.append("active_status",this.state.active_status == true ? 1 : 0);
+        formdata.append("updated_by", this.state.updated_by);
 
-      }
+        var requestOptions = {
+        method: 'PATCH',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+        };
+
+        fetch(apiUrl+"pages/update", requestOptions)
+        .then(response => response.text())
+        .then((response) => {
+                var obj = JSON.parse(response);
+                toast.success("✓ "+obj.message+"!",{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true
+                });
+            })
+        .catch(error => console.log('error', error));
+
+    }
     
     render() {
         const {errors} = this.state;
@@ -164,10 +172,28 @@ class editPage extends Component {
                                             <CInput type="file" className={errors.image} onChange={this.handleImageChange} id="image"  />
                                         </CFormGroup>
                                     </CCol>
-                                    <CCol md="6">
+                                    <CCol md="3">
                                         <CFormGroup>
                                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                                            <CInput value={this.state.priority} type="number" className={errors.priority} name='priority' onChange={this.handleChange} id="priority" placeholder="Enter page's priority." />
+                                            <CInput type="number" value={this.state.priority} className={errors.priority} name='priority' onChange={this.handleChange} id="priority" placeholder="Enter page's priority." />
+                                        </CFormGroup>
+                                    </CCol>
+                                    <CCol md="3">
+                                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
+                                            <CInputCheckbox
+                                                id="updActiveStatus"
+                                                name="active_status"
+                                                checked={this.state.active_status}
+                                                onChange={e=> {  this.setState({
+                                                                    [e.target.name]: e.target.checked
+                                                                })
+                                                            }
+                                                        }
+                                                custom
+                                            />
+                                            <CLabel variant="custom-checkbox" htmlFor="updActiveStatus">
+                                            Active
+                                            </CLabel>
                                         </CFormGroup>
                                     </CCol>
                                 </CFormGroup>
