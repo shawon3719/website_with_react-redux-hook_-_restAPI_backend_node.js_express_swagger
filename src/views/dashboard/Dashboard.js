@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
         this.setState({
             sliders: obj.data
         })
-        console.log(obj.data)
+        // console.log(obj.data)
     })
     .catch(error => console.log('error', error));
   }

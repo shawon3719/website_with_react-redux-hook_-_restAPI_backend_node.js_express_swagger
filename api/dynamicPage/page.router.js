@@ -29,7 +29,7 @@ const {
   
   router.get("/all", getPages);
   router.post("/create",checkToken, upload.single('image'), addPageValidation, createPage);
-  router.get("/page/:id", checkToken, getPageByPageId);
+  router.get("/page/:id", getPageByPageId);
   router.patch("/update", checkToken, upload.single('image'), updatePage);
   router.delete("/delete/:id", checkToken, deletePage);
   module.exports = router;

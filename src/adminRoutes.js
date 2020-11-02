@@ -11,6 +11,7 @@ const routes = [
   { path: '/admin-404', exact: true, name: 'Not Found', component: NotFound },
   { path: '/sliders', exact: true, name: 'Sliders', component: Sliders },
 
+
 ];
 
 export default routes;

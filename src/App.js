@@ -15,6 +15,7 @@ const TheAdminLayout = React.lazy(() => import('./containers/TheAdminLayout'));
 // Pages
 const Login = React.lazy(() => import('./views/admin/login/Login'));
 const Register = React.lazy(() => import('./views/admin/register/Register'));
+
 // const Page404 = React.lazy(() => import('./views/admin/page404/Page404'));
 const Page500 = React.lazy(() => import('./views/admin/page500/Page500'));
 // const  = React.lazy(() => import('./views/admin/layout/TheAdminLayout'));
@@ -32,9 +33,9 @@ class App extends Component {
               <Route exact path="/admin-404" name="Page 404" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/sliders" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
 
-
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />
               <Route exact path="/500" name="Page 500" render={props => <Page500 {...props}/>} />
+               <Route path="/page/id=:id" name="Home" render={props => <TheLayout {...props}/>} />
               <Route path="/" name="Home" render={props => <TheLayout {...props}/>} />
             </Switch>
           </React.Suspense>

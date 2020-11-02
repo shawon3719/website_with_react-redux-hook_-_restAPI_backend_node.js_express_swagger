@@ -64,7 +64,7 @@ const {
     //update Page info
     updatePage: (req, res) => {
       const body = req.body;
-      body.image = `public/uploads/pages/${req.file.filename}`;
+      body.image = `uploads/pages/${req.file.filename}`;
       updatePage(body, (err, results) => {
         if (err) {
           console.log(err);
