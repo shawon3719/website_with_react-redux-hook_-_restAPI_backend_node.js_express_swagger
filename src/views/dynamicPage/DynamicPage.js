@@ -29,31 +29,36 @@ componentDidMount() {
     behavior: 'smooth',
   });
   this.componentDidUpdate();
+  this.setState({
+    id: window.location.toString().split('=')[1]
+  })
 }
 
-componentDidUpdate() {
+componentDidUpdate(prevProps, prevState) {
   var id = window.location.toString().split('=')[1];
-  var myHeaders = new Headers();
-  var id = window.location.toString().split('=')[1]
+  if(id !== this.state.id){
+    var myHeaders = new Headers();
   
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-  };
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
 
-  fetch(apiUrl+"pages/page/"+id, requestOptions)
-    .then(response => response.text())
-    .then((response) => {
-      var obj = JSON.parse(response);
-      this.setState({
-        title: obj.data.title,
-        description: obj.data.description,
-        image: obj.data.image,
-      })
-      console.log(obj.data.title)
-    })
+    fetch(apiUrl+"pages/page/"+id, requestOptions)
+      .then(response => response.text())
+      .then((response) => {
+        var obj = JSON.parse(response);
+        this.setState({
+          title: obj.data.title,
+          description: obj.data.description,
+          image: obj.data.image,
+          id: window.location.toString().split('=')[1]
+        })
+      }
+    )
     .catch(error => console.log('error', error));
+  }
 }
   render(){
     return(

@@ -14,10 +14,29 @@ class TheHeader extends React.Component {
   constructor() {
       super()
       this.state = {
-        pages: []
+        pages: [],
+        length: 0
       }
+      this.getPage = this.getPage.bind(this)
   }
-  componentDidMount() {
+componentDidMount(){
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch(apiUrl+"pages/all", requestOptions)
+    .then(response => response.text())
+    .then((response) => {
+      var obj = JSON.parse(response);
+      this.setState({
+        pages: obj.data,
+        length: obj.data.length
+      })
+    })
+    .catch(error => console.log('error', error));
+}
+  getPage(){
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -28,13 +47,20 @@ class TheHeader extends React.Component {
       .then((response) => {
         var obj = JSON.parse(response);
         this.setState({
-          pages: obj.data
+          pages: obj.data,
+          length: obj.data.length
         })
-        console.log(obj.data.title)
       })
       .catch(error => console.log('error', error));
   }
-  
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.length != this.state.length) {
+      console.log(prevState.length);
+      console.log(this.state.length);
+      this.getPage();
+    }
+  }
 
   render () {
     const TheHeaderVar = () => {
@@ -163,7 +189,7 @@ class TheHeader extends React.Component {
                 <li className="active"><Link to="/philosophy">Philosophy</Link></li>
                 <li className="active"><Link to="/gallery">Photo Gallery</Link></li>
                 <li className="active"><Link to="/contact">Contact Us</Link></li>
-                <li className="active bg-template blink"><Link to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
+                <li className="active bg-template blink"><Link onMouseOver={this.componentDidUpdate} to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
                
                   <ul className="sub-menu">
                     {

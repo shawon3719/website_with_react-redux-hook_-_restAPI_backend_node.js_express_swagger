@@ -101,4 +101,4 @@ Shawon-React#v3.0.0
 
 ## Copyright and License
 
-copyright 2020 ATI Limited.   
+copyright 2020 Masudul Hasan Shawon.   

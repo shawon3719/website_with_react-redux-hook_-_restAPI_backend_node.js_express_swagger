@@ -1,4 +1,4 @@
-# KYANC Website React version
+# Website in React with RestAPI in Backend Using Node.js & Express
 
 ## Author 
 This project is authored by [Masudul Hasan Shawon](https://github.com/shawon3719)

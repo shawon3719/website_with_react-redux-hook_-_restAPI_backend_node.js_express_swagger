@@ -128,6 +128,7 @@ class createPage extends Component {
               closeOnClick: true,
               pauseOnHover: true
             });
+            this.componentDidMount();
         })
           .catch(error => console.log('error', error));
 
@@ -137,7 +138,6 @@ class createPage extends Component {
         const {errors} = this.state;
         return (
             <div className="modal fade" id="createPages" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <ToastContainer />
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-success text-white">

@@ -135,14 +135,12 @@ class editPage extends Component {
                 });
             })
         .catch(error => console.log('error', error));
-
     }
     
     render() {
         const {errors} = this.state;
         return (
             <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <ToastContainer />
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-success text-white">

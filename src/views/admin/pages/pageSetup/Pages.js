@@ -22,6 +22,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 import {
   CBadge,
   CCard,
@@ -57,6 +60,62 @@ class Pages extends React.Component {
 
         this.fetchPages = this.fetchPages.bind(this);
         this.handleEditPage = this.handleEditPage.bind(this);
+    }
+
+    // ================= Delete Confirmation ==================
+
+    confirmDelete = (id) => {
+        confirmAlert({
+          title: 'Delete This Page!',
+          message: 'Are you sure to do this?',
+          buttons: [
+            {
+              label: ' Yes, Delete it!',
+              onClick: () => {
+                  this.deletePage(id);
+                }
+            },
+            {
+              label: 'Cancel'
+            }
+          ]
+        });
+    };
+
+    deletePage(id){
+        const token = localStorage.getItem('x-auth-token');
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+token);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+          
+        fetch(apiUrl+"pages/delete/"+id, requestOptions)
+        .then(response => response.text())
+        .then((response) => {
+            var obj = JSON.parse(response);
+            toast.success("successfully Deleted",{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true
+              });
+              this.componentDidMount();
+           
+        })
+        .catch(error => 
+            toast.error("Sorry, Page hasn't deleted!",{
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true
+          })
+          );
     }
 
     // ================= Authentication check ==================
@@ -147,6 +206,7 @@ class Pages extends React.Component {
         return (
 
     <div>
+     <ToastContainer />
             <div className="db-breadcrumb">
                 <h4 className="breadcrumb-title">Pages</h4>
                 <ul className="db-breadcrumb-list">
@@ -208,6 +268,7 @@ class Pages extends React.Component {
 
                                             <button 
                                                 className='btn btn-danger btn-xs ml-1'
+                                                onClick={this.confirmDelete.bind(this,page.id)}
                                                 // onClick={() => props.deletePage(this,page.id)}
                                                 //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
                                                 >

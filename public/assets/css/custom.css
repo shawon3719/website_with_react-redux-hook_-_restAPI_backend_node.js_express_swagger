@@ -28,3 +28,9 @@
 .bg-template{
     background-color: #e38b00!important;
 }
+.react-confirm-alert-body {
+    background: #f5e44d!important;
+}
+.react-confirm-alert-button-group > button {
+    background: #c11b1b!important;
+}
