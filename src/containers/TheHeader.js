@@ -54,13 +54,13 @@ componentDidMount(){
       .catch(error => console.log('error', error));
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.length != this.state.length) {
-      console.log(prevState.length);
-      console.log(this.state.length);
-      this.getPage();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.length != this.state.length) {
+  //     console.log(prevState.length);
+  //     console.log(this.state.length);
+  //     this.getPage();
+  //   }
+  // }
 
   render () {
     const TheHeaderVar = () => {

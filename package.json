@@ -60,6 +60,9 @@
     "react-show-more-text": "^1.4.6",
     "react-toastify": "^6.0.9",
     "redux": "4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^2.0.1",
     "swagger-ui-express": "^4.1.4",
     "unirest": "^0.6.0"
   },

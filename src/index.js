@@ -9,7 +9,13 @@ import * as serviceWorker from './serviceWorker';
 import { icons } from './assets/icons'
 
 import { Provider } from 'react-redux'
-import store from './store'
+// import store from './store'
+import { render } from 'react-dom';
+
+import { store } from './_helpers';
+
+// import { configureFakeBackend } from './_helpers';
+// configureFakeBackend();
 
 React.icons = icons
 
