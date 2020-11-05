@@ -66,9 +66,12 @@ const TheHeaderDropdownVar = () => {
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem>
+        <Link to="/admin">
           <CIcon name="cil-lock-locked" className="mfe-2" /> 
-          <Link to="/admin">Sign Out</Link>
+          Sign Out
+          </Link>
         </CDropdownItem>
+        
       </CDropdownMenu>
     </CDropdown>
   )
