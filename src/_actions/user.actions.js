@@ -20,7 +20,7 @@ function login(username, password, from) {
                 user => { 
                 //    alert(dispatch(success(user)))
                     dispatch(success(user));
-                    history.push('/#/admin-index');
+                   window.location.href= '/#/admin-index';
                     dispatch(alertActions.success('Login successful'));
                 },
                 error => {
