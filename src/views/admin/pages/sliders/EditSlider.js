@@ -11,12 +11,13 @@ import {
   } from '@coreui/react'
   import CIcon from '@coreui/icons-react';
   import {apiUrl} from '../../../../reusable/apiHost';
-  import { ToastContainer, toast } from 'react-toastify';
+  import {  toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
   import $ from 'jquery';
   import SliderDataService from "../../../../_services/SliderService";
 import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
+import SlidersList from "./Sliders";
 
 const EditSlider = props => {
   const initialSliderState = {
@@ -99,7 +100,7 @@ const EditSlider = props => {
     <div>
       {currentSlider ? (
         <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <ToastContainer />
+                {/* <ToastContainer /> */}
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-success text-white">
