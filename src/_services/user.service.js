@@ -1,6 +1,7 @@
 // import config from 'config';
 import { authHeader } from '../_helpers';
 import { apiUrl } from "../reusable/apiHost"
+import { toast } from 'react-toastify';
 
 export const userService = {
     login,
@@ -26,6 +27,8 @@ function login(username, password) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user.data));
             localStorage.setItem('token', JSON.stringify(user.token));
+            localStorage.setItem('x-auth-token', JSON.stringify(user.token));
+            toast.success(user.message);
             console.log(user.token)
             return user.data;
         });

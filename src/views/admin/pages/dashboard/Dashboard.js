@@ -15,11 +15,6 @@ function HomePage() {
           window.location.href = '/#/admin'
         }
     }, []);
-
-    function handleDeleteUser(id) {
-        dispatch(userActions.delete(id));
-    }
-
     return (
                   
   <div className="container-fluid">
