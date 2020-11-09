@@ -13,6 +13,7 @@ import {
   import {apiUrl} from '../../../../reusable/apiHost';
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+  import { authHeader } from '../../../../_helpers';
   import $ from 'jquery';
 
 class createPage extends Component {
@@ -98,9 +99,6 @@ class createPage extends Component {
 
       onSubmit(e){
         e.preventDefault();
-        const token = localStorage.getItem('x-auth-token');
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+token);
         
         var formdata = new FormData();
         formdata.append("title", this.state.title);
@@ -112,7 +110,7 @@ class createPage extends Component {
         
         var requestOptions = {
           method: 'POST',
-          headers: myHeaders,
+          headers: authHeader(),
           body: formdata,
           redirect: 'follow'
         };

@@ -1,23 +1,22 @@
 
 import React, { useState, useEffect } from "react";
 import {
-    CButton,
-    CCol,
-    CForm,
-    CFormGroup,
-    CInput,
-    CLabel,
-    CSelect,
-  } from '@coreui/react'
-  import CIcon from '@coreui/icons-react';
-  import {apiUrl} from '../../../../reusable/apiHost';
-  import {  toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
-  import $ from 'jquery';
-  import SliderDataService from "../../../../_services/SliderService";
+  CButton,
+  CCol,
+  CForm,
+  CFormGroup,
+  CInput,
+  CLabel,
+  CSelect,
+} from '@coreui/react'
+import CIcon from '@coreui/icons-react';
+import {apiUrl} from '../../../../reusable/apiHost';
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import $ from 'jquery';
+import SliderDataService from "../../../../_services/SliderService";
 import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
-import SlidersList from "./Sliders";
 
 const EditSlider = props => {
   const initialSliderState = {
@@ -83,6 +82,8 @@ const EditSlider = props => {
     .then(response => response.text())
       .then(response => {
         var obj = JSON.parse(response)
+        $('#editModal').modal('toggle');
+        $('.modal-backdrop').remove();
         toast.success("✓ "+obj.message+"!",{
                         position: "top-right",
                         autoClose: 5000,
@@ -100,65 +101,64 @@ const EditSlider = props => {
     <div>
       {currentSlider ? (
         <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                {/* <ToastContainer /> */}
-                <div className="modal-dialog modal-lg" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header bg-success text-white">
-                            <h5 className="modal-title" id="editModal">Create New Base Link</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <CForm >
-                                <CFormGroup row>
-                                    <CCol md="6">
-                                        <CFormGroup>
-                                            <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
-                                            <CInput value={currentSlider.title}  id="title" name='title' onChange={handleInputChange} placeholder="Enter Slider's Title." />
-                                        </CFormGroup>
-                                    </CCol>
-                                    <CCol md="6">
-                                        <CFormGroup>
-                                            <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                                            <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." />
-                                        </CFormGroup>
-                                    </CCol>
-                                    <CCol md="6">
-                                        <CFormGroup>
-                                            <CLabel htmlFor="image">Image</CLabel>
-                                            <CInput type="file"  onChange={handleImageChange} id="image"  />
-                                        </CFormGroup>
-                                        <div className="previewSliderImage">
-                                        <p>Old Image</p>
-                                                <img width="80" src={currentSlider.image} />
-                                        </div>
-                                        <div className="previewSliderImage">
-                                                <img width="80" src={imgData} />
-                                        </div>
-                                    </CCol>
-                                    <CCol md="6">
-                                        <CFormGroup>
-                                            <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                                            <CInput value={currentSlider.priority} type="number" name='priority' onChange={handleInputChange} id="priority" placeholder="Enter slider's priority." />
-                                        </CFormGroup>
-                                    </CCol>
-                                </CFormGroup>
-                                <div style={{textAlign: 'center'}}>
-                                    <CButton onClick={updateSlider} size="sm" color="success"><CIcon name="cil-scrubber" /> Submit</CButton>
-                                    {" "}
-                                    <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban" /> Reset</CButton>
-                                </div>
-                            </CForm>
-            
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        </div>
-                    </div>
-                </div>
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header bg-success text-white">
+                <h5 className="modal-title" id="editModal">Create New Base Link</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <CForm >
+                  <CFormGroup row>
+                    <CCol md="6">
+                      <CFormGroup>
+                          <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
+                          <CInput value={currentSlider.title}  id="title" name='title' onChange={handleInputChange} placeholder="Enter Slider's Title." />
+                      </CFormGroup>
+                    </CCol>
+                    <CCol md="6">
+                      <CFormGroup>
+                          <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
+                          <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." />
+                      </CFormGroup>
+                    </CCol>
+                    <CCol md="6">
+                      <CFormGroup>
+                          <CLabel htmlFor="image">Image</CLabel>
+                          <CInput type="file"  onChange={handleImageChange} id="image"  />
+                      </CFormGroup>
+                      <div className="previewSliderImage">
+                      <p>Old Image</p>
+                              <img width="80" src={currentSlider.image} />
+                      </div>
+                      <div className="previewSliderImage">
+                              <img width="80" src={imgData} />
+                      </div>
+                    </CCol>
+                    <CCol md="6">
+                      <CFormGroup>
+                        <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
+                        <CInput value={currentSlider.priority} type="number" name='priority' onChange={handleInputChange} id="priority" placeholder="Enter slider's priority." />
+                      </CFormGroup>
+                    </CCol>
+                  </CFormGroup>
+                  <div style={{textAlign: 'center'}}>
+                    <CButton onClick={updateSlider} size="sm" color="success"><CIcon name="cil-scrubber" /> Submit</CButton>
+                    {" "}
+                    <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban" /> Reset</CButton>
+                  </div>
+                  </CForm>
+              </div>
+              <div className="modal-footer">
+                  <button type="button" className="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+              </div>
             </div>
-      ) : (
+          </div>
+        </div>
+      ) : 
+      (
         <div>
           <br />
           <p>Please click on a Tutorial...</p>

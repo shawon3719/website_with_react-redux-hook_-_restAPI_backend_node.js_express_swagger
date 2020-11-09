@@ -35,7 +35,7 @@ const TheAdminSidebar = () => {
             height={35}
           />
           <CImg
-            src={'/favicon.png'}
+            src={'/favicon.jpg'}
             className="c-sidebar-brand-minimized"
             alt="admin@atilimited.net"
             height={35}

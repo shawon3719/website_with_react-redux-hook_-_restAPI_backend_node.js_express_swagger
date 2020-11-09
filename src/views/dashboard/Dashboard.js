@@ -1,116 +1,58 @@
-import React from 'react'
-// import {
-//   CCard,
-//   CCardBody,
-//   CCardHeader,
-//   CCarousel,
-//   CCarouselCaption,
-//   CCarouselControl,
-//   CCarouselIndicators,
-//   CCarouselInner,
-//   CCarouselItem,
-//   CCol,
-//   CRow 
-// } from '@coreui/react'
-// import { DocsLink } from 'src/reusable'
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React, {useRef, useState, useEffect } from "react";
+import SliderDataService from "../../_services/SliderService";
 import ParticleComponent from "./ParticleComponent";
 import Slider from "react-animated-slider";
+import { scrollToTop } from "../../_reducers/scroll.reducer"
 import "react-animated-slider/build/horizontal.css";
 import "normalize.css/normalize.css";
 import "./SliderAnimation.css";
 import "./SliderStyle.css";
-import {apiUrl} from '../../reusable/apiHost';
 
-
-const content = [
-  {
-    title: "Khwaja Yunus Ali Nursing College",
-    description:
-      "The Nursing College is recognized by Bangladesh Nursing Council. KYAMCH Nursing College represents the nurses who care for patients at the Hospital.",
-      button: "Learn More",
-    image: "assets/images/banner/g1.jpg"
-  },
-  {
-    title: "Khwaja Yunus Ali Nursing College",
-    description:
-    "The Nursing College is recognized by Bangladesh Nursing Council. KYAMCH Nursing College represents the nurses who care for patients at the Hospital.",
-    button: "Learn More",
-    image: "assets/images/banner/g2.jpg"
-  },
-  {
-    title: "Khwaja Yunus Ali Nursing College",
-    description:
-    "The Nursing College is recognized by Bangladesh Nursing Council. KYAMCH Nursing College represents the nurses who care for patients at the Hospital.",
-    button: "Learn More",
-    image: "assets/images/banner/g3.jpg"
-  },
-  {
-    title: "Khwaja Yunus Ali Nursing College",
-    description:
-    "The Nursing College is recognized by Bangladesh Nursing Council. KYAMCH Nursing College represents the nurses who care for patients at the Hospital.",
-    button: "Learn More",
-    image: "assets/images/banner/g4.jpg"
-  },
-  {
-    title: "Khwaja Yunus Ali Nursing College",
-    description:
-    "The Nursing College is recognized by Bangladesh Nursing Council. KYAMCH Nursing College represents the nurses who care for patients at the Hospital.",
-    button: "Learn More",
-    image: "assets/images/banner/g5.jpg"
-  }
-];
-// const [activeIndex] = useState(1);
 const token = localStorage.getItem('x-auth-token');
-
-class Dashboard extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-        sliders: []
-    }
-  }
-  componentDidMount(){
-    var myHeaders = new Headers();
-    // myHeaders.append("Authorization", "Bearer "+token);
-
-    var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
-    };
-
-    fetch(apiUrl+"sliders/all", requestOptions)
-    .then(response => response.text())
-    .then((response) => {
-        var obj = JSON.parse(response);
-        this.setState({
-            sliders: obj.data
-        })
-        // console.log(obj.data)
-    })
-    .catch(error => console.log('error', error));
-  }
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
 
 
-  render () {
-   
+const Dashboard = (props) => {
+  const [sliders, setSliders] = useState([]);
+  useEffect(() => {
+    retrieveSliders();
+    // scrollToTop();
+  }, [sliders]);
+
+  const retrieveSliders = () => {
+    SliderDataService.getAll()
+      .then(response => {
+        setSliders(response.data.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   return (
     <div className="page-content bg-white">
         <Slider className="slider-wrapper container-fluid" autoplay={3000}>
-          {this.state.sliders.map((item, index) => (
-            <div
-              key={index}
-              className="slider-content"
-              style={{ background: `url('${item.image}') no-repeat center center` }}
-            >
-              <div className="inner">
-                <h1>{item.title}</h1>
-                <p>{item.description}</p>
-                <button>Learn More</button>
+          { sliders &&
+            sliders.map((slider, index) => (
+              <div
+                key={index}
+                className="slider-content"
+                style={{ background: `url('${slider.image}') no-repeat center center` }}
+              >
+                <div className="inner">
+                  <h1>{slider.title}</h1>
+                  <p>{slider.description}</p>
+                  <button>Learn More</button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </Slider>
         {/*End Main Slider */}
         <div className="content-block">
@@ -331,7 +273,7 @@ class Dashboard extends React.Component {
         </div>
         {/* contact area END */}
     </div>
-  )}
+  )
 }
 
 export default Dashboard

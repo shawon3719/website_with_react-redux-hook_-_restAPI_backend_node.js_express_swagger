@@ -35,7 +35,7 @@ import {
   CButton,
 } from '@coreui/react'
 
-const SlidersList = () => {
+const SlidersList = props => {
   const [sliders, setSliders] = useState([]);
   const [currentSlider, setCurrentSlider] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -43,22 +43,16 @@ const SlidersList = () => {
 
   useEffect(() => {
     retrieveSliders();
-  }, []);
-
-  // const onChangeSearchTitle = e => {
-  //   const searchTitle = e.target.value;
-  //   setSearchTitle(searchTitle);
-  // };
+  }, [sliders]);
 
   const retrieveSliders = () => {
     SliderDataService.getAll()
-      .then(response => {
-        console.log(response.data.data);
-        setSliders(response.data.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    .then(response => {
+      setSliders(response.data.data);
+    })
+    .catch(e => {
+      console.log(e);
+    });
   };
 
   const refreshList = () => {
@@ -69,17 +63,6 @@ const SlidersList = () => {
     setCurrentSlider(slider);
     setCurrentIndex(index);
   };
-
-  // const removeAllSliders = () => {
-  //   SliderDataService.removeAll()
-  //     .then(response => {
-  //       console.log(response.data);
-  //       refreshList();
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // };
 
   const deleteSlider = (id) => {
 
@@ -114,105 +97,99 @@ const SlidersList = () => {
   };
 
   return (
-       <div>
-       <ToastContainer />
-            <div className="db-breadcrumb">
-                 <h4 className="breadcrumb-title">Sliders</h4>
-                 <ul className="db-breadcrumb-list">
-                 <li><Link to="/admin-index"><i className="fa fa-home" />Home</Link></li>
-                 <li>Sliders</li>
-                 </ul>
-             </div>	             <CCard>                 <CCardHeader className="bg-info">
-                    All Sliders List
-                     <CButton
-                    className="btn btn-sm btn-success"
-                    style={{float:"right", border:'.001em solid #22963c'}}
-                    data-toggle="modal"
-                    data-target="#createSliders"
-                    >
-                        <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
-                    </CButton>
+    <div>
+        <ToastContainer />
+        <div className="db-breadcrumb">
+          <h4 className="breadcrumb-title">Sliders</h4>
+          <ul className="db-breadcrumb-list">
+            <li><Link to="/admin-index"><i className="fa fa-home" />Home</Link></li>
+            <li>Sliders</li>
+          </ul>
+        </div>
+        <CCard>                 
+          <CCardHeader className="bg-info">
+            All Sliders List
+            <CButton
+            className="btn btn-sm btn-success"
+            style={{float:"right", border:'.001em solid #22963c'}}
+            data-toggle="modal"
+            data-target="#createSliders"
+            >
+              <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
+            </CButton>
+          </CCardHeader>
+          <CCardBody>    
+              <table id="myTable" className="table table-striped table-bordered dataTable dtr-inline table-hover">
+                <thead>
+                  <tr>
+                    <th>SI</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>priority</th>
+                    <th style={{width:"11%"}}>Action</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  {
+                    sliders &&
+                    sliders.map((slider, index) => (
+                      <tr>
+                        <td>{index+1}</td>
+                        <td>{slider.title}</td>
+                        <td>{slider.description}</td>
+                        <td><img src={slider.image} width="100"/></td>
+                        <td>{slider.priority}</td>
+                        <td>
+                          <button 
+                            className='btn btn-info btn-xs'
+                            onClick={() => setActiveSlider(slider, slider.id)}
+                            data-toggle="modal" data-target="#editModal"
+                            >
+                            <i class="fa fa-pencil-square-o"></i>
+                          </button>
+                          <button 
+                              className='btn btn-danger btn-xs ml-1'
+                              onClick={() => deleteSlider(slider.id)}
+                              //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
+                              >
+                              <i class="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>SI</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>priority</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+              </table>
             
-                </CCardHeader>
-                <CCardBody>
-                        
-                    <table id="myTable" className="table table-striped table-bordered dataTable dtr-inline table-hover">
-                        
-                        <thead>
-                            <tr>
-                            <th>SI</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Image</th>
-                            <th>priority</th>
-                            <th style={{width:"11%"}}>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody >
-                            
-                            {
-                                sliders &&
-            sliders.map((slider, index) => (
-                                    <tr>
-                                        <td>{index+1}</td>
-                                        <td>{slider.title}</td>
-                                        <td>{slider.description}</td>
-                                        <td><img src={slider.image} width="100"/></td>
-                                        <td>{slider.priority}</td>
-                                        <td>
-                                            <button 
-                                                className='btn btn-info btn-xs'
-                                                onClick={() => setActiveSlider(slider, slider.id)}
-                                                data-toggle="modal" data-target="#editModal"
-                                                >
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </button>
-
-                                            <button 
-                                                className='btn btn-danger btn-xs ml-1'
-                                                onClick={() => deleteSlider(slider.id)}
-                                                //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
-                                                >
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    ))}
-                            
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>SI</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Image</th>
-                                <th>priority</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    
-
-                
-                </CCardBody>
-            </CCard>
-            <CreateSlider
-                // saveModalDetails={this.saveModalDetails}
-            />
-             {currentSlider ? (
-             <EditSlider
-                id = {currentSlider.id}
-                title = {currentSlider.title}
-                description = {currentSlider.description}
-                created_by = {currentSlider.created_by}
-                priority = {currentSlider.priority}
-            />
-              ) : (
-          <div>
-          </div>
+          </CCardBody>
+        </CCard>
+        <CreateSlider
+          // saveModalDetails={this.saveModalDetails}
+        />
+        {currentSlider ? (
+          <EditSlider
+            id = {currentSlider.id}
+            title = {currentSlider.title}
+            description = {currentSlider.description}
+            created_by = {currentSlider.created_by}
+            priority = {currentSlider.priority}
+          />
+        ) : 
+        (
+          <div></div>
         )}
-      </div>
+    </div>
 
   );
 };

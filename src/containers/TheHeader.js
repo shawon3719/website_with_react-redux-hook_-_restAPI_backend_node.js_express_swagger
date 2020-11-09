@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import {apiUrl} from '../reusable/apiHost';
+import PageDataService from "../_services/PageService";
 
 
 // routes config
@@ -10,59 +10,30 @@ import './TheHeader.css'
 
 import { Link } from 'react-router-dom'
 
-class TheHeader extends React.Component {
-  constructor() {
-      super()
-      this.state = {
-        pages: [],
-        length: 0
-      }
-      this.getPage = this.getPage.bind(this)
-  }
-componentDidMount(){
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  
-  fetch(apiUrl+"pages/all", requestOptions)
-    .then(response => response.text())
-    .then((response) => {
-      var obj = JSON.parse(response);
-      this.setState({
-        pages: obj.data,
-        length: obj.data.length
-      })
+const pageNo = window.location.toString()
+
+
+const TheHeader = pageNo => {
+
+
+const [pages, setPages] = useState([]);
+
+useEffect(() => {
+  retrievePages();
+}, [pageNo]);
+
+
+const retrievePages = () => {
+  PageDataService.getAll()
+    .then(response => {
+      setPages(response.data.data);
     })
-    .catch(error => console.log('error', error));
-}
-  getPage(){
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
-    fetch(apiUrl+"pages/all", requestOptions)
-      .then(response => response.text())
-      .then((response) => {
-        var obj = JSON.parse(response);
-        this.setState({
-          pages: obj.data,
-          length: obj.data.length
-        })
-      })
-      .catch(error => console.log('error', error));
-  }
+    .catch(e => {
+      console.log(e);
+    });
+};
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.length != this.state.length) {
-  //     console.log(prevState.length);
-  //     console.log(this.state.length);
-  //     this.getPage();
-  //   }
-  // }
 
-  render () {
     const TheHeaderVar = () => {
       const dispatch = useDispatch()
       const sidebarShow = useSelector(state => state.sidebarShow)
@@ -102,7 +73,7 @@ componentDidMount(){
           <div className="container clearfix">
             {/* Header Logo ==== */}
             <div className="menu-logo">
-              <Link to="/"><img src="assets/images/kyanc_logo.png" alt /></Link>
+              <Link to="/"><img src="assets/images/kyanc_logo.jpg" alt /></Link>
               {/* <span style={{color: "red"}}>KYANC</span> */}
             </div>
             {/* Mobile Nav Button ==== */}
@@ -134,7 +105,7 @@ componentDidMount(){
             {/* Navigation Menu ==== */}
             <div className="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
               <div className="menu-logo">
-                <a href="index.html"><img src="assets/images/kyanc_logo.png" alt /></a>
+                <a href="index.html"><img src="assets/images/kyanc_logo.jpg" alt /></a>
               </div>
               <ul className="nav navbar-nav">	
                 <li className="active"><Link to="/">Home</Link></li>
@@ -189,19 +160,16 @@ componentDidMount(){
                 <li className="active"><Link to="/philosophy">Philosophy</Link></li>
                 <li className="active"><Link to="/gallery">Photo Gallery</Link></li>
                 <li className="active"><Link to="/contact">Contact Us</Link></li>
-                <li className="active bg-template blink"><Link onMouseOver={this.componentDidUpdate} to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
+                <li className="active bg-template blink"><Link to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
                
                   <ul className="sub-menu">
-                    {
-                      this.state.pages.map((page,key) =>{
-                        if(page.active_status == 1 ){
-                          return(
+                    
+                      { pages &&
+                        pages.map((page, index) => (
                             <li><Link to={'/page/id='+page.id}>{page.title}</Link></li>
-                          )
-                        }
+                        ) )
+                      }
                       
-                      })
-                    }
                     <li><Link to="#">BSc. Mid-term Exam</Link></li>
                     <li><Link to="#">Diploma Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
                     <li><Link to="#">BSc. Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
@@ -229,6 +197,5 @@ componentDidMount(){
         <TheHeaderVar/>
       );
     }
-}
 export default TheHeader
 
