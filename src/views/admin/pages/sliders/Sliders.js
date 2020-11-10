@@ -43,7 +43,7 @@ const SlidersList = props => {
 
   useEffect(() => {
     retrieveSliders();
-  }, [sliders]);
+  }, []);
 
   const retrieveSliders = () => {
     SliderDataService.getAll()
