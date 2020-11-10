@@ -1,3 +1,4 @@
+require("dotenv").config();
 const {
     create,
     getPageByPageId,
@@ -22,7 +23,7 @@ const {
         return res.status(200).json({
           success: 1,
           message: "Page created successfully",
-          page_image_url: `http://192.168.0.41:3003/uploads/pages/${req.file.filename}`
+          page_image_url: `${process.env.REACT_APP_APP_URL}/uploads/pages/${req.file.filename}`
         });
       });
     },

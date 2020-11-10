@@ -1,1 +1,3 @@
-export const apiUrl  = 'http://192.168.0.41:3004/api/';
+require("dotenv").config();
+export const apiUrl  = process.env.REACT_APP_API_HOST;
+export const appUrl  = process.env.REACT_APP_APP_URL;

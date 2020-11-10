@@ -13,7 +13,7 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`${config.apiUrl}/sliders/all`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}sliders/all`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -22,7 +22,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/sliders/slider/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
 }
 
 
@@ -33,7 +33,7 @@ function update(slider) {
         body: JSON.stringify(slider)
     };
 
-    return fetch(`${config.apiUrl}/sliders/${slider.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${config.apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -43,7 +43,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/sliders/delete/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}sliders/delete/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

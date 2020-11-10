@@ -1,3 +1,4 @@
+require("dotenv").config();
 const {
   create,
   getUserByUserId,
@@ -27,7 +28,7 @@ module.exports = {
       return res.status(200).json({
         success: 1,
         message: "User created successfully",
-        profile_url: `http://localhost:3003/uploads/images/${req.file.filename}`
+        profile_url: `${process.env.REACT_APP_APP_URL}/uploads/images/${req.file.filename}`
       });
     });
   },

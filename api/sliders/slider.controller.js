@@ -1,3 +1,4 @@
+require("dotenv").config();
 const {
     create,
     getSliderBySliderId,
@@ -22,7 +23,7 @@ const {
         return res.status(200).json({
           success: 1,
           message: "Slider created successfully",
-          slider_url: `http://localhost:3003/uploads/sliders/${req.file.filename}`
+          slider_url: `${process.env.REACT_APP_APP_URL}/uploads/sliders/${req.file.filename}`
         });
       });
     },

@@ -53,7 +53,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users/user/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}users/user/${id}`, requestOptions).then(handleResponse);
 }
 
 function register(user) {
@@ -63,7 +63,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}users/register`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -73,7 +73,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${apiUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${apiUrl}users/${user.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -83,7 +83,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users/delete/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}users/delete/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
