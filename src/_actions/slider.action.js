@@ -17,7 +17,6 @@ function create(slider, sliderImage) {
                 slider => { 
                     dispatch(success());
                     history.push('/#/slider');
-                    getAll();
                     dispatch(alertActions.success('Slider Created Successfully..'));
                 },
                 error => {
@@ -27,8 +26,8 @@ function create(slider, sliderImage) {
             );
     };
 
-    function request(slider) { return { type: sliderConstants.CREATE_REQUEST, slider } }
-    function success(slider) { return { type: sliderConstants.CREATE_SUCCESS, slider } }
+    function request(slider, sliderImage) { return { type: sliderConstants.CREATE_REQUEST, slider, sliderImage } }
+    function success(slider, sliderImage) { return { type: sliderConstants.CREATE_SUCCESS, slider, sliderImage } }
     function failure(error) { return { type: sliderConstants.CREATE_FAILURE, error } }
 }
 

@@ -15,9 +15,10 @@ export function sliders(state = {}, action) {
                 error: action.error
             };
             case sliderConstants.CREATE_REQUEST:
-                return { registering: true,
+                return { submitting: true,
                     ...state,
-                    createSlider : true
+                    slider: action.payload,
+                    createSlider : true,
                 };
             case sliderConstants.CREATE_SUCCESS:
                 return {

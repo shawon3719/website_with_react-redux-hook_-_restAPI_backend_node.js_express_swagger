@@ -6,14 +6,14 @@ import rootReducer from '../_reducers';
 const initialState = {
   sidebarShow: 'responsive'
 }
-// const changeState = (state = initialState, { type, ...rest }) => {
-//     switch (type) {
-//       case 'set':
-//         return {...state, ...rest }
-//       default:
-//         return state
-//     }
-//   }
+const changeState = (state = initialState, { type, ...rest }) => {
+    switch (type) {
+      case 'set':
+        return {...state, ...rest }
+      default:
+        return state
+    }
+  }
 
 const loggerMiddleware = createLogger();
 

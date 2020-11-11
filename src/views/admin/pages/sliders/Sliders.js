@@ -48,10 +48,12 @@ const SlidersList = props => {
   const [currentSlider, setCurrentSlider] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
+  const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
   useEffect(() => {
     dispatch(sliderActions.getAll());
-}, []);
+    // alert(isLoggedIn)
+}, [isLoggedIn]);
 
 function handleDeleteSlider(id) {
   dispatch(sliderActions.delete(id));
