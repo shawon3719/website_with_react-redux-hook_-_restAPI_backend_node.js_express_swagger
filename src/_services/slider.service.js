@@ -1,7 +1,8 @@
-import config from 'config';
+import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
 
-export const userService = {
+export const sliderService = {
+    create,
     getAll,
     getById,
     update,
@@ -13,7 +14,40 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`${config.apiUrl}sliders/all`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}sliders/all`, requestOptions).then(handleResponse);
+}
+function create(slider, sliderImage) {
+
+    console.log(slider)
+    console.log(sliderImage.name)
+    console.log(sliderImage)
+    console.log(slider.title)
+
+        var formdata = new FormData();
+        formdata.append("title", slider.title);
+        formdata.append("description",slider.description);
+        formdata.append("image", sliderImage, sliderImage.name);
+        formdata.append("created_by", slider.created_by);
+        formdata.append("priority", slider.priority);
+        
+        var requestOptions = {
+          method: 'POST',
+          headers: authHeader(),
+          body: formdata,
+          redirect: 'follow'
+        };
+
+
+        // return fetch(apiUrl+"sliders/create", requestOptions)
+        //               .then(response => response.text())
+        //               .then((response) => {
+        //                 var obj = JSON.parse(response);
+        //                   console.log(obj);
+        //             })
+        //               .catch(error => console.log('error', error));
+        //   };
+        
+    return fetch(`${apiUrl}sliders/create`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -22,7 +56,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
 }
 
 
@@ -33,7 +67,7 @@ function update(slider) {
         body: JSON.stringify(slider)
     };
 
-    return fetch(`${config.apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -43,7 +77,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}sliders/delete/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}sliders/delete/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
@@ -52,13 +86,14 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                logout();
-                location.reload(true);
+                // logout();
+                // location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
+    
 
         return data;
     });

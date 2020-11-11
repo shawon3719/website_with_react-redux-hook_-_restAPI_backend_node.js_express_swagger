@@ -1,6 +1,7 @@
 import React from 'react';
 // import ContactView from "./views/contact-view";
 import { HomePage } from './views/admin/pages/dashboard/Dashboard'
+import { SliderList } from './Sliders/SliderList'
 //admin Components
 const Dashboard = React.lazy(() => import('./views/admin/pages/dashboard/Dashboard'));
 const NotFound  = React.lazy(() => import('./views/admin/page404/Page404'));

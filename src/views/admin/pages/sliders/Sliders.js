@@ -35,28 +35,45 @@ import {
   CButton,
 } from '@coreui/react'
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { sliderActions } from '../../../../_actions/slider.action';
+
+
 const SlidersList = props => {
-  const [sliders, setSliders] = useState([]);
+  const sliders = useSelector(state => state.sliders);
+  const dispatch = useDispatch();
+
+  // const [sliders, setSliders] = useState([]);
   const [currentSlider, setCurrentSlider] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
-    retrieveSliders();
-  }, [sliders]);
+    dispatch(sliderActions.getAll());
+}, []);
 
-  const retrieveSliders = () => {
-    SliderDataService.getAll()
-    .then(response => {
-      setSliders(response.data.data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-  };
+function handleDeleteSlider(id) {
+  dispatch(sliderActions.delete(id));
+}
+
+  // useEffect(() => {
+  //   retrieveSliders();
+  // }, [sliders]);
+
+  // const retrieveSliders = () => {
+  //   SliderDataService.getAll()
+  //   .then(response => {
+  //     setSliders(response.data.data);
+  //   })
+  //   .catch(e => {
+  //     console.log(e);
+  //   });
+  // };
 
   const refreshList = () => {
-    retrieveSliders();
+    // retrieveSliders();
+    dispatch(sliderActions.getAll());
   };
 
   const setActiveSlider = (slider, index) => {
@@ -132,8 +149,8 @@ const SlidersList = props => {
                 </thead>
                 <tbody >
                   {
-                    sliders &&
-                    sliders.map((slider, index) => (
+                    sliders.items &&
+                    sliders.items.data.map((slider, index) => (
                       <tr>
                         <td>{index+1}</td>
                         <td>{slider.title}</td>
