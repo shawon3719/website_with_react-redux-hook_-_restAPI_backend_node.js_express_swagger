@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   CButton,
   CCol,
@@ -15,6 +16,7 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
 import SliderDataService from "../../../../_services/SliderService";
+import { sliderActions } from '../../../../_actions/slider.action';
 import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
 
@@ -31,6 +33,8 @@ const EditSlider = props => {
   const [sliderImage, setSliderImage] = useState(null);
   const [imgData, setImgData] = useState(null);
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  // const [submitted, setSubmitted] = useState(false);
 
   const getSlider = id => {
     SliderDataService.get(id)
@@ -64,38 +68,44 @@ const EditSlider = props => {
   };
 
   const updateSlider = () => {
-    var formdata = new FormData();
-    formdata.append("id", currentSlider.id);
-    formdata.append("title", currentSlider.title);
-    formdata.append("description", currentSlider.description);
-    formdata.append("image", sliderImage, sliderImage.name);
-    formdata.append("priority", currentSlider.priority);
-    
-    var requestOptions = {
-      method: 'PATCH',
-      headers: authHeader(),
-      body: formdata,
-      redirect: 'follow'
-    };
-    
-    fetch(apiUrl+"sliders/update", requestOptions)
-    .then(response => response.text())
-      .then(response => {
-        var obj = JSON.parse(response)
-        $('#editModal').modal('toggle');
-        $('.modal-backdrop').remove();
-        toast.success("✓ "+obj.message+"!",{
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true
-                      });
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // setSubmitted(true);
+    if (currentSlider.title && currentSlider.description) {
+        dispatch(sliderActions.update(currentSlider, sliderImage));   
+    }
   };
+
+    // var formdata = new FormData();
+    // formdata.append("id", currentSlider.id);
+    // formdata.append("title", currentSlider.title);
+    // formdata.append("description", currentSlider.description);
+    // formdata.append("image", sliderImage, sliderImage.name);
+    // formdata.append("priority", currentSlider.priority);
+    
+    // var requestOptions = {
+    //   method: 'PATCH',
+    //   headers: authHeader(),
+    //   body: formdata,
+    //   redirect: 'follow'
+    // };
+    
+    // fetch(apiUrl+"sliders/update", requestOptions)
+    // .then(response => response.text())
+    //   .then(response => {
+    //     var obj = JSON.parse(response)
+    //     $('#editModal').modal('toggle');
+    //     $('.modal-backdrop').remove();
+    //     toast.success("✓ "+obj.message+"!",{
+    //                     position: "top-right",
+    //                     autoClose: 5000,
+    //                     hideProgressBar: false,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: true
+    //                   });
+    //   })
+    //   .catch(e => {
+    //     console.log(e);
+    //   });
+  // };
 
   return (
     <div>

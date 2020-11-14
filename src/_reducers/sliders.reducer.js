@@ -8,24 +8,41 @@ export function sliders(state = {}, action) {
             };
         case sliderConstants.GETALL_SUCCESS:
             return {
-                items: action.sliders
+                items: action.sliders.data
             };
         case sliderConstants.GETALL_FAILURE:
             return {
                 error: action.error
             };
-            case sliderConstants.CREATE_REQUEST:
-                return { submitting: true,
+        case sliderConstants.CREATE_REQUEST:
+            return { submitting: true,
+                ...state,
+                slider: action.error ?
+                    null :
+                    (state.sliders || []).concat([action.slider]),
+                addStatus: "slider has been created successfully"
+            };
+        case sliderConstants.CREATE_SUCCESS:
+            return {
                     ...state,
-                    slider: action.payload,
-                    createSlider : true,
-                };
-            case sliderConstants.CREATE_SUCCESS:
-                return {
-                     ...state
-                };
-            case sliderConstants.CREATE_FAILURE:
-                return {};
+            };
+        case sliderConstants.CREATE_FAILURE:
+            return {};
+        
+        case sliderConstants.UPDATE_REQUEST:
+        return { submitting: true,
+            ...state,
+            slider: action.error ?
+                null :
+                (state.sliders || []).concat([action.slider]),
+            addStatus: "slider has been updated successfully"
+        };
+        case sliderConstants.UPDATE_SUCCESS:
+            return {
+                    ...state,
+            };
+        case sliderConstants.UPDATE_FAILURE:
+            return {};
         case sliderConstants.DELETE_REQUEST:
             // add 'deleting:true' property to slider being deleted
             return {

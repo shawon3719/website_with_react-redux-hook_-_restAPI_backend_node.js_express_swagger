@@ -42,6 +42,8 @@ import { sliderActions } from '../../../../_actions/slider.action';
 
 const SlidersList = props => {
   const sliders = useSelector(state => state.sliders);
+  const slider = useSelector(state => state.sliders.slider);
+  const addStatus = useSelector(state => state.sliders.addStatus);
   const dispatch = useDispatch();
 
   // const [sliders, setSliders] = useState([]);
@@ -50,10 +52,18 @@ const SlidersList = props => {
   const [searchTitle, setSearchTitle] = useState("");
   const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
-  useEffect(() => {
+  useEffect((slider) => {
+    if(addStatus){
+      toast.success("✓ "+addStatus+"!",{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true
+      });
+    }
     dispatch(sliderActions.getAll());
-    // alert(isLoggedIn)
-}, [isLoggedIn]);
+}, [slider]);
 
 function handleDeleteSlider(id) {
   dispatch(sliderActions.delete(id));
@@ -152,7 +162,7 @@ function handleDeleteSlider(id) {
                 <tbody >
                   {
                     sliders.items &&
-                    sliders.items.data.map((slider, index) => (
+                    sliders.items.map((slider, index) => (
                       <tr>
                         <td>{index+1}</td>
                         <td>{slider.title}</td>

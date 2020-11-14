@@ -5,31 +5,10 @@ import { history } from '../_helpers';
 
 export const sliderActions = {
     create,
+    update,
     getAll,
     delete: _delete
 };
-
-function create(slider, sliderImage) {
-    return dispatch => {
-        dispatch(request(slider, sliderImage));
-        sliderService.create(slider, sliderImage)
-            .then(
-                slider => { 
-                    dispatch(success());
-                    history.push('/#/slider');
-                    dispatch(alertActions.success('Slider Created Successfully..'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-    function request(slider, sliderImage) { return { type: sliderConstants.CREATE_REQUEST, slider, sliderImage } }
-    function success(slider, sliderImage) { return { type: sliderConstants.CREATE_SUCCESS, slider, sliderImage } }
-    function failure(error) { return { type: sliderConstants.CREATE_FAILURE, error } }
-}
 
 function getAll() {
     return dispatch => {
@@ -46,6 +25,50 @@ function getAll() {
     function request() { return { type: sliderConstants.GETALL_REQUEST } }
     function success(sliders) { return { type: sliderConstants.GETALL_SUCCESS, sliders } }
     function failure(error) { return { type: sliderConstants.GETALL_FAILURE, error } }
+}
+
+function create(slider, sliderImage) {
+    return dispatch => {
+        dispatch(request(slider, sliderImage));
+        sliderService.create(slider, sliderImage)
+            .then(
+                slider => { 
+                    dispatch(success());
+                    history.push('/#/sliders');
+                    dispatch(alertActions.success('Slider has been created successfully..'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(slider, sliderImage) { return { type: sliderConstants.CREATE_REQUEST, slider, sliderImage } }
+    function success(slider, sliderImage) { return { type: sliderConstants.CREATE_SUCCESS, slider, sliderImage } }
+    function failure(error) { return { type: sliderConstants.CREATE_FAILURE, error } }
+}
+
+
+function update(currentSlider, sliderImage) {
+    return dispatch => {
+        dispatch(request(currentSlider, sliderImage));
+        sliderService.update(currentSlider, sliderImage)
+            .then(
+                slider => { 
+                    dispatch(success());
+                    // history.push('/#/sliders');
+                    dispatch(alertActions.success('Slider has been updated successfully..'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+    function request(currentSlider, sliderImage) { return { type: sliderConstants.UPDATE_REQUEST, currentSlider, sliderImage } }
+    function success(currentSlider, sliderImage) { return { type: sliderConstants.UPDATE_SUCCESS, currentSlider, sliderImage } }
+    function failure(error) { return { type: sliderConstants.UPDATE_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

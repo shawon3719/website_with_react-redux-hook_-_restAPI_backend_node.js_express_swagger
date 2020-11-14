@@ -167,7 +167,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { sliderActions } from '../../../../_actions/slider.action';
-import SliderDataService from "../../../../_services/SliderService";
+// import SliderDataService from "../../../../_services/SliderService";
 import {
   CButton,
   CCol,

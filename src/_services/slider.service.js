@@ -17,12 +17,6 @@ function getAll() {
     return fetch(`${apiUrl}sliders/all`, requestOptions).then(handleResponse);
 }
 function create(slider, sliderImage) {
-
-    console.log(slider)
-    console.log(sliderImage.name)
-    console.log(sliderImage)
-    console.log(slider.title)
-
         var formdata = new FormData();
         formdata.append("title", slider.title);
         formdata.append("description",slider.description);
@@ -30,7 +24,7 @@ function create(slider, sliderImage) {
         formdata.append("created_by", slider.created_by);
         formdata.append("priority", slider.priority);
         
-        var requestOptions = {
+        const requestOptions = {
           method: 'POST',
           headers: authHeader(),
           body: formdata,
@@ -50,6 +44,23 @@ function create(slider, sliderImage) {
     return fetch(`${apiUrl}sliders/create`, requestOptions).then(handleResponse);
 }
 
+function update(currentSlider, sliderImage) {
+    var formdata = new FormData();
+    formdata.append("id", currentSlider.id);
+    formdata.append("title", currentSlider.title);
+    formdata.append("description", currentSlider.description);
+    formdata.append("image", sliderImage, sliderImage.name);
+    formdata.append("priority", currentSlider.priority);
+    
+    const requestOptions = {
+      method: 'PATCH',
+      headers: authHeader(),
+      body: formdata,
+      redirect: 'follow'
+    };  
+return fetch(`${apiUrl}sliders/update`, requestOptions).then(handleResponse);
+}
+
 function getById(id) {
     const requestOptions = {
         method: 'GET',
@@ -60,15 +71,15 @@ function getById(id) {
 }
 
 
-function update(slider) {
-    const requestOptions = {
-        method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(slider)
-    };
+// function update(slider) {
+//     const requestOptions = {
+//         method: 'PUT',
+//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
+//         body: JSON.stringify(slider)
+//     };
 
-    return fetch(`${apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
-}
+//     return fetch(`${apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
+// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
