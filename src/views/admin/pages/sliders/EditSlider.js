@@ -30,7 +30,8 @@ const EditSlider = props => {
     priority    : ''
   };
   const [currentSlider, setCurrentSlider] = useState(initialSliderState);
-  const [sliderImage, setSliderImage] = useState(null);
+  var slider = useSelector(state => state.sliders.currentSlider)
+  const [sliderImage, setSliderImage] = useState("");
   const [imgData, setImgData] = useState(null);
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -44,11 +45,11 @@ const EditSlider = props => {
       })
       .catch(e => {
         console.log(e);
-      });
-  };
+      });  
+};
 
   useEffect(() => {
-    getSlider(props.id); 
+    getSlider(props.id);
   }, [props.id]);
 
   const handleInputChange = event => {
@@ -70,43 +71,11 @@ const EditSlider = props => {
   const updateSlider = () => {
     // setSubmitted(true);
     if (currentSlider.title && currentSlider.description) {
-        dispatch(sliderActions.update(currentSlider, sliderImage));   
+        dispatch(sliderActions.update(currentSlider, sliderImage));
+        $('#editModal').modal('toggle');
+        $('.modal-backdrop').remove();   
     }
   };
-
-    // var formdata = new FormData();
-    // formdata.append("id", currentSlider.id);
-    // formdata.append("title", currentSlider.title);
-    // formdata.append("description", currentSlider.description);
-    // formdata.append("image", sliderImage, sliderImage.name);
-    // formdata.append("priority", currentSlider.priority);
-    
-    // var requestOptions = {
-    //   method: 'PATCH',
-    //   headers: authHeader(),
-    //   body: formdata,
-    //   redirect: 'follow'
-    // };
-    
-    // fetch(apiUrl+"sliders/update", requestOptions)
-    // .then(response => response.text())
-    //   .then(response => {
-    //     var obj = JSON.parse(response)
-    //     $('#editModal').modal('toggle');
-    //     $('.modal-backdrop').remove();
-    //     toast.success("✓ "+obj.message+"!",{
-    //                     position: "top-right",
-    //                     autoClose: 5000,
-    //                     hideProgressBar: false,
-    //                     closeOnClick: true,
-    //                     pauseOnHover: true
-    //                   });
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //   });
-  // };
-
   return (
     <div>
       {currentSlider ? (
@@ -171,7 +140,7 @@ const EditSlider = props => {
       (
         <div>
           <br />
-          <p>Please click on a Tutorial...</p>
+          <p>Please Select a Slider...</p>
         </div>
       )}
     </div>

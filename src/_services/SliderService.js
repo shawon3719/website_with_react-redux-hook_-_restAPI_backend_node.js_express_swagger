@@ -1,40 +1,39 @@
 import http from "../http-common";
-import { apiUrl} from "../reusable/apiHost"
 
-const getAll = () => {
-  return http.get("sliders/all");
-};
+// const getAll = () => {
+//   return http.get("sliders/all");
+// };
 
 const get = id => {
   return http.get(`sliders/slider/${id}`);
 };
 
-const create =  data => {
-  return fetch(`${apiUrl}sliders/create`, data)
-};
+// const create =  data => {
+//   return fetch(`${apiUrl}sliders/create`, data)
+// };
 
-const update = (data) => {
-  return http.patch(`sliders/update}`, data);
-};
+// const update = (data) => {
+//   return http.patch(`sliders/update}`, data);
+// };
 
-const remove = id => {
-  return http.delete(`sliders/delete/${id}`);
-};
+// const remove = id => {
+//   return http.delete(`sliders/delete/${id}`);
+// };
 
-const removeAll = () => {
-  return http.delete(`tutorials`);
-};
+// const removeAll = () => {
+//   return http.delete(`tutorials`);
+// };
 
-const findByTitle = title => {
-  return http.get(`tutorials?title=${title}`);
-};
+// const findByTitle = title => {
+//   return http.get(`tutorials?title=${title}`);
+// };
 
 export default {
-  getAll,
+  // getAll,
   get,
-  create,
-  update,
-  remove,
-  removeAll,
-  findByTitle
+  // create,
+  // update,
+  // remove,
+  // removeAll,
+  // findByTitle
 };

@@ -185,23 +185,39 @@ import { authHeader } from '../../../../_helpers';
 import $ from 'jquery';
 
 function CreateSlider() {
-    const [slider, setSlider] = useState({
+    // const [slider, setSlider] = useState({
+    //   title       : '',
+    //   description : '',
+    //   created_by  : 'admin',
+    //   priority    : ''
+    // });
+    const initialSliderState = {
       title       : '',
       description : '',
-    
-      created_by  : 'admin',
+      image : '',
+      created_by  : localStorage.getItem('profile_name'),
       priority    : ''
-    });
+    };
+    const [slider, setSlider] = useState(initialSliderState);
     const [submitted, setSubmitted] = useState(false);
+    const [state, setinitialState] = useState(false);
     const registering = useSelector(state => state.registration.registering);
     const [sliderImage, setSliderImage] = useState(null);
     const [imgData, setImgData] = useState(null);
     const dispatch = useDispatch();
 
-    // // reset login status
-    // useEffect(() => {
-    //     dispatch(sliderActions.getAll());
-    // }, []);
+    useEffect(() => {
+      setSubmitted(false);
+    }, [state]);
+
+
+    function resetForm(e) {
+      e.preventDefault();
+      setSlider(initialSliderState);
+      setSliderImage(false);
+      setImgData(null);
+      $('#createForm input[type=file]').val('')
+    }
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -221,10 +237,12 @@ function CreateSlider() {
 
     function handleSubmit(e) {
         e.preventDefault();
-
         setSubmitted(true);
+        setinitialState(true);
         if (slider.title && slider.description) {
             dispatch(sliderActions.create(slider, sliderImage));   
+            $('#createSliders').modal('toggle');
+            $('.modal-backdrop').remove(); 
         }
     }
 
@@ -240,7 +258,7 @@ function CreateSlider() {
                 </button>
               </div>
               <div className="modal-body">
-                <CForm onSubmit={handleSubmit}>
+                <CForm id="createForm" onSubmit={handleSubmit}>
                   <CFormGroup row>
                     <CCol md="6">
                       <CFormGroup>
@@ -288,7 +306,7 @@ function CreateSlider() {
                         Submit
                     </CButton>
                     {" "}
-                    <CButton type="reset" size="sm" color="danger"><CIcon name="cil-ban" /> Reset</CButton>
+                    <CButton type="reset" onClick={resetForm} size="sm" color="danger"><CIcon name="cil-ban" /> Reset</CButton>
                   </div>
                 </CForm>
               </div>

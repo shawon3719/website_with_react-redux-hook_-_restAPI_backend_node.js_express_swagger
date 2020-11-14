@@ -38,23 +38,27 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { sliderActions } from '../../../../_actions/slider.action';
+import { userActions } from "src/_actions";
 
 
 const SlidersList = props => {
   const sliders = useSelector(state => state.sliders);
   const slider = useSelector(state => state.sliders.slider);
-  const addStatus = useSelector(state => state.sliders.addStatus);
+  const addOrUpdateStatus = useSelector(state => state.sliders.addOrUpdateStatus);
+  const deleteStatus = useSelector(state => state.sliders.deleteStatus);
   const dispatch = useDispatch();
-
-  // const [sliders, setSliders] = useState([]);
   const [currentSlider, setCurrentSlider] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchTitle, setSearchTitle] = useState("");
+  // const [searchTitle, setSearchTitle] = useState("");
   const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
   useEffect((slider) => {
-    if(addStatus){
-      toast.success("✓ "+addStatus+"!",{
+   if(isLoggedIn != true){
+     dispatch(userActions.logout());
+     window.location.href = "/#/admin"
+   }else{
+    if(addOrUpdateStatus){
+      toast.success("✓ "+addOrUpdateStatus+"!",{
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -63,28 +67,24 @@ const SlidersList = props => {
       });
     }
     dispatch(sliderActions.getAll());
+   }
+    
 }, [slider]);
 
-function handleDeleteSlider(id) {
-  dispatch(sliderActions.delete(id));
-}
-
-  // useEffect(() => {
-  //   retrieveSliders();
-  // }, [sliders]);
-
-  // const retrieveSliders = () => {
-  //   SliderDataService.getAll()
-  //   .then(response => {
-  //     setSliders(response.data.data);
-  //   })
-  //   .catch(e => {
-  //     console.log(e);
-  //   });
-  // };
+  function handleDeleteSlider(id) {
+    const deleteStatus = dispatch(sliderActions.delete(id));
+    if(deleteStatus.type === "SLIDERS_DELETE_SUCCESS"){
+      toast.success("✓ Slider has been deleted successfully!",{
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true
+      });
+    }
+  }
 
   const refreshList = () => {
-    // retrieveSliders();
     dispatch(sliderActions.getAll());
   };
 
@@ -102,21 +102,8 @@ function handleDeleteSlider(id) {
         {
           label: ' Yes, Delete it!',
           onClick: () => {
-            SliderDataService.remove(id)
-            .then(response => {
-              toast.success("✓ "+response.data.message+"!",{
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true
-              });
-              refreshList();
-            })
-            .catch(e => {
-              console.log(e);
-            });
-            }
+           handleDeleteSlider(id)
+          }
         },
         {
           label: 'Cancel'
@@ -180,7 +167,6 @@ function handleDeleteSlider(id) {
                           <button 
                               className='btn btn-danger btn-xs ml-1'
                               onClick={() => deleteSlider(slider.id)}
-                              //  onClick={this.showconfDelAlert.bind(this,cat.categoryId)}
                               >
                               <i class="fa fa-trash"></i>
                           </button>
@@ -203,9 +189,7 @@ function handleDeleteSlider(id) {
             
           </CCardBody>
         </CCard>
-        <CreateSlider
-          // saveModalDetails={this.saveModalDetails}
-        />
+        <CreateSlider/>
         {currentSlider ? (
           <EditSlider
             id = {currentSlider.id}

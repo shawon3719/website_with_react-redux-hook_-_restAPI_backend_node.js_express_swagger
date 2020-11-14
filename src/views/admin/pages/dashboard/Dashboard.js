@@ -2,19 +2,17 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { userActions } from '../../../../_actions';
-
 function HomePage() {
-    const users = useSelector(state => state.users);
-    const user = useSelector(state => state.authentication.user);
+    // const users = useSelector(state => state.users);
+    // const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
-    // useEffect(() => {
-    //     dispatch(userActions.getAll());
-    //     if(!user){
-    //       window.location.href = '/#/admin'
-    //     }
-    // }, []);
+    useEffect(() => {
+        if(!isLoggedIn){
+          window.location.href = '/#/admin'
+        }
+    }, []);
     return (
                   
   <div className="container-fluid">

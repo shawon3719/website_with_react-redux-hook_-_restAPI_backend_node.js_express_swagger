@@ -7,6 +7,7 @@ export const sliderActions = {
     create,
     update,
     getAll,
+    getById,
     delete: _delete
 };
 
@@ -71,6 +72,22 @@ function update(currentSlider, sliderImage) {
     function failure(error) { return { type: sliderConstants.UPDATE_FAILURE, error } }
 }
 
+function getById(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        sliderService.getById(id)
+            .then(
+                slider => dispatch(success(id)),
+                error => dispatch(failure(id, error.toString()))
+            );
+    };
+
+    function request(id) { return { type: sliderConstants.GETBYID_REQUEST, id } }
+    function success(id) { return { type: sliderConstants.GETBYID_SUCCESS, id } }
+    function failure(id, error) { return { type: sliderConstants.GETBYID_FAILURE, id, error } }
+}
+
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     return dispatch => {
@@ -81,6 +98,7 @@ function _delete(id) {
                 slider => dispatch(success(id)),
                 error => dispatch(failure(id, error.toString()))
             );
+            return success(id)
     };
 
     function request(id) { return { type: sliderConstants.DELETE_REQUEST, id } }

@@ -1,5 +1,6 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
+import http from "../http-common";
 
 export const sliderService = {
     create,
@@ -61,14 +62,17 @@ function update(currentSlider, sliderImage) {
 return fetch(`${apiUrl}sliders/update`, requestOptions).then(handleResponse);
 }
 
-function getById(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
+// function getById(id) {
+//     const requestOptions = {
+//         method: 'GET',
+//         headers: authHeader()
+//     };
+//     return fetch(`${apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
+// }
 
-    return fetch(`${apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
-}
+const getById = id => {
+    return http.get(`sliders/slider/${id}`);
+  };
 
 
 // function update(slider) {

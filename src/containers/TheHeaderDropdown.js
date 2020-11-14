@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   CBadge,
   CDropdown,
@@ -11,17 +11,23 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+
+
 import { userActions } from '../_actions';
 
 function TheHeaderDropdown() {
     const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
   //  alert(user.firstName);
-    // const dispatch = useDispatch();
+  const token = localStorage.getItem('token')
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(userActions.getAll());
-    // }, []);
+    useEffect(() => {
+       if(token == null || token == ' '){
+        dispatch(userActions.logout());
+        window.location.href = "/#/admin"
+       }
+    }, []);
 
 // class TheHeaderDropdown extends React.Component {
 //   constructor() {
@@ -49,7 +55,7 @@ const TheHeaderDropdownVar = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={user.profile}
+            src={user && user.profile}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
@@ -62,7 +68,7 @@ const TheHeaderDropdownVar = () => {
           color="light"
           className="text-center"
         >
-          <strong>{user.firstName+' '+user.lastName}</strong>
+          <strong>{user && user.firstName+' '+user.lastName}</strong>
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem>

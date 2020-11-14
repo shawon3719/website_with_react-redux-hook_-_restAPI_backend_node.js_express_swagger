@@ -7,39 +7,24 @@ import "react-animated-slider/build/horizontal.css";
 import "normalize.css/normalize.css";
 import "./SliderAnimation.css";
 import "./SliderStyle.css";
-
-const token = localStorage.getItem('x-auth-token');
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
+import { useDispatch, useSelector } from 'react-redux';
+import { sliderActions } from "src/_actions";
 
 const Dashboard = (props) => {
-  const [sliders, setSliders] = useState([]);
-  useEffect(() => {
-    retrieveSliders();
-    // scrollToTop();
-  }, [sliders]);
+const sliders = useSelector(state => state.sliders);
+const slider = useSelector(state => state.sliders.slider);
+const dispatch = useDispatch();
 
-  const retrieveSliders = () => {
-    SliderDataService.getAll()
-      .then(response => {
-        setSliders(response.data.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  useEffect(() => {
+    dispatch(sliderActions.getAll());
+    scrollToTop();   
+ }, [slider]);
 
   return (
     <div className="page-content bg-white">
         <Slider className="slider-wrapper container-fluid" autoplay={3000}>
-          { sliders &&
-            sliders.map((slider, index) => (
+          { sliders.items &&
+            sliders.items.map((slider, index) => (
               <div
                 key={index}
                 className="slider-content"
