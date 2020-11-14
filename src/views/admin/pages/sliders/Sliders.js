@@ -66,6 +66,7 @@ const SlidersList = props => {
         pauseOnHover: true
       });
     }
+    $('#myTable').DataTable();
     dispatch(sliderActions.getAll());
    }
     
