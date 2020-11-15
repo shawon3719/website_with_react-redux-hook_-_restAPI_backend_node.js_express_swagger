@@ -2,8 +2,6 @@
 ***
 ***
 Name: 			contact.js
-Written by: 	ThemeTrades
-Theme Version:	1.0.0
 ***
 ***
 */

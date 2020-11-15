@@ -15,12 +15,13 @@ export function sliders(state = {}, action) {
                 error: action.error
             };
         case sliderConstants.CREATE_REQUEST:
-            return { submitting: true,
+            return { 
                 ...state,
                 slider: action.error ?
                     null :
                     (state.sliders || []).concat([action.slider]),
-                    addOrUpdateStatus: "slider has been created successfully"
+                    addOrUpdateStatus: "slider has been created successfully",
+                submitting: true,
             };
         case sliderConstants.CREATE_SUCCESS:
             return {
@@ -37,10 +38,6 @@ export function sliders(state = {}, action) {
                     ? { ...slider }
                     : slider
             )
-            // slider: action.error ?
-            //     null :
-            //     (state.sliders || []).concat([action.slider]),
-            // addStatus: "slider has been updated successfully"
         };
         case sliderConstants.GETBYID_SUCCESS:
             return {
@@ -68,6 +65,7 @@ export function sliders(state = {}, action) {
             // add 'deleting:true' property to slider being deleted
             return {
                 ...state,
+                deleting: true,
                 items: state.items.map(slider =>
                     slider.id === action.id
                         ? { ...slider, deleting: true }

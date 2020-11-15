@@ -19,6 +19,8 @@ import SliderDataService from "../../../../_services/SliderService";
 import { sliderActions } from '../../../../_actions/slider.action';
 import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
+import ReactQuill from 'react-quill';
+import toolbarOptions  from "src/reusable/toolbarOptions"
 
 const EditSlider = props => {
   const initialSliderState = {
@@ -30,18 +32,18 @@ const EditSlider = props => {
     priority    : ''
   };
   const [currentSlider, setCurrentSlider] = useState(initialSliderState);
+  // const [desc, setDescription] = useState(initialSliderState);
   var slider = useSelector(state => state.sliders.currentSlider)
   const [sliderImage, setSliderImage] = useState("");
   const [imgData, setImgData] = useState(null);
-  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   // const [submitted, setSubmitted] = useState(false);
 
   const getSlider = id => {
     SliderDataService.get(id)
       .then(response => {
-          var obj = JSON.stringify(response.data.data);
         setCurrentSlider(response.data.data);
+        // setDescription(response.data.data.description);
       })
       .catch(e => {
         console.log(e);
@@ -56,6 +58,10 @@ const EditSlider = props => {
     const { name, value } = event.target;
     setCurrentSlider({ ...currentSlider, [name]: value });
   };
+
+  function handleDescChange (value){
+    setCurrentSlider({ ...currentSlider, description: value });
+  }
 
   const handleImageChange = e => {
     if (e.target.files[0]) {
@@ -82,8 +88,8 @@ const EditSlider = props => {
         <div className="modal fade" id="editModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
-              <div className="modal-header bg-success text-white">
-                <h5 className="modal-title" id="editModal">Create New Base Link</h5>
+              <div className="modal-header bg-warning text-white">
+                <h5 className="modal-title" id="editModal">Update This Slider</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -91,16 +97,17 @@ const EditSlider = props => {
               <div className="modal-body">
                 <CForm >
                   <CFormGroup row>
-                    <CCol md="6">
+                    <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
                           <CInput value={currentSlider.title}  id="title" name='title' onChange={handleInputChange} placeholder="Enter Slider's Title." />
                       </CFormGroup>
                     </CCol>
-                    <CCol md="6">
+                    <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                          <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." />
+                          <ReactQuill name="description" value={currentSlider.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/>
+                          {/* <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." /> */}
                       </CFormGroup>
                     </CCol>
                     <CCol md="6">

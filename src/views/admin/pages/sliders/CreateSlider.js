@@ -183,14 +183,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authHeader } from '../../../../_helpers';
 import $ from 'jquery';
+import ReactQuill from 'react-quill';
+import toolbarOptions  from "src/reusable/toolbarOptions"
 
 function CreateSlider() {
-    // const [slider, setSlider] = useState({
-    //   title       : '',
-    //   description : '',
-    //   created_by  : 'admin',
-    //   priority    : ''
-    // });
     const initialSliderState = {
       title       : '',
       description : '',
@@ -201,7 +197,7 @@ function CreateSlider() {
     const [slider, setSlider] = useState(initialSliderState);
     const [submitted, setSubmitted] = useState(false);
     const [state, setinitialState] = useState(false);
-    const registering = useSelector(state => state.registration.registering);
+    const submitting = useSelector(state => state.sliders.loading);
     const [sliderImage, setSliderImage] = useState(null);
     const [imgData, setImgData] = useState(null);
     const dispatch = useDispatch();
@@ -222,6 +218,10 @@ function CreateSlider() {
     function handleChange(e) {
         const { name, value } = e.target;
         setSlider(slider => ({ ...slider, [name]: value }));
+    }
+
+    function handleDescChange(value) {
+      setSlider(slider => ({ ...slider, description: value }));
     }
 
     const handleImageChange = e => {
@@ -252,7 +252,7 @@ function CreateSlider() {
           <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
               <div className="modal-header bg-success text-white">
-                <h5 className="modal-title" id="createSliders">Create New Base Link</h5>
+                <h5 className="modal-title" id="createSliders">Create New Slider</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -260,7 +260,7 @@ function CreateSlider() {
               <div className="modal-body">
                 <CForm id="createForm" onSubmit={handleSubmit}>
                   <CFormGroup row>
-                    <CCol md="6">
+                    <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
                           <CInput className={'form-control' + (submitted && !slider.title ? ' is-invalid' : '')} value={slider.title} id="title" name='title' onChange={handleChange} placeholder="Enter Slider's Title." />
@@ -269,10 +269,10 @@ function CreateSlider() {
                             }
                       </CFormGroup>
                     </CCol>
-                    <CCol md="6">
+                    <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                          <CInput type="text" name="description" value={slider.description} onChange={handleChange} className={'form-control' + (submitted && !slider.description ? ' is-invalid' : '')} />
+                          <ReactQuill name="description" value={slider.description} onChange={handleDescChange} className={'ql-custom' + (submitted && !slider.description ? ' is-invalid' : '')} modules={{ toolbar: toolbarOptions }}/>
                             {submitted && !slider.description &&
                                 <div className="invalid-feedback">Description is required</div>
                             }
@@ -302,7 +302,7 @@ function CreateSlider() {
                   </CFormGroup>
                   <div style={{textAlign: 'center'}}>
                     <CButton type="submit" size="sm" color="success"><CIcon name="cil-scrubber" />
-                    {registering && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                    {submitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                         Submit
                     </CButton>
                     {" "}

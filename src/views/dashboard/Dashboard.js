@@ -9,6 +9,7 @@ import "./SliderAnimation.css";
 import "./SliderStyle.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { sliderActions } from "src/_actions";
+import ReactQuill from "react-quill";
 
 const Dashboard = (props) => {
 const sliders = useSelector(state => state.sliders);
@@ -32,7 +33,7 @@ const dispatch = useDispatch();
               >
                 <div className="inner">
                   <h1>{slider.title}</h1>
-                  <p>{slider.description}</p>
+                  <div dangerouslySetInnerHTML={{ __html: slider.description }} />
                   <button>Learn More</button>
                 </div>
               </div>

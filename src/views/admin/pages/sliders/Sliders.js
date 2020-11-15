@@ -40,6 +40,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sliderActions } from '../../../../_actions/slider.action';
 import { userActions } from "src/_actions";
 
+import ShowMoreText from 'react-show-more-text';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
+
 
 const SlidersList = props => {
   const sliders = useSelector(state => state.sliders);
@@ -51,6 +56,7 @@ const SlidersList = props => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   // const [searchTitle, setSearchTitle] = useState("");
   const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
+  const deleting = useSelector(state => state.sliders.deleting);
 
   useEffect((slider) => {
    if(isLoggedIn != true){
@@ -66,8 +72,8 @@ const SlidersList = props => {
         pauseOnHover: true
       });
     }
-    $('#myTable').DataTable();
     dispatch(sliderActions.getAll());
+    $('#myTable').DataTable();
    }
     
 }, [slider]);
@@ -85,9 +91,9 @@ const SlidersList = props => {
     }
   }
 
-  const refreshList = () => {
-    dispatch(sliderActions.getAll());
-  };
+  // const refreshList = () => {
+  //   dispatch(sliderActions.getAll());
+  // };
 
   const setActiveSlider = (slider, index) => {
     setCurrentSlider(slider);
@@ -135,61 +141,79 @@ const SlidersList = props => {
               <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
             </CButton>
           </CCardHeader>
-          <CCardBody>    
+          {
+            sliders.items ?
+            <CCardBody>    
               <table id="myTable" className="table table-striped table-bordered dataTable dtr-inline table-hover">
-                <thead>
-                  <tr>
-                    <th>SI</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>priority</th>
-                    <th style={{width:"11%"}}>Action</th>
-                  </tr>
-                </thead>
-                <tbody >
-                  {
-                    sliders.items &&
-                    sliders.items.map((slider, index) => (
-                      <tr>
-                        <td>{index+1}</td>
-                        <td>{slider.title}</td>
-                        <td>{slider.description}</td>
-                        <td><img src={slider.image} width="100"/></td>
-                        <td>{slider.priority}</td>
-                        <td>
-                          <button 
-                            className='btn btn-info btn-xs'
-                            onClick={() => setActiveSlider(slider, slider.id)}
-                            data-toggle="modal" data-target="#editModal"
+                  <thead>
+                    <tr>
+                      <th>SI</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Image</th>
+                      <th>priority</th>
+                      <th style={{width:"11%"}}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                    {
+                      sliders.items &&
+                      sliders.items.map((slider, index) => (
+                        <tr>
+                          <td>{index+1}</td>
+                          <td>{slider.title}</td>
+                          <td>
+                            <ShowMoreText
+                              lines={2}
+                              more='Read more'
+                              less='Show less'
+                              anchorClass=''
+                              expanded={false} 
                             >
-                            <i class="fa fa-pencil-square-o"></i>
-                          </button>
-                          <button 
-                              className='btn btn-danger btn-xs ml-1'
-                              onClick={() => deleteSlider(slider.id)}
+                              <ReactQuill value={slider.description} theme="bubble" readOnly />
+                            </ShowMoreText> 
+                          </td>
+                          <td><img src={slider.image} width="100"/></td>
+                          <td>{slider.priority}</td>
+                          <td>
+                            <button 
+                              className='btn btn-info btn-xs'
+                              onClick={() => setActiveSlider(slider, slider.id)}
+                              data-toggle="modal" data-target="#editModal"
                               >
-                              <i class="fa fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>SI</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>priority</th>
-                    <th>Action</th>
-                  </tr>
-                </tfoot>
-              </table>
-            
-          </CCardBody>
-        </CCard>
+                              <i class="fa fa-pencil-square-o"></i>
+                            </button>
+                            <button 
+                                className='btn btn-danger btn-xs ml-1'
+                                onClick={() => deleteSlider(slider.id)}
+                                >
+                                {deleting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                <i class="fa fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>SI</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Image</th>
+                      <th>priority</th>
+                      <th>Action</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              
+            </CCardBody>   
+            :
+            <div className="text-center" style={{textAlign: "center", marginTop: "98px", height: "500px"}} >
+              <span className="spinner-border spinner-border-lg"></span>
+            </div>
+          }
+          </CCard>
         <CreateSlider/>
         {currentSlider ? (
           <EditSlider
