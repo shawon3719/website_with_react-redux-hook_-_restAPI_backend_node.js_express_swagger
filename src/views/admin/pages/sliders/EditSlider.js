@@ -106,8 +106,8 @@ const EditSlider = props => {
                     <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                          <ReactQuill name="description" value={currentSlider.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/>
-                          {/* <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." /> */}
+                          {/* <ReactQuill name="description" value={currentSlider.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/> */}
+                          <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." />
                       </CFormGroup>
                     </CCol>
                     <CCol md="6">
