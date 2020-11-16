@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import PageDataService from "../_services/PageService";
-
-
 // routes config
 import routes from '../routes'
-
 import './TheHeader.css'
-
 import { Link } from 'react-router-dom'
+import { systemActions } from '../_actions';
 
 const pageNo = window.location.toString()
-
-
 const TheHeader = pageNo => {
-
-
 const [pages, setPages] = useState([]);
+const systems = useSelector(state => state.systems);
+const dispatch = useDispatch();
 
-useEffect(() => {
+useEffect((pageNo) => {
+  dispatch(systemActions.getAll());
   retrievePages();
 }, [pageNo]);
 
@@ -49,21 +45,32 @@ const retrievePages = () => {
       }
     
       return (
+        
     <header className="header rs-nav">
+   
+     
       <div className="top-bar">
         <div className="container">
           <div className="row d-flex justify-content-between">
+         
             <div className="topbar-left">
               <ul>
-                {/* <li><a href="faq-1.html"><i className="fa fa-question-circle" />Ask a Question</a></li> */}
-                <li><a href="javascript:;"><i className="fa fa-envelope-o" />info@kyanc.edu.bd</a></li>
+              {
+                systems.items &&
+                systems.items.map((system, index) => (
+                <li><a href="javascript:;"><i className="fa fa-envelope-o" />{system.active_status == 1? system.email : ''}</a></li>
+                ))}
               </ul>
             </div>
             <div className="topbar-right">
+            {
+                systems.items &&
+                systems.items.map((system, index) => (
               <ul>
-                <li><i class="fa fa-mobile" aria-hidden="true"></i> +880 1915 477 962</li>
-                <li><i class="fa fa-phone" aria-hidden="true"></i> +880 7516 3760-4</li>
+                <li><i class="fa fa-mobile" aria-hidden="true"></i>{system.active_status == 1? ' '+system.mobile : ''}</li>
+                <li><i class="fa fa-phone" aria-hidden="true"></i>{system.active_status == 1? ' '+system.phone_no : ''}</li>
               </ul>
+              ))}
             </div>
           </div>
         </div>
@@ -73,7 +80,11 @@ const retrievePages = () => {
           <div className="container clearfix">
             {/* Header Logo ==== */}
             <div className="menu-logo">
-              <Link to="/"><img src="assets/images/kyanc_logo.jpg" alt /></Link>
+            {
+                systems.items &&
+                systems.items.map((system, index) => (
+              <Link to="/"><img src={system.system_logo} alt /></Link>
+                ))}
               {/* <span style={{color: "red"}}>KYANC</span> */}
             </div>
             {/* Mobile Nav Button ==== */}
@@ -189,6 +200,7 @@ const retrievePages = () => {
           </div>
         </div>
       </div>
+     
     </header>
       
       )

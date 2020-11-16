@@ -35,7 +35,6 @@ function create(system, systemImage) {
             .then(
                 system => { 
                     dispatch(success());
-                    history.push('/#/systems');
                     dispatch(alertActions.success('System has been created successfully..'));
                 },
                 error => {

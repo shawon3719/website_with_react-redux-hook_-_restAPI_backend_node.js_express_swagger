@@ -16,9 +16,8 @@ function login(username, password, from) {
         userService.login(username, password)
             .then(
                 user => { 
-                //    alert(dispatch(success(user)))
                     dispatch(success(user));
-                   window.location.href= '/#/admin-index';
+                    window.location.href= '/#/admin-index';
                     dispatch(alertActions.success('Login successful'));
                 },
                 error => {

@@ -18,30 +18,27 @@ function getAll() {
     return fetch(`${apiUrl}system-settings/all`, requestOptions).then(handleResponse);
 }
 function create(system, systemImage) {
+    console.log(system)
+    console.log(systemImage)
         var formdata = new FormData();
-        formdata.append("title", system.title);
-        formdata.append("description",system.description);
-        formdata.append("image", systemImage, systemImage.name);
-        formdata.append("created_by", system.created_by);
+        formdata.append("systemName", system.systemName);
+        formdata.append("title",system.title);
+        formdata.append("system_logo", systemImage, systemImage.name);
+        formdata.append("email", system.email);
+        formdata.append("system_url", system.system_url);
+        formdata.append("phone_no", system.phone_no);
+        formdata.append("mobile", system.mobile);
+        formdata.append("address", system.address);
         formdata.append("priority", system.priority);
+        formdata.append("created_by", system.created_by);
+        formdata.append("active_status", system.active_status == true? 1 : 0);
         
         const requestOptions = {
           method: 'POST',
           headers: authHeader(),
           body: formdata,
           redirect: 'follow'
-        };
-
-
-        // return fetch(apiUrl+"systems/create", requestOptions)
-        //               .then(response => response.text())
-        //               .then((response) => {
-        //                 var obj = JSON.parse(response);
-        //                   console.log(obj);
-        //             })
-        //               .catch(error => console.log('error', error));
-        //   };
-        
+        };     
     return fetch(`${apiUrl}system-settings/create`, requestOptions).then(handleResponse);
 }
 

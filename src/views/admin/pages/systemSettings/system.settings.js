@@ -43,6 +43,7 @@ import ShowMoreText from 'react-show-more-text';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import CreateSystem from "./system.settings.create";
 
 
 const SystemsList = props => {
@@ -79,7 +80,7 @@ const SystemsList = props => {
 
   function handleDeleteSystem(id) {
     const deleteStatus = dispatch(systemActions.delete(id));
-    if(deleteStatus.type === "SYSTEM_DELETE_SUCCESS"){
+    if(deleteStatus.type === "SYSTEMS_DELETE_SUCCESS"){
       toast.success("✓ System has been deleted successfully!",{
         position: "top-right",
         autoClose: 5000,
@@ -155,6 +156,8 @@ const SystemsList = props => {
                       <th>Contacts</th>
                       <th>Sys. Logo</th>
                       <th>Address</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th style={{width:"11%"}}>Action</th>
                     </tr>
                   </thead>
@@ -170,6 +173,9 @@ const SystemsList = props => {
                           <td>{'Email: '+system.email+', Phone: '+system.phone_no+', Mobile: '+system.mobile}</td>
                           <td><img src={system.system_logo} width="100"/></td>
                           <td>{system.address}</td>
+                          <td>{system.priority}</td>
+                                        <td><span className={system.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{system.active_status == 1? 'active' : 'inactive'}</span></td>
+                                        
                           <td>
                             <button 
                               className='btn btn-info btn-xs'
@@ -199,6 +205,8 @@ const SystemsList = props => {
                       <th>Contacts</th>
                       <th>Sys. Logo</th>
                       <th>Address</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th style={{width:"11%"}}>Action</th>
                     </tr>
                   </tfoot>
@@ -211,6 +219,7 @@ const SystemsList = props => {
             </div>
           }
           </CCard>
+          <CreateSystem/>
        
     </div>
 

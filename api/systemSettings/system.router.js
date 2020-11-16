@@ -26,7 +26,7 @@ const upload = multer({
   }
 });
 
-router.get("/all", checkToken, getSystemInfo);
+router.get("/all", getSystemInfo);
 router.post("/create",checkToken, upload.single('system_logo'), addSystemValidation, createSystemInfo);
 router.get("/system/:id", checkToken, getSystemInfoById);
 router.patch("/update", checkToken, updateSystemInfo);

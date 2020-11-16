@@ -13,7 +13,7 @@ module.exports = {
   //Create User
   createSystemInfo: (req, res) => {
     const body = req.body;
-    // body.system_logo = `uploads/system_logo/${req.file.filename}`;
+    body.system_logo = `uploads/system_logo/${req.file.filename}`;
     createSystemInfo(body, (err, results) => {
       if (err) {
         console.log(err);
@@ -25,7 +25,7 @@ module.exports = {
       return res.status(200).json({
         success: 1,
         message: "System created successfully",
-        // logo_url: `${process.env.REACT_APP_APP_URL}/uploads/system_logo/${req.file.filename}`
+        logo_url: `${process.env.REACT_APP_APP_URL}/uploads/system_logo/${req.file.filename}`
       });
     });
   },

@@ -8,7 +8,7 @@ export function systems(state = {}, action) {
             };
         case systemConstants.GETALL_SUCCESS:
             return {
-                items: action.systems.data
+                items: action.systems.data.sort((a,b) => a.priority - b.priority)
             };
         case systemConstants.GETALL_FAILURE:
             return {

@@ -10,41 +10,21 @@ import {
 import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-
-
 import { userActions } from '../_actions';
 
 function TheHeaderDropdown() {
-    const users = useSelector(state => state.users);
-    const user = useSelector(state => state.authentication.user);
-  //  alert(user.firstName);
+  const users = useSelector(state => state.users);
+  const user = useSelector(state => state.authentication.user);
   const token = localStorage.getItem('token')
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-       if(token == null || token == ' '){
-        dispatch(userActions.logout());
-        window.location.href = "/#/admin"
-       }
-    }, []);
-
-// class TheHeaderDropdown extends React.Component {
-//   constructor() {
-//       super()
-//       this.state = {
-//           profile_image: '',
-//           name: '',
-//       }
-//   }
-//   componentDidMount() {
-//     let user = JSON.parse(localStorage.getItem('user'))
-//    this.setState({
-//      profile_image  : user.profile,
-//      name           : user.firstName+' '+user.lastName
-//    })
-//   }
-//   render () {
+  useEffect(() => {
+      if(token == null || token == ' '){
+      dispatch(userActions.logout());
+      window.location.href = "/#/admin"
+      }
+  }, []);
+  
 const TheHeaderDropdownVar = () => {
   return (
     <CDropdown

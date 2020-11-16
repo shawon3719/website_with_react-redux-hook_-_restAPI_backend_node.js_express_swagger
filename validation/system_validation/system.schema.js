@@ -21,6 +21,10 @@ const schema = {
     .message("Invalid Mobile Number")
     .max(99999999999)
     .required(),
+    created_by: joi.string(),
+    updated_by: joi.string(),
+    priority: joi.number().integer().required(),
+    active_status: joi.number().integer().required(),
   }),
 };
 
