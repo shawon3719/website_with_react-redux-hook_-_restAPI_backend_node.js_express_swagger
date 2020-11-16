@@ -1,21 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { systemActions } from 'src/_actions';
+import { authentication } from 'src/_reducers/authentication.reducer';
 
 function HomePage() {
     // const users = useSelector(state => state.users);
     // const user = useSelector(state => state.authentication.user);
+    // const loginStatus = useSelector((action) => action.type);
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
     useEffect(() => {
-        if(!isLoggedIn){
-          window.location.href = '/#/admin'
-        }
+      const loginStatus = localStorage.getItem('login-message')
+      if(loginStatus){
+      toast.success("Login successfull!");
+      localStorage.removeItem('login-message')
+      }
+      if(!isLoggedIn){
+        window.location.href = '/#/admin'
+      }
     }, []);
     return (
                   
   <div className="container-fluid">
+  <ToastContainer/>
   <div className="db-breadcrumb">
     <h4 className="breadcrumb-title">Dashboard</h4>
     <ul className="db-breadcrumb-list">

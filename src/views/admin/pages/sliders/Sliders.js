@@ -19,7 +19,6 @@ import 'popper.js/dist/popper.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 // Styles
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { ToastContainer, toast } from 'react-toastify';
@@ -217,11 +216,7 @@ const SlidersList = props => {
         <CreateSlider/>
         {currentSlider ? (
           <EditSlider
-            id = {currentSlider.id}
-            title = {currentSlider.title}
-            description = {currentSlider.description}
-            created_by = {currentSlider.created_by}
-            priority = {currentSlider.priority}
+           
           />
         ) : 
         (

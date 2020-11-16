@@ -17,8 +17,10 @@ function login(username, password, from) {
             .then(
                 user => { 
                     dispatch(success(user));
+                   if(user != undefined || user != null){
                     window.location.href= '/#/admin-index';
                     dispatch(alertActions.success('Login successful'));
+                   }
                 },
                 error => {
                     dispatch(failure(error.toString()));

@@ -28,8 +28,8 @@ function login(username, password) {
             localStorage.setItem('user', JSON.stringify(user.data));
             localStorage.setItem('token', JSON.stringify(user.token));
             localStorage.setItem('x-auth-token', JSON.stringify(user.token));
-            toast.success(user.message);
-            console.log(user.token)
+            localStorage.setItem('login-message', true);
+            toast.error(user.message);
             return user.data;
         });
 }

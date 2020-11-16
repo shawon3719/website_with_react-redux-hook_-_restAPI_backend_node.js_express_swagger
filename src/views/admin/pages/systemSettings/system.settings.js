@@ -44,6 +44,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import CreateSystem from "./system.settings.create";
+import EditSystem from "./system.settings.edit";
 
 
 const SystemsList = props => {
@@ -220,6 +221,7 @@ const SystemsList = props => {
           }
           </CCard>
           <CreateSystem/>
+          <EditSystem/>
        
     </div>
 

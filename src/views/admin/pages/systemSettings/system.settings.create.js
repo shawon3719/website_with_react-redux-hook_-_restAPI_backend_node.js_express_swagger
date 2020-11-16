@@ -136,7 +136,7 @@ function CreateSystem() {
                           <CLabel htmlFor="system_logo">System Logo</CLabel>
                           <CInput type="file" name="system_logo"  onChange={handleImageChange} id="systemLogo"  />
                           {/* {submitted && !system.image &&
-                                <div className="invalid-feedback">System image is required</div>
+                                <div className="invalid-feedback">System logo is required</div>
                             } */}
                       </CFormGroup>
                       <div className="previewSystemLogo">
