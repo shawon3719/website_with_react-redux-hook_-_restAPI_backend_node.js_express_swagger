@@ -216,7 +216,11 @@ const SlidersList = props => {
         <CreateSlider/>
         {currentSlider ? (
           <EditSlider
-           
+            id = {currentSlider.id}
+            title = {currentSlider.title}
+            description = {currentSlider.description}
+            created_by = {currentSlider.created_by}
+            priority = {currentSlider.priority}
           />
         ) : 
         (
