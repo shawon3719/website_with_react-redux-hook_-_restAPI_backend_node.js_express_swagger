@@ -157,7 +157,7 @@ const retrievePages = () => {
                     <li className="add-menu-left">
                       <h5 className="menu-adv-title">Academic Info</h5>
                       <ul>
-                        <li><a href="#">Academic Calendar</a></li>
+                        <li><Link to="/academic-calendar">Academic Calendar</Link></li>
                         <li><Link to="/rules-and-discipline">Rules & Disciplines</Link></li>
                         <li><Link to="/teachers-and-stuffs">Teachers & Staffs</Link></li>
                         <li><a href="#">Students Info.</a></li>

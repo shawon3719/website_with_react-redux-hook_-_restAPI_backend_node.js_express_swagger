@@ -59,17 +59,17 @@ function update(currentSystem, systemImage) {
 return fetch(`${apiUrl}system-settings/update`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-//     return fetch(`${apiUrl}systems/system/${id}`, requestOptions).then(handleResponse);
-// }
+function getById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${apiUrl}system-settings/system/${id}`, requestOptions).then(handleResponse);
+}
 
-const getById = id => {
-    return http.get(`system-settings/system/${id}`);
-  };
+// const getById = id => {
+//     return http.get(`system-settings/system/${id}`);
+//   };
 
 
 // function update(system) {

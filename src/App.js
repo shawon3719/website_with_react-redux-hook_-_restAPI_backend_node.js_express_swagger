@@ -33,6 +33,7 @@ class App extends Component {
               <Route exact path="/sliders" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/page-setup" name="Pages" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/system-settings" name="System_Setup" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/calendar-settings" name="Calendar_Setup" render={props => <TheAdminLayout {...props}/>} />
               {/* <Route exact path="/contact" name="Pages" render={props => <TheAdminLayout {...props}/>} /> */}
 
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />

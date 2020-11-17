@@ -15,6 +15,7 @@ const FeesAndCharges = React.lazy(() => import('./views/feesAndCharges/FeesAndCh
 const OutcomeOfCourses = React.lazy(() => import('./views/outcomeOfCourses/OutcomeOfCourses'));
 const RulesAndDiscipline = React.lazy(() => import('./views/rulesAndDiscipline/RulesAndDiscipline'));
 const DynamicPage = React.lazy(() => import('./views/dynamicPage/DynamicPage'));
+const AcademicCalendar = React.lazy(() => import('./views/academiCalendar/academicCalendar'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -33,6 +34,7 @@ const routes = [
   { path: '/outcome-of-courses', exact: true, name: 'Outcome Of Courses', component: OutcomeOfCourses },
   { path: '/rules-and-discipline', exact: true, name: 'Rules And Discipline', component: RulesAndDiscipline },
   { path: '/page/id=:id', exact: true, name: 'dynamic', component: DynamicPage },
+  { path: '/academic-calendar', exact: true, name: 'academic Calendar', component: AcademicCalendar },
 
 ];
 

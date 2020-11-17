@@ -221,7 +221,23 @@ const SystemsList = props => {
           }
           </CCard>
           <CreateSystem/>
-          <EditSystem/>
+          {currentSystem ? (
+            <EditSystem
+            id = {currentSystem.id}
+            systemName        = {currentSystem.systemName}
+            title             = {currentSystem.title}
+            email             = {currentSystem.email}
+            system_url        = {currentSystem.system_url}
+            phone_no          = {currentSystem.phone_no}
+            mobile            = {currentSystem.mobile}
+            address           = {currentSystem.address}
+            active_status     = {true}
+            priority          = {currentSystem.priority}
+          />
+        ) : 
+        (
+          <div></div>
+        )}
        
     </div>
 

@@ -74,7 +74,6 @@ function update(currentSystem, systemImage) {
 function getById(id) {
     return dispatch => {
         dispatch(request(id));
-
         systemService.getById(id)
             .then(
                 system => dispatch(success(id)),

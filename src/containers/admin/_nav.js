@@ -40,6 +40,12 @@ export default [
     icon: 'cil-star',
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Calendar Setting',
+    to: '/calendar-settings',
+    icon: 'cil-star',
+  },
+  {
     _tag: 'CSidebarNavTitle',
     _children: ['Theme']
   },
