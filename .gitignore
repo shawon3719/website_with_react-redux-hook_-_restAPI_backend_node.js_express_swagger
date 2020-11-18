@@ -30,7 +30,8 @@
 public/uploads/profile/profile*
 public/uploads/sliders/image*
 public/uploads/pages/image*
-public/uploads/pages/system_logo*
+public/uploads/system_logo/system_logo*
+public/uploads/calendar_file/calendar_file*
 
 npm-debug.log*
 yarn-debug.log*

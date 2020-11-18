@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import CreateSystem from './CreateSystem';
 // import EditSystem from './EditSystem';
-import $ from 'jquery'
+import $, { isEmptyObject } from 'jquery'
 // Scripts
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/popper.min.js';
@@ -133,7 +133,9 @@ const SystemsList = props => {
         <CCard>                 
           <CCardHeader className="bg-info">
             All Systems List
-
+            {
+              isEmptyObject(systems.items) ?
+            
             <CButton
             className="btn btn-sm btn-success"
             style={{float:"right", border:'.001em solid #22963c'}}
@@ -142,7 +144,9 @@ const SystemsList = props => {
             >
               <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
             </CButton>
-            
+            :
+            ''
+          }
           </CCardHeader>
           {
             systems.items ?

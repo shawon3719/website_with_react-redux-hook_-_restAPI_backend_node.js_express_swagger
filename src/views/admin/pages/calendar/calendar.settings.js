@@ -7,11 +7,12 @@
 * @author [Masudul Hasan Shawon](masudul@atilimited.ne* 
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import throttle from 'lodash/throttle';
 import { Link } from "react-router-dom";
 // import CreateCalendar from './CreateCalendar';
 // import EditCalendar from './EditCalendar';
-import $ from 'jquery'
+import $, { isEmptyObject } from 'jquery'
 // Scripts
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/popper.min.js';
@@ -49,7 +50,7 @@ import {  Document, Page } from "react-pdf";
 import { pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const CalendarsList = props => {
+const CalendarsList = (props, data, onDocumentLoadSuccess) => {
   const calendars = useSelector(state => state.calendars);
   const calendar = useSelector(state => state.calendars.calendar);
   const addOrUpdateStatus = useSelector(state => state.calendars.addOrUpdateStatus);
@@ -62,8 +63,20 @@ const CalendarsList = props => {
   // const deleting = useSelector(state => state.calendars.deleting);
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+  const [prevBtnDisbaled, setPrevBtnStatus] = useState(false);
+  const [nextBtnDisbaled, setNextBtnStatus] = useState(false);
+
+  const [initialWidth, setInitialWidth] = useState(null);
+const pdfWrapper = useRef(null);
+
+const setPdfSize = () => {
+  if (pdfWrapper && pdfWrapper.current) {
+    setInitialWidth(pdfWrapper.current.getBoundingClientRect().width);
+  }
+};
 
   useEffect((calendar) => {
+    $('#myTable').DataTable();
    if(isLoggedIn != true){
      dispatch(userActions.logout());
      window.location.href = "/#/admin"
@@ -78,13 +91,39 @@ const CalendarsList = props => {
       });
     }
     dispatch(calendarActions.getAll());
-    $('#myTable').DataTable();
+    //Responsive PDF
+  window.addEventListener('resize', throttle(setPdfSize, 100));
+  setPdfSize();
+  return () => {
+    window.removeEventListener('resize', throttle(setPdfSize, 100));
+  };
+    
    }
     
 }, [calendar]);
 
 function onDocumentLoadSuccess({ numPages }) {
   setNumPages(numPages);
+}
+
+function handlePrevPage(){
+  if(pageNumber >= 2){
+    setPageNumber(pageNumber - 1 )
+    setPrevBtnStatus(false)
+    setNextBtnStatus(false)
+  }else{
+    setPrevBtnStatus(true)
+  }
+}
+
+function handleNextPage(){
+  if(pageNumber <= numPages-1){
+    setPageNumber(pageNumber + 1 )
+    setNextBtnStatus(false)
+    setPrevBtnStatus(false)
+  }else{
+    setNextBtnStatus(true)
+  }
 }
 
   function handleDeleteCalendar(id) {
@@ -99,10 +138,6 @@ function onDocumentLoadSuccess({ numPages }) {
       });
     }
   }
-
-  // const refreshList = () => {
-  //   dispatch(calendarActions.getAll());
-  // };
 
   const setActiveCalendar = (calendar, index) => {
     setCurrentCalendar(calendar);
@@ -141,15 +176,19 @@ function onDocumentLoadSuccess({ numPages }) {
         <CCard>                 
           <CCardHeader className="bg-info">
             All Calendars List
-
-            <CButton
-            className="btn btn-sm btn-success"
-            style={{float:"right", border:'.001em solid #22963c'}}
-            data-toggle="modal"
-            data-target="#createCalendars"
-            >
-              <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
-            </CButton>
+            {
+              isEmptyObject(calendars.items) ?
+              <CButton
+              className="btn btn-sm btn-success"
+              style={{float:"right", border:'.001em solid #22963c'}}
+              data-toggle="modal"
+              data-target="#createCalendars"
+              >
+                <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
+              </CButton>
+            :
+            ''
+          }
             
           </CCardHeader>
           {
@@ -174,14 +213,28 @@ function onDocumentLoadSuccess({ numPages }) {
                           <td>{index+1}</td>
                           <td>{calendar.title}</td>
                          <td style={{width:'10px!important'}}>
-                            <Document
-                              file={calendar.calendar_file}
-                              onLoadSuccess={onDocumentLoadSuccess}
-                            >
-                              <Page pageNumber={pageNumber} />
-                            </Document>
-                            <p>Page {pageNumber} of {numPages}</p>
-
+                            <div id="row" style={{height: 'auto', display: 'flex', marginBottom:"2%"}} >
+                              <div id="placeholderWrapper" style={{ height: 'auto' }} />
+                              <div id="pdfWrapper" style={{ width: '22vw' }} ref={pdfWrapper}>
+                                  <Document
+                                    file={calendar.calendar_file}
+                                    onLoadSuccess={onDocumentLoadSuccess}
+                                    noData="No Calendar Found!"
+                                    loading={<span className="spinner-border spinner-border-lg mr-1"></span>}
+                                  >
+                                    <Page pageNumber={pageNumber} loading={<span className="spinner-border spinner-border-lg mr-1"></span>} width={initialWidth} />
+                                    <div className="row" width={initialWidth}>
+                                      <div className="col-md-6 col-lg-6 col-sm-6 text-right">
+                                        <p style={{ fontSize:"12px"}}>Page {pageNumber} of {numPages}</p>
+                                      </div>
+                                      <div className="col-md-6 col-lg-6 col-sm-6 text-left">
+                                        <CButton className="btn-sm btn-warning mr-2" disabled={prevBtnDisbaled} onClick={handlePrevPage}><i className="fa fa-arrow-left"></i></CButton>
+                                        <CButton className="btn-sm btn-warning" disabled={nextBtnDisbaled} onClick={handleNextPage}><i className="fa fa-arrow-right"></i></CButton>
+                                      </div>
+                                    </div>
+                                  </Document>
+                                </div>
+                            </div>
                          </td>
                           <td>{calendar.priority}</td>
                           <td><span className={calendar.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{calendar.active_status == 1? 'active' : 'inactive'}</span></td>             

@@ -106,7 +106,7 @@ const TheFooter = () => {
     </div>
   </footer>
   {/* Footer END ==== */}
-  <button onClick={()=>backToTop()} className="back-to-top fa fa-chevron-up" />
+  <button onClick={()=>backToTop()} className="back-to-top btn-sm fa fa-chevron-up" />
 </div>
 
   )

@@ -120,8 +120,8 @@ const EditCalendar = props => {
                     </CCol>
                     <CCol md="6">
                       <CFormGroup>
-                          <CLabel htmlFor="calendar_logo">Calendar Logo</CLabel>
-                          <CInput type="file" name="calendar_logo"  onChange={handleImageChange} id="calendarLogo"  />
+                          <CLabel htmlFor="calendar_file">Calendar File</CLabel>
+                          <CInput type="file" name="calendar_file"  onChange={handleImageChange} id="calendarFile" accept="application/pdf"  />
                           {/* {submitted && !calendar.image &&
                                 <div className="invalid-feedback">Calendar logo is required</div>
                             } */}

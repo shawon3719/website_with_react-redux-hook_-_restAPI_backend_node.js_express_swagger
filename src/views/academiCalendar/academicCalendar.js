@@ -112,31 +112,30 @@ function handleNextPage(){
                 {
                   calendars.items &&
                       calendars.items.map((calendar, index) => (
-               
-                 <div id="row" style={{height: '100vh', display: 'flex', marginBottom:"20%"}} >
-                      <div id="placeholderWrapper" style={{ height: '100vh' }} />
-                      <div id="pdfWrapper" style={{ width: '90vw' }} ref={pdfWrapper}>
-                        <Document
-                          file={calendar.calendar_file}
-                          onLoadSuccess={onDocumentLoadSuccess}
-                          noData="No Calendar Found!"
-                          loading="Please Wait.."
-                        >
-                          <Page pageNumber={pageNumber} loading="loading.." width={initialWidth} />
-                          <div className="row">
-                            <div className="col-md-6 col-lg-6 col-sm-6 text-right">
-                              <p style={{marginTop: "-5px"}}>Page {pageNumber} of {numPages}</p>
+                        <div id="row" style={{height: 'auto', display: 'flex', marginBottom:"2%"}} >
+                          <div id="placeholderWrapper" style={{ height: 'auto' }} />
+                          <div id="pdfWrapper" style={{ width: '90vw' }} ref={pdfWrapper}>
+                              <Document
+                                file={calendar.calendar_file}
+                                onLoadSuccess={onDocumentLoadSuccess}
+                                noData="No Calendar Found!"
+                                loading={<span className="spinner-border spinner-border-lg mr-1"></span>}
+                              >
+                                <Page pageNumber={pageNumber} loading={<span className="spinner-border spinner-border-lg mr-1"></span>} width={initialWidth} />
+                                <div className="row">
+                                  <div className="col-md-6 col-lg-6 col-sm-6 text-right">
+                                    <p style={{marginTop: "-5px"}}>Page {pageNumber} of {numPages}</p>
+                                  </div>
+                                  <div className="col-md-6 col-lg-6 col-sm-6 text-left">
+                                    <CButton className="btn button-md bg-warning mr-2" disabled={prevBtnDisbaled} onClick={handlePrevPage}><i className="fa fa-arrow-left"></i></CButton>
+                                    <CButton className="btn button-md bg-warning" disabled={nextBtnDisbaled} onClick={handleNextPage}><i className="fa fa-arrow-right"></i></CButton>
+                                  </div>
+                                </div>
+                              </Document>
                             </div>
-                            <div className="col-md-6 col-lg-6 col-sm-6 text-left">
-                              <CButton className="btn button-md bg-warning mr-2" disabled={prevBtnDisbaled} onClick={handlePrevPage}><i className="fa fa-arrow-left"></i></CButton>
-                              <CButton className="btn button-md bg-warning" disabled={nextBtnDisbaled} onClick={handleNextPage}><i className="fa fa-arrow-right"></i></CButton>
-                            </div>
-                          </div>
-                        </Document>
-                      </div>
-                    </div>
-                
-                ))}
+                        </div>
+                      ))
+                }
 
               </div>
             </div>
