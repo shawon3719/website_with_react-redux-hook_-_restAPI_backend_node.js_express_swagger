@@ -1,15 +1,14 @@
 import React from 'react';
-// import ContactView from "./views/contact-view";
 import { HomePage } from './views/admin/pages/dashboard/Dashboard'
-// import { SliderList } from './Sliders/SliderList'
 //admin Components
-const Dashboard = React.lazy(() => import('./views/admin/pages/dashboard/Dashboard'));
+// const Dashboard = React.lazy(() => import('./views/admin/pages/dashboard/Dashboard'));
 const NotFound  = React.lazy(() => import('./views/admin/page404/Page404'));
 const Sliders  = React.lazy(() => import('./views/admin/pages/sliders/Sliders'));
 const Pages  = React.lazy(() => import('./views/admin/pages/pageSetup/Pages'));
 const System_Settings  = React.lazy(() => import('./views/admin/pages/systemSettings/system.settings'));
 const Calendar_Settings  = React.lazy(() => import('./views/admin/pages/calendar/calendar.settings'));
-// const Pages  = React.lazy(() => import('./views/admin/pages/pageSetup/Pages'));
+const EmployeeCategory  = React.lazy(() => import('./views/admin/pages/employee/category/category'));
+const AllEmployee  = React.lazy(() => import('./views/admin/pages/employee/employee_setup/employee'));
 
 const routes = [
   // Admin routes
@@ -19,9 +18,8 @@ const routes = [
   { path: '/page-setup', exact: true, name: 'Pages', component: Pages },
   { path: '/system-settings', exact: true, name: 'System Settings', component: System_Settings },
   { path: '/calendar-settings', exact: true, name: 'Calendar Settings', component: Calendar_Settings },
-  // { path: '/contact', exact: true, name: 'Contact', component: ContactView },
-
-
+  { path: '/employee-category', exact: true, name: 'Employee Category Settings', component: EmployeeCategory },
+  { path: '/all-employee', exact: true, name: 'All Employee Settings', component: AllEmployee }
 ];
 
 export default routes;

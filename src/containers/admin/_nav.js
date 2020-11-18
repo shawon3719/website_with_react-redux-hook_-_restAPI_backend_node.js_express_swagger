@@ -41,9 +41,27 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Calendar Setting',
+    name: 'Calendar Settings',
     to: '/calendar-settings',
     icon: 'cil-star',
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
+    name: 'Employee Settings',
+    route: '/employee',
+    icon: 'cil-cursor',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Employee Category',
+        to: '/employee-category',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Manage Employee',
+        to: 'all-employee',
+      },
+    ],
   },
   {
     _tag: 'CSidebarNavTitle',

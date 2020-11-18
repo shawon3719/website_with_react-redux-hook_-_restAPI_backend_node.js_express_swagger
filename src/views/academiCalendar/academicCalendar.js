@@ -16,6 +16,7 @@ import { calendarActions } from '../../_actions/calendar.action';
 import {  Document, Page } from "react-pdf";
 import { pdfjs } from 'react-pdf';
 import { CButton } from "@coreui/react";
+import { Link } from 'react-router-dom';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -90,7 +91,11 @@ function handleNextPage(){
         <div className="page-banner ovbl-dark" style={{backgroundImage: 'url(assets/images/banner/g3.jpg)'}}>
         <div className="container">
           <div className="page-banner-entry">
-            <h1 className="text-white">Academic Calendar</h1>
+          {
+            calendars.items &&
+              calendars.items.map((calendar, index) => (
+              <h1 className="text-white">{calendar.title}</h1>
+          ))}
           </div>
         </div>
       </div>
@@ -98,7 +103,16 @@ function handleNextPage(){
         <div className="container">
           <ul className="list-inline">
             <li><a href="#">Home</a></li>
-            <li>Academic Calendar</li>
+            {
+              calendars.items &&
+                calendars.items.map((calendar, index) => (
+                  <li><Link to="/academic">{calendar.title}</Link></li>
+            ))}
+            <li> Page {pageNumber} of {numPages}</li>
+            <div className="float-right mr-5" style={{verticalAlign:"middle!important"}}>
+              <CButton className="btn button-md bg-warning mr-2" disabled={prevBtnDisbaled} onClick={handlePrevPage}><i className="fa fa-arrow-left"></i></CButton>
+              <CButton className="btn button-md bg-warning" disabled={nextBtnDisbaled} onClick={handleNextPage}><i className="fa fa-arrow-right"></i></CButton>
+            </div>
           </ul>
         </div>
       </div>

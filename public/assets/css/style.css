@@ -3356,3 +3356,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 		margin-bottom: 5px;
 	}
 }
+
+.c-sidebar-nav-link, .c-sidebar-nav-dropdown-toggle{
+	font-size: 14px!important;
+	padding: 0.7445rem 1rem!important;
+}
+.c-sidebar-nav-title{
+	font-size: 60%!important;
+	margin-top: 0.1rem!important;
+}
+.c-sidebar .c-sidebar-nav-link.c-active, .c-sidebar .c-active.c-sidebar-nav-dropdown-toggle{
+	background: rgb(23 162 184)!important;
+}
