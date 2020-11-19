@@ -195,7 +195,7 @@ const EditSystem = props => {
                   </CForm>
               </div>
               <div className="modal-footer">
-                  <button type="button" className="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                  <button type="button" className="btn btn-danger btn-sm" data-dismiss="modal"><i className="fa fa-times"></i> Close</button>
               </div>
             </div>
           </div>

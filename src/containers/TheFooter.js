@@ -1,12 +1,22 @@
 import React from 'react'
 import { CFooter } from '@coreui/react'
 import { Link } from 'react-router-dom'
+import ParticleImage, { ParticleOptions } from "react-particle-image";
 function backToTop(){
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
   });
 }
+const particleOptions = {
+  filter: ({ x, y, image }) => {
+    // Get pixel
+    const pixel = image.get(x, y);
+    // Make a particle for this pixel if blue > 50 (range 0-255)
+    return pixel.b > 50;
+  },
+  color: ({ x, y, image }) => "#61dafb"
+};
 const TheFooter = () => {
   return (
     <div>
@@ -30,7 +40,15 @@ const TheFooter = () => {
               </ul>
             </div>
             <div className="pt-btn-join">
-              <a href="#" className="btn ">Apply Now</a>
+            <ParticleImage
+                  src={"images/test.png"}
+                  // scale={0.75}
+                  entropy={30}
+                  // height="100%"
+                  style={{background:"none", width: "100px", height:"100px" }}
+                  maxParticles={4200}
+                  particleOptions={particleOptions}
+                />
             </div>
           </div>
         </div>

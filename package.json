@@ -54,6 +54,7 @@
     "react-hook-form": "^6.10.1",
     "react-images": "^1.1.7",
     "react-modal": "^3.11.2",
+    "react-particle-image": "^1.0.1",
     "react-particles-js": "^3.4.0",
     "react-pdf": "^5.0.0",
     "react-photo-gallery": "^8.0.0",

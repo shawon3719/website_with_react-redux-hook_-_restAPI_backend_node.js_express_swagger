@@ -7,7 +7,7 @@ const Sliders  = React.lazy(() => import('./views/admin/pages/sliders/Sliders'))
 const Pages  = React.lazy(() => import('./views/admin/pages/pageSetup/Pages'));
 const System_Settings  = React.lazy(() => import('./views/admin/pages/systemSettings/system.settings'));
 const Calendar_Settings  = React.lazy(() => import('./views/admin/pages/calendar/calendar.settings'));
-const EmployeeCategory  = React.lazy(() => import('./views/admin/pages/employee/category/category'));
+const EmployeeCategory  = React.lazy(() => import('./views/admin/pages/employee/category/emloyee.category'));
 const AllEmployee  = React.lazy(() => import('./views/admin/pages/employee/employee_setup/employee'));
 
 const routes = [
