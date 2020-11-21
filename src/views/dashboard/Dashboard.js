@@ -10,6 +10,7 @@ import "./SliderStyle.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { sliderActions } from "src/_actions";
 import ReactQuill from "react-quill";
+import { Link } from "react-router-dom";
 
 const Dashboard = (props) => {
 const sliders = useSelector(state => state.sliders);
@@ -34,7 +35,7 @@ const dispatch = useDispatch();
                 <div className="inner">
                   <h1>{slider.title}</h1>
                   <div dangerouslySetInnerHTML={{ __html: slider.description }} />
-                  <button>Learn More</button>
+                  {/* <button>Join Today</button> */}
                 </div>
               </div>
             ))
@@ -57,12 +58,12 @@ const dispatch = useDispatch();
                   }}
                 >
                   <ParticleComponent />
-                  <h2 className="title-head">Popular <span>Courses</span></h2>
-                  <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                  {/* <h2 className="title-head">Popular <span>Courses</span></h2>
+                  <p>It is a long established fact that a reader will be distracted by the readable content of a page</p> */}
                 
                 </div>
               </div>
-              <div className="row">
+              {/* <div className="row">
                 <div className="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
                   <div className="item">
                     <div className="cours-bx">
@@ -178,6 +179,7 @@ const dispatch = useDispatch();
                   </div>
                 </div>
               </div>
+             */}
             </div>
           </div>
           {/* Popular Courses END */}
@@ -210,44 +212,44 @@ const dispatch = useDispatch();
                     <div className="col-lg-6 col-md-6 col-sm-6 m-b30">
                       <div className="feature-container">
                         <div className="feature-md text-white m-b20">
-                          <a href="#" className="icon-cell"><img src="assets/images/icon/icon1.png" alt /></a> 
+                          <Link to="/outcome-of-courses" className="icon-cell"><img src="assets/images/icon/icon1.png" alt /></Link> 
                         </div>
                         <div className="icon-content">
                           <h5 className="ttr-tilte">Outcome of Courses</h5>
-                          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+                          <p>Outcome Of Diploma-In-Nursing Science & Midwifery Course  <Link to="/outcome-of-courses" className="btn button-md">Read More..</Link> </p>
                         </div>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 m-b30">
                       <div className="feature-container">
                         <div className="feature-md text-white m-b20">
-                          <a href="#" className="icon-cell"><img src="assets/images/icon/icon2.png" alt /></a> 
+                          <Link to="/message-of-principle" className="icon-cell"><img src="assets/images/icon/icon2.png" alt /></Link> 
                         </div>
                         <div className="icon-content">
                           <h5 className="ttr-tilte">Message from the Principal</h5>
-                          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+                          <p>This is the high time for young men and women to enter <Link to="/message-of-principle" className="btn button-md">Read More..</Link></p>
                         </div>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 m-b30">
                       <div className="feature-container">
                         <div className="feature-md text-white m-b20">
-                          <a href="#" className="icon-cell"><img src="assets/images/icon/icon3.png" alt /></a> 
+                          <Link to="/vision-and-mission" className="icon-cell"><img src="assets/images/icon/icon3.png" alt /></Link> 
                         </div>
                         <div className="icon-content">
                           <h5 className="ttr-tilte">Key Of Success</h5>
-                          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+                          <p>Vision of Khwaja Yunus Ali Nursing College is basically <Link to="/vision-and-mission" className="btn button-md">Read More..</Link></p>
                         </div>
                       </div>
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6 m-b30">
                       <div className="feature-container">
                         <div className="feature-md text-white m-b20">
-                          <a href="#" className="icon-cell"><img src="assets/images/icon/icon4.png" alt /></a> 
+                          <Link to="/philosophy" className="icon-cell"><img src="assets/images/icon/icon4.png" alt /></Link> 
                         </div>
                         <div className="icon-content">
                           <h5 className="ttr-tilte">Our Philosophy</h5>
-                          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+                          <p>As women are the most neglected group in our society <Link to="/philosophy" className="btn button-md">Read More..</Link></p>
                         </div>
                       </div>
                     </div>

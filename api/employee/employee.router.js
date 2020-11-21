@@ -1,18 +1,18 @@
 const {
-  createSystemInfo,
-  getSystemInfo,
-  getSystemInfoById,
-  updateSystemInfo,
-  deleteSystemInfo
-} = require("./system.controller");
+  createEmployeeInfo,
+  getEmployeeInfo,
+  getEmployeeInfoById,
+  updateEmployeeInfo,
+  deleteEmployeeInfo
+} = require("./employee.controller");
 const router = require("express").Router();
 const { checkToken } = require("../../auth/token_validation");
-const { addSystemValidation } = require("../../validation/system_validation/system.validation");
+const { addEmployeeValidation } = require("../../validation/employee_validation/employee.validation");
 const multer = require('multer');
 const path = require('path');
 // set storage engine
 const storage = multer.diskStorage({
-  destination: './public/uploads/system_logo',
+  destination: './public/uploads/profile_photo',
   filename: (req, file, cb) => {
     return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
   }
@@ -26,10 +26,10 @@ const upload = multer({
   }
 });
 
-router.get("/all", getSystemInfo);
-router.post("/create",checkToken, upload.single('system_logo'), addSystemValidation, createSystemInfo);
-router.get("/system/:id", checkToken, getSystemInfoById);
-router.patch("/update", checkToken, updateSystemInfo);
-router.delete("/delete/:id", checkToken, deleteSystemInfo);
+router.get("/all", getEmployeeInfo);
+router.post("/create",checkToken, upload.single('profile_photo'), addEmployeeValidation, createEmployeeInfo);
+router.get("/employee/:id", checkToken, getEmployeeInfoById);
+router.patch("/update", checkToken, updateEmployeeInfo);
+router.delete("/delete/:id", checkToken, deleteEmployeeInfo);
 
 module.exports = router;

@@ -6,8 +6,6 @@ const {
   updateEmployeeCategoryInfo,
   deleteEmployeeCategoryInfo
 } = require("./employee.category.service");
-const { genSaltSync, hashSync, compareSync } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
 require("dotenv").config();
 module.exports = {
   //Create Employee Category

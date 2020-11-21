@@ -1,20 +1,20 @@
 require("dotenv").config();
 const {
-  createSystemInfo,
-  getSystemInfo,
-  getSystemInfoById,
-  updateSystemInfo,
-  deleteSystemInfo
+  createEmployeeInfo,
+  getEmployeeInfo,
+  getEmployeeInfoById,
+  updateEmployeeInfo,
+  deleteEmployeeInfo
 } = require("./employee.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const { sign } = require("jsonwebtoken");
 require("dotenv").config();
 module.exports = {
-  //Create User
-  createSystemInfo: (req, res) => {
+  //Create Employee
+  createEmployeeInfo: (req, res) => {
     const body = req.body;
-    body.system_logo = `uploads/system_logo/${req.file.filename}`;
-    createSystemInfo(body, (err, results) => {
+    body.profile_photo = `uploads/profile_photo/${req.file.filename}`;
+    createEmployeeInfo(body, (err, results) => {
       if (err) {
         console.log(err);
         return res.status(500).json({
@@ -24,16 +24,16 @@ module.exports = {
       }
       return res.status(200).json({
         success: 1,
-        message: "System created successfully",
-        logo_url: `${process.env.REACT_APP_APP_URL}/uploads/system_logo/${req.file.filename}`
+        message: "Employee created successfully",
+        profile_photo: `${process.env.REACT_APP_APP_URL}/uploads/profile_photo/${req.file.filename}`
       });
     });
   },
 
-  //Get system info by Id
-  getSystemInfoById: (req, res) => {
+  //Get employee info by Id
+  getEmployeeInfoById: (req, res) => {
     const id = req.params.id;
-    getSystemInfoById(id, (err, results) => {
+    getEmployeeInfoById(id, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -51,9 +51,9 @@ module.exports = {
     });
   },
 
-  //Get all system info
-  getSystemInfo: (req, res) => {
-    getSystemInfo((err, results) => {
+  //Get all employee info
+  getEmployeeInfo: (req, res) => {
+    getEmployeeInfo((err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -64,10 +64,10 @@ module.exports = {
       });
     });
   },
-  //update system info
-  updateSystemInfo: (req, res) => {
+  //update employee info
+  updateEmployeeInfo: (req, res) => {
     const body = req.body;
-    updateSystemInfo(body, (err, results) => {
+    updateEmployeeInfo(body, (err, results) => {
       if (err) {
         console.log(err);
         return false;
@@ -80,14 +80,14 @@ module.exports = {
       // }
       return res.json({
         success: 1,
-        message: "System updated successfully",
+        message: "Employee updated successfully",
       });
     });
   },
-  //Delete System info by Id
-  deleteSystemInfo: (req, res) => {
+  //Delete Employee info by Id
+  deleteEmployeeInfo: (req, res) => {
     const id = req.params.id;
-    deleteSystemInfo(id, (err, results) => {
+    deleteEmployeeInfo(id, (err, results) => {
       if (err) {
         console.log(err);
         return;
@@ -95,12 +95,12 @@ module.exports = {
       if (!results) {
         return res.json({
           success: 0,
-          message: "System has been deleted",
+          message: "Employee has been deleted",
         });
       }
       return res.json({
         success: 1,
-        message: "System has been deleted successfully",
+        message: "Employee has been deleted successfully",
       });
     });
   },

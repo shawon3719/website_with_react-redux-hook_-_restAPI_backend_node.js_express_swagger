@@ -7,6 +7,7 @@ const pageRouter = require("./api/dynamicPage/page.router");
 const systemRouter = require("./api/systemSettings/system.router");
 const calendarRouter = require("./api/academicCalendar/calendar.router");
 const employeeCategoryRouter = require("./api/employeeCategory/employee.category.router");
+const employeeRouter = require("./api/employee/employee.router");
 const cors = require('cors')
 const swaggerUi = require("swagger-ui-express"),
 swaggerDocument = require("./swagger.json");
@@ -20,6 +21,7 @@ app.use("/api/pages", pageRouter);
 app.use("/api/system-settings", systemRouter);
 app.use("/api/calendar", calendarRouter);
 app.use("/api/employee-category", employeeCategoryRouter);
+app.use("/api/employee", employeeRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(process.env.APP_PORT, () => {

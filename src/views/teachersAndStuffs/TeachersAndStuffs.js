@@ -6,19 +6,23 @@
  * 
  */
 
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { Route , withRouter} from 'react-router-dom';
 import './teacherAndStuff.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { employeeActions, userActions } from "src/_actions";
+import { scrollToTop } from 'src/_reducers/scroll.reducer';
 
-class TeachersAndStuffs extends Component {
-  componentDidMount() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-  render(){
+
+const TeachersAndStuffs = (props) => {
+  const employees = useSelector(state => state.employees);
+  const dispatch = useDispatch();
+  
+    useEffect(() => {
+      dispatch(employeeActions.getAll());
+      scrollToTop();   
+   }, []);
     return(
         <div className="page-content">
         {/* Page Heading Box ==== */}
@@ -44,66 +48,18 @@ class TeachersAndStuffs extends Component {
           <div className="section-area bg-gray section-sp1 our-story">
             <div className="container">
             <ul className="list-team-members">
+            {
+                      employees.items &&
+                      employees.items.map((employee, index) => (
   <li>
     <a href="#">
-      <img src="assets/images/profile/principal.jpg" />
-      <span className="member-title">Rowshonara Khatun</span>
-      <span className="member-title-hover">Principal</span>
+      <img src={employee.profile_photo} />
+      <span className="member-title">{employee.full_name}</span>
+      <span className="member-title-hover">{employee.designation}</span>
     </a>
   </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_34.jpg" />
-      <span className="member-title">Naveed Anjum</span>
-      <span className="member-title-hover">Vice Principle</span>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_37.jpg" />
-      <span className="member-title">Md. Kabir Hussain</span>
-      <span className="member-title-hover">Asst. Professor</span>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_46.jpg" />
-      <span className="member-title">Syed Tausif</span>
-      <span className="member-title-hover">Math Teacher</span>
-    </a>
-  </li>
+    ))}
 </ul>
-<ul className="list-team-members">
-  <li>
-    <a href="#">
-      <img src="assets/images/profile/principal.jpg" />
-      <span className="member-title">Rowshonara Khatun</span>
-      <span className="member-title-hover">Principal</span>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_34.jpg" />
-      <span className="member-title">Naveed Anjum</span>
-      <span className="member-title-hover">Vice Principle</span>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_37.jpg" />
-      <span className="member-title">Md. Kabir Hussain</span>
-      <span className="member-title-hover">Asst. Professor</span>
-    </a>
-  </li>
-  <li>
-    <a href="#">
-      <img src="http://fliegentech.com/public/upload/user_images/team_46.jpg" />
-      <span className="member-title">Syed Tausif</span>
-      <span className="member-title-hover">Math Teacher</span>
-    </a>
-  </li>
-</ul>
-
             </div>
           </div>
         </div>
@@ -111,9 +67,7 @@ class TeachersAndStuffs extends Component {
       </div>
 
 
-    )
-  }
-  
+)
 }
 
-export default withRouter(TeachersAndStuffs);
+export default TeachersAndStuffs
