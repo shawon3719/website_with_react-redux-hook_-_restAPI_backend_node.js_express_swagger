@@ -32,6 +32,7 @@ public/uploads/sliders/image*
 public/uploads/pages/image*
 public/uploads/system_logo/system_logo*
 public/uploads/calendar_file/calendar_file*
+public/uploads/profile_photo/profile_photo*
 
 npm-debug.log*
 yarn-debug.log*

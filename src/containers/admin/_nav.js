@@ -73,6 +73,12 @@ export default [
     to: '/sliders',
     icon: 'cil-star',
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Gallery Setup',
+    to: '/galleries',
+    icon: 'cil-star',
+  },
   
   // {
   //   _tag: 'CSidebarNavDropdown',

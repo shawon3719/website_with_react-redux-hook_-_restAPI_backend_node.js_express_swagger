@@ -79,7 +79,7 @@ const EmployeesList = props => {
 
   function handleDeleteEmployee(id) {
     const deleteStatus = dispatch(employeeActions.delete(id));
-    if(deleteStatus.type === "SYSTEMS_DELETE_SUCCESS"){
+    if(deleteStatus.type === "EMPLOYEES_DELETE_SUCCESS"){
       toast.success("✓ Employee has been deleted successfully!",{
         position: "top-right",
         autoClose: 5000,

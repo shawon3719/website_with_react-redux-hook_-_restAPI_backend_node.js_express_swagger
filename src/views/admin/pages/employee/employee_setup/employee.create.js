@@ -44,7 +44,6 @@ function CreateEmployee() {
     };
     const [employee, setEmployee] = useState(initialEmployeeState);
     const employeeCategories = useSelector(state => state.employeeCategories);
-    const [active_status, setActive] = useState("");
     const [submitted, setSubmitted] = useState(false);
     const [state, setinitialState] = useState(false);
     const submitting = useSelector(state => state.employees.loading);

@@ -4,6 +4,7 @@ import { authentication } from './authentication.reducer';
 import { registration } from './registration.reducer';
 import { users } from './users.reducer';
 import { sliders } from './sliders.reducer';
+import { galleries } from './galleries.reducer';
 import { systems } from './system.reducer';
 import { employees } from './employee.reducer';
 import { calendars } from './calendar.reducer';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     registration,
     users,
     sliders,
+    galleries,
     systems,
     employees,
     employeeCategories,
