@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { photos } from "./photos";
+// import { photos } from "./photos";
 import { CCard, CCardHeader, CCardBody } from "@coreui/react";
 import './Gallery.css'
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,18 +15,8 @@ import { galleryActions } from 'src/_actions';
     const galleries = useSelector(state => state.galleries);
     const dispatch = useDispatch();
 
-    const photos = [
-      // {
-      //   galleries.map
-      // }
-      {
-        src: "assets/images/banner/g1.jpg",
-        width: 4,
-        height: 3
-      }
-    ];
-  
-    const openLightbox = useCallback((event, { photo, index }) => {
+
+    const openLightbox = useCallback((event, index) => {
       setCurrentImage(index);
       setViewerIsOpen(true);
     }, []);
@@ -44,10 +34,35 @@ import { galleryActions } from 'src/_actions';
     return (
       <div className="page-content">
       <CCard>
-        <CCardHeader><h3>Gallery Content</h3></CCardHeader>
-        <CCardBody>
-        <Gallery photos={photos} onClick={openLightbox} />
+        <CCardHeader><h3>Gallery</h3></CCardHeader>
+        {
+          galleries.items?
+          <CCardBody>
+       
+        <div className="row">
+
+        {galleries.items && galleries.items.map(( gallery, index ) => (
+              gallery.active_status == 1? 
+
+          <div className="col-md-3 mt-4" >
+          <a key={index} type="button" onClick={openLightbox} >
+            
+              <img src={gallery.image} alt={gallery.title}/>
+              
+            </a>
+          </div>
+          : ''
+            
+        ) )}
+        
+          
+        </div>
         </CCardBody>
+        :
+          <div className="pt-3 text-center" style={ {height:"500px"}}>
+            <div className=" spinner-border spinner-border-lg mr-1"></div>
+          </div>
+        }
       </CCard>
       <div style={{marginTop:"100px"}}>
       <ModalGateway>
@@ -55,11 +70,7 @@ import { galleryActions } from 'src/_actions';
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
-              }))}
+              views={galleries.items.map(( gallery ) => ({ src: gallery.active_status==1? gallery.image : '' }))}
             />
           </Modal>
         ) : null}

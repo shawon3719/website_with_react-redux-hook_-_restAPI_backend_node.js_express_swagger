@@ -7,16 +7,15 @@ import './TheHeader.css'
 import { Link } from 'react-router-dom'
 import { systemActions } from '../_actions';
 
-const pageNo = window.location.toString()
-const TheHeader = pageNo => {
+// const pageNo = window.location.toString()
+const TheHeader = () => {
 const [pages, setPages] = useState([]);
 const systems = useSelector(state => state.systems);
 const dispatch = useDispatch();
-
-useEffect((pageNo) => {
+useEffect(() => {
   dispatch(systemActions.getAll());
   retrievePages();
-}, [pageNo]);
+}, []);
 
 
 const retrievePages = () => {

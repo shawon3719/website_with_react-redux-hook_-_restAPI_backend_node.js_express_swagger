@@ -22,6 +22,7 @@ import { authHeader } from '../../../../_helpers';
 import $ from 'jquery';
 import ReactQuill from 'react-quill';
 import toolbarOptions  from "src/reusable/toolbarOptions"
+import { userActions } from 'src/_actions';
 
 function CreateGallery() {
   const user = useSelector(state => state.authentication.user);
@@ -37,10 +38,17 @@ function CreateGallery() {
     const submitting = useSelector(state => state.galleries.loading);
     const [galleryImage, setGalleryImage] = useState(null);
     const [imgData, setImgData] = useState(null);
+    const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
     const dispatch = useDispatch();
 
     useEffect(() => {
+      if(isLoggedIn != true){
+        dispatch(userActions.logout());
+        window.location.href = "/#/admin"
+      }else{
       setSubmitted(false);
+      }
+
     }, [state]);
 
 
