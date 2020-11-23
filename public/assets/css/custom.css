@@ -34,3 +34,21 @@
 .react-confirm-alert-button-group > button {
     background: #c11b1b!important;
 }
+
+@media screen and (max-width: 991px){
+.rs-nav .menu-links {
+    background-color: #0b2a4c!important;
+}
+.menu-links .nav {
+    background: #0b2a4c!important;
+}
+}
+@media screen and (max-width: 991px){
+.rs-nav .menu-links {
+    background-color: #0b2a4c!important;
+}
+}
+
+.navbar-toggler span {
+    background: #fff!important;
+}
