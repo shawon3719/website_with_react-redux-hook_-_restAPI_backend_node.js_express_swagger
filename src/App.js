@@ -31,6 +31,7 @@ class App extends Component {
               <Route exact path="/admin-index" name="Admin Dashboard" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/admin-404" name="Page 404" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/sliders" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/notice-setup" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/galleries" name="Galleries" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/page-setup" name="Pages" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/system-settings" name="System_Setup" render={props => <TheAdminLayout {...props}/>} />

@@ -4,6 +4,7 @@ import { HomePage } from './views/admin/pages/dashboard/Dashboard'
 // const Dashboard = React.lazy(() => import('./views/admin/pages/dashboard/Dashboard'));
 const NotFound  = React.lazy(() => import('./views/admin/page404/Page404'));
 const Sliders  = React.lazy(() => import('./views/admin/pages/sliders/Sliders'));
+const Notices  = React.lazy(() => import('./views/admin/pages/notice/Notices'));
 const Galleries  = React.lazy(() => import('./views/admin/pages/gallery/Galleries'));
 const Pages  = React.lazy(() => import('./views/admin/pages/pageSetup/Pages'));
 const System_Settings  = React.lazy(() => import('./views/admin/pages/systemSettings/system.settings'));
@@ -16,6 +17,7 @@ const routes = [
   { path: '/admin-index', exact: true, name: 'Admin Dashboard', component: HomePage },
   { path: '/admin-404', exact: true, name: 'Not Found', component: NotFound },
   { path: '/sliders', exact: true, name: 'Sliders', component: Sliders },
+  { path: '/notice-setup', exact: true, name: 'Notices', component: Notices },
   { path: '/galleries', exact: true, name: 'Galleries', component: Galleries },
   { path: '/page-setup', exact: true, name: 'Pages', component: Pages },
   { path: '/system-settings', exact: true, name: 'System Settings', component: System_Settings },

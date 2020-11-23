@@ -41,6 +41,12 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Notice Setup',
+    to: '/notice-setup',
+    icon: 'cil-star',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Calendar Settings',
     to: '/calendar-settings',
     icon: 'cil-star',
