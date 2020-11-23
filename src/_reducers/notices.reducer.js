@@ -8,7 +8,7 @@ export function notices(state = {}, action) {
             };
         case noticeConstants.GETALL_SUCCESS:
             return {
-                items: action.notices.data
+                items: action.notices.data.sort((a,b) => a.priority - b.priority)
             };
         case noticeConstants.GETALL_FAILURE:
             return {
@@ -42,7 +42,7 @@ export function notices(state = {}, action) {
         case noticeConstants.GETBYID_SUCCESS:
             return {
                 ...state,
-                currentNotice: state.items.filter(notice => notice.id === action.id)
+                currentNotice: state.items.filter(notice => notice.id === action.id),
             };
         case noticeConstants.GETBYID_FAILURE:
             return {};

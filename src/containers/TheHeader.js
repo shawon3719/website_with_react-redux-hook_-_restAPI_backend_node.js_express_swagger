@@ -5,29 +5,18 @@ import PageDataService from "../_services/PageService";
 import routes from '../routes'
 import './TheHeader.css'
 import { Link } from 'react-router-dom'
-import { systemActions } from '../_actions';
+import { systemActions, noticeActions } from '../_actions';
 
-// const pageNo = window.location.toString()
+const pageNo = window.location.toString()
 const TheHeader = () => {
 const [pages, setPages] = useState([]);
 const systems = useSelector(state => state.systems);
+const notices = useSelector(state => state.notices);
 const dispatch = useDispatch();
 useEffect(() => {
   dispatch(systemActions.getAll());
-  retrievePages();
-}, []);
-
-
-const retrievePages = () => {
-  PageDataService.getAll()
-    .then(response => {
-      setPages(response.data.data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-};
-
+  dispatch(noticeActions.getAll());
+}, [pageNo]);
 
     const TheHeaderVar = () => {
       const dispatch = useDispatch()
@@ -173,17 +162,11 @@ const retrievePages = () => {
                 <li className="active bg-template blink"><Link to="#"><span>Notice</span> <i className="fa fa-chevron-down" /></Link>
                
                   <ul className="sub-menu">
-                    
-                      { pages &&
-                        pages.map((page, index) => (
-                            <li><Link to={'/page/id='+page.id}>{page.title}</Link></li>
+                      { notices.items &&
+                        notices.items.map((notice, index) => (
+                            <li><Link to={'/notice/id='+notice.id}>{notice.title}<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
                         ) )
                       }
-                      
-                    <li><Link to="#">BSc. Mid-term Exam</Link></li>
-                    <li><Link to="#">Diploma Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
-                    <li><Link to="#">BSc. Admission Form<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
-                    
                   </ul>
                   
                   

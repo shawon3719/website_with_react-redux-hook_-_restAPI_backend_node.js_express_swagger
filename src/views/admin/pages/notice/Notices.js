@@ -213,9 +213,11 @@ const NoticesList = props => {
           <EditNotice
             id = {currentNotice.id}
             title = {currentNotice.title}
+            image = {currentNotice.image}
             description = {currentNotice.description}
             created_by = {currentNotice.created_by}
             priority = {currentNotice.priority}
+            active_status = {currentNotice.active_status == 1? true : false}
           />
         ) : 
         (

@@ -15,7 +15,7 @@ import {apiUrl} from '../../../../reusable/apiHost';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
-import SliderDataService from "../../../../_services/SliderService";
+import SliderDataService from "../../../../_services/combined.service";
 import { sliderActions } from '../../../../_actions/slider.action';
 import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
@@ -32,18 +32,16 @@ const EditSlider = props => {
     priority    : ''
   };
   const [currentSlider, setCurrentSlider] = useState(initialSliderState);
-  // const [desc, setDescription] = useState(initialSliderState);
   var slider = useSelector(state => state.sliders.currentSlider)
   const [sliderImage, setSliderImage] = useState("");
   const [imgData, setImgData] = useState(null);
   const dispatch = useDispatch();
-  // const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const getSlider = id => {
-    SliderDataService.get(id)
+    SliderDataService.getSlider(id)
       .then(response => {
         setCurrentSlider(response.data.data);
-        // setDescription(response.data.data.description);
       })
       .catch(e => {
         console.log(e);
@@ -75,7 +73,7 @@ const EditSlider = props => {
   };
 
   const updateSlider = () => {
-    // setSubmitted(true);
+    setSubmitted(true);
     if (currentSlider.title && currentSlider.description) {
         dispatch(sliderActions.update(currentSlider, sliderImage));
         $('#editModal').modal('toggle');
@@ -106,8 +104,8 @@ const EditSlider = props => {
                     <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
-                          {/* <ReactQuill name="description" value={currentSlider.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/> */}
-                          <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." />
+                          <ReactQuill name="description" value={currentSlider.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/>
+                          {/* <CInput value={currentSlider.description} type="text"  name='description' onChange={handleInputChange} id="description" placeholder="Enter slider's description." /> */}
                       </CFormGroup>
                     </CCol>
                     <CCol md="6">

@@ -8,7 +8,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-import SliderDataService from "../../../../_services/SliderService";
+// import SliderDataService from "../../../../_services/combined.service";
 import { Link } from "react-router-dom";
 import CreateSlider from './CreateSlider';
 import EditSlider from './EditSlider';

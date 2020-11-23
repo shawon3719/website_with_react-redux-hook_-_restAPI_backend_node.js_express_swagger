@@ -75,10 +75,9 @@ function update(currentNotice, noticeImage) {
 function getById(id) {
     return dispatch => {
         dispatch(request(id));
-
         noticeService.getById(id)
             .then(
-                notice => dispatch(success(id)),
+                system => dispatch(success(id)),
                 error => dispatch(failure(id, error.toString()))
             );
     };

@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { systemActions, employeeActions } from 'src/_actions';
+import { systemActions, employeeActions, noticeActions } from 'src/_actions';
 import { authentication } from 'src/_reducers/authentication.reducer';
+import Moment from 'moment';
 
 function HomePage() {
     // const users = useSelector(state => state.users);
     // const user = useSelector(state => state.authentication.user);
     // const loginStatus = useSelector((action) => action.type);
     const employees = useSelector(state => state.employees);
+    const notices = useSelector(state => state.notices);
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
@@ -24,6 +26,7 @@ function HomePage() {
         window.location.href = '/#/admin'
       }else{
         dispatch(employeeActions.getAll());
+        dispatch(noticeActions.getAll());
       }
     }, []);
     return (
@@ -191,34 +194,21 @@ function HomePage() {
         <div className="widget-inner">
           <div className="orders-list">
             <ul>
+            {
+                      notices.items &&
+                      notices.items.sort((a, b) => a.created_at > b.created_at ? 1:-1).map((notice, index) => (
+              
               <li>
                 <span className="orders-title">
-                  <a href="#" className="orders-title-name">BSC. Admission </a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
+                  <a href="#" className="orders-title-name">{notice.title}</a>
+                  <span className="orders-info">Notice #{notice.id} | Published - { Moment(notice.created_at).fromNow()}</span>
                 </span>
                 <span className="orders-btn">
-                  <a href="#" className="btn button-sm red">Inactive</a>
+                  <a href="#" className={notice.active_status == 1 ? 'btn button-sm green' : 'btn button-sm red'}>{notice.active_status == 1 ? 'Active' : 'Inactive'}</a>
                 </span>
               </li>
-              <li>
-                <span className="orders-title">
-                  <a href="#" className="orders-title-name">Diploma Mid-term Exam</a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
-                </span>
-                <span className="orders-btn">
-                  <a href="#" className="btn button-sm red">Inactive</a>
-                </span>
-              </li>
-              <li>
-                <span className="orders-title">
-                  <a href="#" className="orders-title-name">Assistant Teacher Circular </a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
-                </span>
-                <span className="orders-btn">
-                  <a href="#" className="btn button-sm green">Active</a>
-                </span>
-              </li>
-             </ul>
+              )).reverse().slice(0, 2)}
+              </ul>
           </div>
         </div>
       </div>

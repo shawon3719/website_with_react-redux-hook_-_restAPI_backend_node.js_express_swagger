@@ -54,17 +54,16 @@ function update(currentNotice, noticeImage) {
 return fetch(`${apiUrl}notices/update`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-//     return fetch(`${apiUrl}notices/notice/${id}`, requestOptions).then(handleResponse);
-// }
-
-const getById = id => {
-    return http.get(`notices/notice/${id}`);
-  };
+function getById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${apiUrl}notices/notice/${id}`, requestOptions).then(handleResponse);
+}
+// const getById = id => {
+//     return http.get(`notices/notice/${id}`);
+//   };
 
 
 // function update(notice) {
