@@ -49,6 +49,7 @@ function update(currentNotice, noticeImage) {
    }
     formdata.append("priority", currentNotice.priority);
     formdata.append("active_status", currentNotice.active_status == true ? 1 :0);
+    formdata.append("updated_by", currentNotice.updated_by);
     
     const requestOptions = {
       method: 'PATCH',

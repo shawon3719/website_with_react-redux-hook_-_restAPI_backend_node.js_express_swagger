@@ -58,18 +58,18 @@ const EditNotice = props => {
 
   const handleInputChange = event => {
     const { name, value } = event.target;
-    setCurrentNotice({ ...currentNotice, [name]: value });
+    setCurrentNotice({ ...currentNotice, [name]: value, updated_by  : user.firstName+' '+user.lastName });
   };
 
   function handleEditCheckChange(e){
     const { checked } = e.target;
-    setCurrentNotice(currentNotice => ({ ...currentNotice, active_status: checked }));
+    setCurrentNotice(currentNotice => ({ ...currentNotice, active_status: checked, updated_by  : user.firstName+' '+user.lastName }));
   }
 
 
 
   function handleDescChange (value){
-    setCurrentNotice(currentNotice => ({ ...currentNotice, description: value }));
+    setCurrentNotice(currentNotice => ({ ...currentNotice, description: value, updated_by  : user.firstName+' '+user.lastName }));
   }
 
   const handleImageChange = e => {
@@ -81,6 +81,7 @@ const EditNotice = props => {
         });
         reader.readAsDataURL(e.target.files[0]);
     }
+    setCurrentNotice({ ...currentNotice, updated_by  : user.firstName+' '+user.lastName });
   };
 
   const updateNotice = () => {

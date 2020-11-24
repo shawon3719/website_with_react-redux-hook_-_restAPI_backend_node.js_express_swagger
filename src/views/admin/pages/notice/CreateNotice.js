@@ -60,7 +60,6 @@ function CreateNotice() {
     }
 
     function handleCheckChange(e) {
-      alert("create")
       const { name, checked } = e.target;
       setNotice(notice => ({ ...notice, [name]: checked }));
   }
