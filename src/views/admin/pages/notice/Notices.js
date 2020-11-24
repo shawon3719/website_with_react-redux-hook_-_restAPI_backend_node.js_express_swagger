@@ -145,7 +145,8 @@ const NoticesList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Status</th>
+                      <th>Priority</th>
                       <th style={{width:"11%"}}>Action</th>
                     </tr>
                   </thead>
@@ -168,6 +169,7 @@ const NoticesList = props => {
                             </ShowMoreText> 
                           </td>
                           <td><img src={notice.image} width="100"/></td>
+                          <td><span className={notice.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{notice.active_status == 1? 'active' : 'inactive'}</span></td>
                           <td>{notice.priority}</td>
                           <td>
                             <button 
@@ -195,7 +197,8 @@ const NoticesList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Status</th>
+                      <th>Priority</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>

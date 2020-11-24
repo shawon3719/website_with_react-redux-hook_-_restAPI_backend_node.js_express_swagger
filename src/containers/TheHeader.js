@@ -164,7 +164,11 @@ useEffect(() => {
                   <ul className="sub-menu">
                       { notices.items &&
                         notices.items.map((notice, index) => (
-                            <li><Link to={'/notice/id='+notice.id}>{notice.title}<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
+                            
+                             notice.active_status == 1 ?
+                                <li><Link to={'/notice/id='+notice.id}>{notice.title}<span className="blink-text" style={{color:'red', fontWeight:"bold", fontSize:'20px'}}>*</span></Link></li>
+                            : ''
+                            
                         ) )
                       }
                   </ul>

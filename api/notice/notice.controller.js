@@ -6,12 +6,13 @@ const {
     updateNotice,
     deleteNotice
   } = require("./notice.service");
+const { isEmptyObject } = require("jquery");
 
   module.exports = {
     //Create Notice
     createNotice: (req, res) => {
       const body = req.body;
-      body.image = `uploads/notices/${req.file.filename}`;
+        body.image = `uploads/notices/${req.file.filename}`;
       create(body, (err, results) => {
         if (err) {
           console.log(err);
@@ -65,7 +66,11 @@ const {
     //update Notice info
     updateNotice: (req, res) => {
       const body = req.body;
-      body.image = `uploads/notices/${req.file.filename}`;
+     
+      if(req.file){
+        body.image =  `uploads/notices/${req.file.filename}`
+      }
+      ;
       updateNotice(body, (err, results) => {
         if (err) {
           console.log(err);

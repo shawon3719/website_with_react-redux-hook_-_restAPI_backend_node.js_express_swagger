@@ -10,6 +10,7 @@ import {
   CLabel,
   CSelect,
   CInputCheckbox,
+  CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import {apiUrl} from '../../../../reusable/apiHost';
@@ -32,7 +33,7 @@ const EditNotice = props => {
     image : '',
     updated_by  : user.firstName+' '+user.lastName,
     priority    : '',
-    active_status: true,
+    active_status: '',
   };
   const [currentNotice, setCurrentNotice] = useState(initialNoticeState);
   const description  = currentNotice.description;
@@ -60,13 +61,15 @@ const EditNotice = props => {
     setCurrentNotice({ ...currentNotice, [name]: value });
   };
 
-  function handleCheckChange(e) {
-    const { name, checked } = e.target;
-    setCurrentNotice(currentNotice => ({ ...currentNotice, [name]: checked }));
+  function handleEditCheckChange(e){
+    const { checked } = e.target;
+    setCurrentNotice(currentNotice => ({ ...currentNotice, active_status: checked }));
   }
 
+
+
   function handleDescChange (value){
-    setCurrentNotice({ ...currentNotice, description: value });
+    setCurrentNotice(currentNotice => ({ ...currentNotice, description: value }));
   }
 
   const handleImageChange = e => {
@@ -84,7 +87,7 @@ const EditNotice = props => {
     // setSubmitted(true);
     if (currentNotice.title && currentNotice.description) {
         dispatch(noticeActions.update(currentNotice, noticeImage));
-        $('#editModal').modal('toggle');
+        $('#editModal').modal('hide');
         $('.modal-backdrop').remove();   
     }
   };
@@ -110,14 +113,14 @@ const EditNotice = props => {
                     <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
-                          <CInput value={currentNotice.title}  id="title" name='title' onChange={handleInputChange} placeholder="Enter Notice's Title." />
+                          <CInput value={currentNotice.title} name='title' onChange={handleInputChange} placeholder="Enter Notice's Title." />
                       </CFormGroup>
                     </CCol>
                     <CCol md="12">
                       <CFormGroup>
                           <CLabel htmlFor="description">Description <span className="requiredText">*</span></CLabel>
                           {/* <ReactQuill name="description" value={currentNotice.description} onChange={handleDescChange} className="ql-custom" modules={{ toolbar: toolbarOptions }}/> */}
-                          <ReactQuill value={description} type="text"  name='description' onChange={handleDescChange} id="description" placeholder="Enter notice's description." />
+                          <ReactQuill value={currentNotice.description}  modules={{ toolbar: toolbarOptions }}  name='description' onChange={handleDescChange} placeholder="Enter notice's description." />
                       </CFormGroup>
                     </CCol>
                     <CCol md="6">
@@ -136,22 +139,36 @@ const EditNotice = props => {
                     <CCol md="3">
                       <CFormGroup>
                         <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                        <CInput value={currentNotice.priority} type="number" name='priority' onChange={handleInputChange} id="priority" placeholder="Enter notice's priority." />
+                        <CInput value={currentNotice.priority} type="number" name='priority' onChange={handleInputChange} placeholder="Enter notice's priority." />
                       </CFormGroup>
                     </CCol>
                     <CCol md="3">
-                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
-                            <CInputCheckbox
-                                id="activeStatus"
-                                name="active_status"
-                                checked={currentNotice.active_status == 1? true : false}
-                                onChange={handleCheckChange}
-                                custom
+                        {/* <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
+                            
+                            <CSwitch
+                              // className="mr-1"
+                              color="success"
+                             checked={currentNotice.active_status == 1? true : false}
+                              onChange={handleEditCheckChange}
+                              variant="outline"
                             />
-                            <CLabel variant="custom-checkbox" htmlFor="activeStatus">
-                            Active
-                            </CLabel>
-                        </CFormGroup>
+                            <CLabel style={{ color: currentNotice.active_status == 1? 'green': 'red'}} htmlFor="priority"> {currentNotice.active_status == 1? " Active" : " Inactive"} </CLabel>
+                        </CFormGroup> */}
+                        <CFormGroup row>
+                  <CCol style={{ color: currentNotice.active_status == 1? 'green': 'red'}} tag="label" sm="12" className="col-form-label">
+                  {currentNotice.active_status == 1? " Active" : " Inactive"}
+                  </CCol>
+                  <CCol sm="12">
+                    <CSwitch
+                      className="mr-1"
+                      color = {currentNotice.active_status == 1? "success" : "danger"}
+                      checked = {currentNotice.active_status == 1? true : false}
+                      onChange={handleEditCheckChange}
+                      shape="pill"
+                      variant="outline"
+                    />
+                  </CCol>
+                </CFormGroup>
                     </CCol>
                   </CFormGroup>
                   {/* ))} */}
