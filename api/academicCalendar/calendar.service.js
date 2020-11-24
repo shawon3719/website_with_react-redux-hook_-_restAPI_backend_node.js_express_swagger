@@ -37,7 +37,7 @@ module.exports = {
   //Get CalendarInfo By ID
   getCalendarInfoById: (id, callBack) => {
     pool.query(
-      `select title, calendar_file, priority, active_status, created_by from academic_calendar where id = ?`,
+      `select id, title, calendar_file, priority, active_status, created_by from academic_calendar where id = ?`,
       [id],
       (error, results, fields) => {
         if (error) {
@@ -50,10 +50,10 @@ module.exports = {
   //Update CalendarInfo By ID
   updateCalendarInfo: (data, callBack) => {
     pool.query(
-      `update academic_calendar title=?, academic_calendar=?, priority=?, active_status=?, updated_by=? where id=?`,
+      `update academic_calendar set title=?, calendar_file=?, priority=?, active_status=?, updated_by=? where id=?`,
       [
         data.title,
-        data.academic_calendar,
+        data.calendar_file,
         data.priority,
         data.active_status,
         data.updated_by,

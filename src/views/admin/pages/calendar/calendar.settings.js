@@ -279,11 +279,11 @@ function handleNextPage(){
           </CCard>
           <CreateCalendar/>
           {currentCalendar ? (
-            <EditCalendar
+          <EditCalendar
             id = {currentCalendar.id}
-            title             = {currentCalendar.title}
-            active_status     = {true}
-            priority          = {currentCalendar.priority}
+            title = {currentCalendar.title}
+            priority = {currentCalendar.priority}
+            active_status = {currentCalendar.active_status == 1? true : false}
           />
         ) : 
         (

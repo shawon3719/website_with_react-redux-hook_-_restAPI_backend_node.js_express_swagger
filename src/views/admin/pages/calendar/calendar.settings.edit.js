@@ -9,28 +9,23 @@ import {
   CInput,
   CLabel,
   CInputCheckbox,
+  CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
-// import CalendarDataService from "../../../../_services/CalendarService";
+import CalendarDataService from "../../../../_services/combined.service";
 import { calendarActions } from '../../../../_actions/calendar.action';
 
 const EditCalendar = props => {
   const user = useSelector(state => state.authentication.user);
-  const getCalendarByID = useSelector(state => state.calendars.currentCalendar)
   const initialCalendarState = {
-    id: props,
-    calendarName        : '',
+    id                : props,
     title             : '',
-    email             : '',
-    calendar_url        : '',
-    phone_no          : '',
-    mobile            : '',
-    address           : '',
-    active_status     : true,
+    active_status     : '',
+    calendar_file     : '',
     priority          : '',
-    created_by        : user.firstName+' '+user.lastName
+    updted_by         : user.firstName+' '+user.lastName
   };
   const [currentCalendar, setCurrentCalendar] = useState(initialCalendarState);
   const [calendarImage, setCalendarImage] = useState("");
@@ -39,22 +34,28 @@ const EditCalendar = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(calendarActions.getById(props.id));
-   console.log(getCalendarByID)
+    getCalendar(props.id)
   }, [props.id]);
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    setCurrentCalendar({ ...currentCalendar, [name]: value });
+  const getCalendar = id => {
+    CalendarDataService.getCalendar(id)
+      .then(response => {
+        setCurrentCalendar(response.data.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });  
   };
 
-  function handleCheckChange(e) {
-    const { name, checked } = e.target;
-    setCurrentCalendar(currentCalendar => ({ ...currentCalendar, [name]: checked }));
-  }
 
-  function handleDescChange (value){
-    setCurrentCalendar({ ...currentCalendar, description: value });
+  const handleEditChange = event => {
+    const { name, value } = event.target;
+    setCurrentCalendar({ ...currentCalendar, [name]: value, updated_by  : user.firstName+' '+user.lastName });
+  };
+
+  function handleEditCheckChange(e) {
+    const { checked } = e.target;
+    setCurrentCalendar(currentCalendar => ({ ...currentCalendar, active_status: checked, updated_by  : user.firstName+' '+user.lastName }));
   }
 
   const handleImageChange = e => {
@@ -66,16 +67,19 @@ const EditCalendar = props => {
         });
         reader.readAsDataURL(e.target.files[0]);
     }
+    setCurrentCalendar({ ...currentCalendar, updated_by  : user.firstName+' '+user.lastName });
   };
 
   const updateCalendar = () => {
-    // setSubmitted(true);
+    setSubmitted(true);
     if (currentCalendar.title && currentCalendar.priority) {
         dispatch(calendarActions.update(currentCalendar, calendarImage));
         $('#editModal').modal('toggle');
         $('.modal-backdrop').remove();   
     }
   };
+  
+
   return (
     <div>
       {currentCalendar ? (
@@ -93,17 +97,8 @@ const EditCalendar = props => {
                 <CFormGroup row>
                     <CCol md="6">
                       <CFormGroup>
-                          <CLabel htmlFor="calendarName">Calendar Name <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentCalendar.calendarName ? ' is-invalid' : '')} value={currentCalendar.calendarName} id="calendarName" name='calendarName' onChange={handleChange} placeholder="Enter Calendar's Name." />
-                          {submitted && !currentCalendar.calendarName &&
-                                <div className="invalid-feedback">Calendar Name is required</div>
-                            }
-                      </CFormGroup>
-                    </CCol>
-                    <CCol md="6">
-                      <CFormGroup>
                           <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentCalendar.title ? ' is-invalid' : '')} value={currentCalendar.title} id="title" name='title' onChange={handleChange} placeholder="Enter Calendar's Title." />
+                          <CInput className={'form-control' + (submitted && !currentCalendar.title ? ' is-invalid' : '')} value={currentCalendar.title} id="title" name='title' onChange={handleEditChange} placeholder="Enter Calendar's Title." />
                           {submitted && !currentCalendar.title &&
                                 <div className="invalid-feedback">Title is required</div>
                             }
@@ -111,80 +106,35 @@ const EditCalendar = props => {
                     </CCol>
                     <CCol md="6">
                       <CFormGroup>
-                          <CLabel htmlFor="description">email <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentCalendar.email ? ' is-invalid' : '')} value={currentCalendar.email} id="email" name='email' onChange={handleChange} placeholder="Enter Calendar's Email." />
-                          {submitted && !currentCalendar.email &&
-                                <div className="invalid-feedback">Description is required</div>
-                            }
-                          </CFormGroup>
-                    </CCol>
-                    <CCol md="6">
-                      <CFormGroup>
                           <CLabel htmlFor="calendar_file">Calendar File</CLabel>
-                          <CInput type="file" name="calendar_file"  onChange={handleImageChange} id="calendarFile" accept="application/pdf"  />
+                          <CInput type="file" name="calendar_file"  onChange={handleImageChange} id="calendarFile" accept="application/pdf" />
                           {/* {submitted && !calendar.image &&
                                 <div className="invalid-feedback">Calendar logo is required</div>
                             } */}
                       </CFormGroup>
-                      <div className="previewCalendarLogo">
-                              <img width="80" src={imgData} />
-                      </div>
                     </CCol>
                     <CCol md="6">
-                        <CFormGroup>
-                            <CLabel htmlFor="phone_no">Phone Number <span className="requiredText">*</span></CLabel>
-                            <CInput type="number" value={currentCalendar.phone_no} name='phone_no'  onChange={handleChange} id="phone_no" placeholder="Enter calendar's phone no."  className={'form-control' + (submitted && !currentCalendar.phone_no ? ' is-invalid' : '')} />
-                            {submitted && !currentCalendar.phone_no &&
-                                <div className="invalid-feedback">Calendar phone no. is required</div>
-                            }
-                        </CFormGroup>
-                    </CCol>
-                    <CCol md="6">
-                    <CFormGroup>
-                        <CLabel htmlFor="mobile">Mobile <span className="requiredText">*</span></CLabel>
-                        <CInput type="number" value={currentCalendar.mobile} name='mobile'  onChange={handleChange} id="mobile" placeholder="Enter calendar's mobile"  className={'form-control' + (submitted && !currentCalendar.mobile ? ' is-invalid' : '')} />
-                        {submitted && !currentCalendar.mobile &&
-                            <div className="invalid-feedback">Calendar mobile is required</div>
-                        }
-                    </CFormGroup>
-                    </CCol>
-                    <CCol md="6">
-                    <CFormGroup>
-                        <CLabel htmlFor="calendar_url">Calendar URL <span className="requiredText">*</span></CLabel>
-                        <CInput type="text" value={currentCalendar.calendar_url} name='calendar_url'  onChange={handleChange} id="calendar_url" placeholder="Enter calendar's url"  className={'form-control' + (submitted && !currentCalendar.calendar_url ? ' is-invalid' : '')} />
-                        {submitted && !currentCalendar.calendar_url &&
-                            <div className="invalid-feedback">Calendar url is required</div>
-                        }
-                    </CFormGroup>
-                    </CCol>
-                    <CCol md="3">
                         <CFormGroup>
                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                            <CInput type="number" value={currentCalendar.priority} name='priority' onChange={handleChange} id="priority" placeholder="Enter calendar's priority"  className={'form-control' + (submitted && !currentCalendar.priority ? ' is-invalid' : '')} />
+                            <CInput type="number" value={currentCalendar.priority} name='priority' onChange={handleEditChange} id="priority" placeholder="Enter calendar's priority"  className={'form-control' + (submitted && !currentCalendar.priority ? ' is-invalid' : '')} />
                         </CFormGroup>
                     </CCol>
-                    <CCol md="3">
-                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
-                            <CInputCheckbox
-                                id="activeStatus"
-                                name="active_status"
-                                checked={currentCalendar.active_status}
-                                onChange={handleCheckChange}
-                                custom
-                            />
-                            <CLabel variant="custom-checkbox" htmlFor="activeStatus">
-                            Active
-                            </CLabel>
-                        </CFormGroup>
-                    </CCol>
-                    <CCol md="12">
-                    <CFormGroup>
-                        <CLabel htmlFor="address">Address <span className="requiredText">*</span></CLabel>
-                        <CInput type="text" value={currentCalendar.address} name='address'  onChange={handleChange} id="address" placeholder="Enter calendar's address"  className={'form-control' + (submitted && !currentCalendar.address ? ' is-invalid' : '')} />
-                        {submitted && !currentCalendar.address &&
-                            <div className="invalid-feedback">Calendar address is required</div>
-                        }
-                    </CFormGroup>
+                    <CCol md="6">
+                      <CFormGroup row>
+                        <CCol style={{ color: currentCalendar.active_status == 1? 'green': 'red'}} tag="label" sm="12" className="col-form-label">
+                          {currentCalendar.active_status == 1? " Active" : " Inactive"}
+                        </CCol>
+                        <CCol sm="12">
+                          <CSwitch
+                            className="mr-1"
+                            color = {currentCalendar.active_status == 1? "success" : "danger"}
+                            checked = {currentCalendar.active_status == 1? true : false}
+                            onChange={handleEditCheckChange}
+                            shape="pill"
+                            variant="outline"
+                          />
+                        </CCol>
+                      </CFormGroup>
                     </CCol>
                   </CFormGroup>
                   <div style={{textAlign: 'center'}}>
@@ -202,10 +152,8 @@ const EditCalendar = props => {
         </div>
       ) : 
       (
-        <div>
-          <br />
-          {
-            setCurrentCalendar(getCalendarByID)}
+        <div className="pt-3 text-center">
+          <span className="spinner-border spinner-border-sm mr-1"></span>
         </div>
       )}
     </div>

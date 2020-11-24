@@ -67,20 +67,6 @@ function getById(id) {
     };
     return fetch(`${apiUrl}notices/notice/${id}`, requestOptions).then(handleResponse);
 }
-// const getById = id => {
-//     return http.get(`notices/notice/${id}`);
-//   };
-
-
-// function update(notice) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(notice)
-//     };
-
-//     return fetch(`${apiUrl}notices/${notice.id}`, requestOptions).then(handleResponse);;
-// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {

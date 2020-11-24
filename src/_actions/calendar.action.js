@@ -51,13 +51,13 @@ function create(calendar, calendarImage) {
 
 
 function update(currentCalendar, calendarImage) {
+    console.log(currentCalendar)
     return dispatch => {
         dispatch(request(currentCalendar, calendarImage));
         calendarService.update(currentCalendar, calendarImage)
             .then(
                 calendar => { 
                     dispatch(success());
-                    // history.push('/#/calendars');
                     dispatch(alertActions.success('Calendar has been updated successfully..'));
                 },
                 error => {

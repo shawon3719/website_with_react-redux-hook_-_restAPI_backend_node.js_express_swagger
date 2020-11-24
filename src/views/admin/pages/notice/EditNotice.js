@@ -42,7 +42,6 @@ const EditNotice = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-  //  dispatch(noticeActions.getById(props.id))
   getNotice(props.id)
   }, [props.id]);
   
@@ -54,7 +53,7 @@ const EditNotice = props => {
       .catch(e => {
         console.log(e);
       });  
-};
+  };
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -144,35 +143,23 @@ const EditNotice = props => {
                       </CFormGroup>
                     </CCol>
                     <CCol md="3">
-                        {/* <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
-                            
-                            <CSwitch
-                              // className="mr-1"
-                              color="success"
-                             checked={currentNotice.active_status == 1? true : false}
-                              onChange={handleEditCheckChange}
-                              variant="outline"
-                            />
-                            <CLabel style={{ color: currentNotice.active_status == 1? 'green': 'red'}} htmlFor="priority"> {currentNotice.active_status == 1? " Active" : " Inactive"} </CLabel>
-                        </CFormGroup> */}
-                        <CFormGroup row>
-                  <CCol style={{ color: currentNotice.active_status == 1? 'green': 'red'}} tag="label" sm="12" className="col-form-label">
-                  {currentNotice.active_status == 1? " Active" : " Inactive"}
-                  </CCol>
-                  <CCol sm="12">
-                    <CSwitch
-                      className="mr-1"
-                      color = {currentNotice.active_status == 1? "success" : "danger"}
-                      checked = {currentNotice.active_status == 1? true : false}
-                      onChange={handleEditCheckChange}
-                      shape="pill"
-                      variant="outline"
-                    />
-                  </CCol>
-                </CFormGroup>
+                      <CFormGroup row>
+                        <CCol style={{ color: currentNotice.active_status == 1? 'green': 'red'}} tag="label" sm="12" className="col-form-label">
+                          {currentNotice.active_status == 1? " Active" : " Inactive"}
+                        </CCol>
+                        <CCol sm="12">
+                          <CSwitch
+                            className="mr-1"
+                            color = {currentNotice.active_status == 1? "success" : "danger"}
+                            checked = {currentNotice.active_status == 1? true : false}
+                            onChange={handleEditCheckChange}
+                            shape="pill"
+                            variant="outline"
+                          />
+                        </CCol>
+                      </CFormGroup>
                     </CCol>
                   </CFormGroup>
-                  {/* ))} */}
                   <div style={{textAlign: 'center'}}>
                     <CButton onClick={updateNotice} size="sm" color="success"><CIcon name="cil-scrubber" /> Submit</CButton>
                     {" "}

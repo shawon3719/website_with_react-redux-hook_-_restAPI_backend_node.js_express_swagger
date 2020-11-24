@@ -1,6 +1,7 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
 import http from "../http-common";
+import { isEmptyObject } from "jquery";
 
 export const calendarService = {
     create,
@@ -38,20 +39,25 @@ function create(calendar, calendarImage) {
 
 function update(currentCalendar, calendarImage) {
     var formdata = new FormData();
+    
     formdata.append("id", currentCalendar.id);
     formdata.append("title",currentCalendar.title);
-    formdata.append("calendar_file", calendarImage, calendarImage.name);
+    if(!isEmptyObject(calendarImage)){
+        formdata.append("calendar_file", calendarImage, calendarImage.name);
+    }else{
+        formdata.append("calendar_file", currentCalendar.calendar_file);
+    }
     formdata.append("priority", currentCalendar.priority);
-    formdata.append("created_by", currentCalendar.created_by);
+    formdata.append("updated_by", currentCalendar.updated_by);
     formdata.append("active_status", currentCalendar.active_status == true? 1 : 0);
     
     const requestOptions = {
-      method: 'PATCH',
-      headers: authHeader(),
-      body: formdata,
-      redirect: 'follow'
-    };  
-return fetch(`${apiUrl}calendar/update`, requestOptions).then(handleResponse);
+        method: 'PATCH',
+        headers: authHeader(),
+        body: formdata,
+        redirect: 'follow'
+      };   
+    return fetch(`${apiUrl}calendar/update`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {

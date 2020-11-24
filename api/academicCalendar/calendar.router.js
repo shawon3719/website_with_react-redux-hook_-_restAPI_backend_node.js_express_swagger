@@ -29,7 +29,7 @@ const upload = multer({
 router.get("/all", getCalendarInfo);
 router.post("/create",checkToken, upload.single('calendar_file'), addCalendarValidation, createCalendarInfo);
 router.get("/calendar/:id", checkToken, getCalendarInfoById);
-router.patch("/update", checkToken, updateCalendarInfo);
+router.patch("/update", checkToken,  upload.single('calendar_file'), updateCalendarInfo);
 router.delete("/delete/:id", checkToken, deleteCalendarInfo);
 
 module.exports = router;

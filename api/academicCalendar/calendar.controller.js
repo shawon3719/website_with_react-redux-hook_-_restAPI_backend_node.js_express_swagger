@@ -67,6 +67,9 @@ module.exports = {
   //update calendar info
   updateCalendarInfo: (req, res) => {
     const body = req.body;
+    if(req.file){
+      body.calendar_file = `uploads/calendar_file/${req.file.filename}`;
+      }
     updateCalendarInfo(body, (err, results) => {
       if (err) {
         console.log(err);

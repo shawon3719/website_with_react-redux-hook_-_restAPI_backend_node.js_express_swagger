@@ -5,7 +5,11 @@ const getSlider = id => {
 const getNotice = id => {
   return http.get(`notices/notice/${id}`);
 };
+const getCalendar = id => {
+  return http.get(`calendar/calendar/${id}`);
+};
 export default {
   getSlider,
-  getNotice
+  getNotice,
+  getCalendar
 };
