@@ -42,7 +42,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import CreateEmployeeCategory from "./employee.category.create";
-// import EditEmployeeCategory from "./category.edit";
+import EditEmployeeCategory from "./employee.category.edit";
 
 
 const EmployeeCategorysList = props => {
@@ -198,23 +198,17 @@ const EmployeeCategorysList = props => {
           }
           </CCard>
           <CreateEmployeeCategory/>
-          {/* {currentEmployeeCategory ? (
+          {currentEmployeeCategory ? (
             <EditEmployeeCategory
-            id = {currentEmployeeCategory.id}
-            employeeCategoryName        = {currentEmployeeCategory.employeeCategoryName}
-            title             = {currentEmployeeCategory.title}
-            email             = {currentEmployeeCategory.email}
-            employeeCategory_url        = {currentEmployeeCategory.employeeCategory_url}
-            phone_no          = {currentEmployeeCategory.phone_no}
-            mobile            = {currentEmployeeCategory.mobile}
-            address           = {currentEmployeeCategory.address}
-            active_status     = {true}
+            id                = {currentEmployeeCategory.id}
+            category_name     = {currentEmployeeCategory.category_name}
+            active_status     = {currentEmployeeCategory.active_status}
             priority          = {currentEmployeeCategory.priority}
           />
         ) : 
         (
           <div></div>
-        )} */}
+        )}
        
     </div>
 

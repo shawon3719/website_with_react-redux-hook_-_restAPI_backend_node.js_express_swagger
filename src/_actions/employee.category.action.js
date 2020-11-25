@@ -28,10 +28,10 @@ function getAll() {
     function failure(error) { return { type: employeeCategoryConstants.GETALL_FAILURE, error } }
 }
 
-function create(employeeCategory, employeeCategoryImage) {
+function create(employeeCategory) {
     return dispatch => {
-        dispatch(request(employeeCategory, employeeCategoryImage));
-        employeeCategoryService.create(employeeCategory, employeeCategoryImage)
+        dispatch(request(employeeCategory));
+        employeeCategoryService.create(employeeCategory)
             .then(
                 employeeCategory => { 
                     dispatch(success());
@@ -44,20 +44,19 @@ function create(employeeCategory, employeeCategoryImage) {
             );
     };
 
-    function request(employeeCategory, employeeCategoryImage) { return { type: employeeCategoryConstants.CREATE_REQUEST, employeeCategory, employeeCategoryImage } }
-    function success(employeeCategory, employeeCategoryImage) { return { type: employeeCategoryConstants.CREATE_SUCCESS, employeeCategory, employeeCategoryImage } }
+    function request(employeeCategory) { return { type: employeeCategoryConstants.CREATE_REQUEST, employeeCategory } }
+    function success(employeeCategory) { return { type: employeeCategoryConstants.CREATE_SUCCESS, employeeCategory } }
     function failure(error) { return { type: employeeCategoryConstants.CREATE_FAILURE, error } }
 }
 
 
-function update(currentEmployeeCategory, employeeCategoryImage) {
+function update(currentEmployeeCategory) {
     return dispatch => {
-        dispatch(request(currentEmployeeCategory, employeeCategoryImage));
-        employeeCategoryService.update(currentEmployeeCategory, employeeCategoryImage)
+        dispatch(request(currentEmployeeCategory));
+        employeeCategoryService.update(currentEmployeeCategory)
             .then(
                 employeeCategory => { 
                     dispatch(success());
-                    // history.push('/#/employeeCategories');
                     dispatch(alertActions.success('EmployeeCategory has been updated successfully..'));
                 },
                 error => {
@@ -66,8 +65,8 @@ function update(currentEmployeeCategory, employeeCategoryImage) {
                 }
             );
     };
-    function request(currentEmployeeCategory, employeeCategoryImage) { return { type: employeeCategoryConstants.UPDATE_REQUEST, currentEmployeeCategory, employeeCategoryImage } }
-    function success(currentEmployeeCategory, employeeCategoryImage) { return { type: employeeCategoryConstants.UPDATE_SUCCESS, currentEmployeeCategory, employeeCategoryImage } }
+    function request(currentEmployeeCategory) { return { type: employeeCategoryConstants.UPDATE_REQUEST, currentEmployeeCategory } }
+    function success(currentEmployeeCategory) { return { type: employeeCategoryConstants.UPDATE_SUCCESS, currentEmployeeCategory } }
     function failure(error) { return { type: employeeCategoryConstants.UPDATE_FAILURE, error } }
 }
 

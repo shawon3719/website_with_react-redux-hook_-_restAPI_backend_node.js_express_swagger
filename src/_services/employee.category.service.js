@@ -28,19 +28,13 @@ function create(employeeCategory) {
     return fetch(`${apiUrl}employee-category/create`, requestOptions).then(handleResponse);
 }
 
-function update(currentEmployeeCategory, employeeCategoryImage) {
-    var formdata = new FormData();
-    formdata.append("id", currentEmployeeCategory.id);
-    formdata.append("title",currentEmployeeCategory.title);
-    formdata.append("employeeCategory_file", employeeCategoryImage, employeeCategoryImage.name);
-    formdata.append("priority", currentEmployeeCategory.priority);
-    formdata.append("created_by", currentEmployeeCategory.created_by);
-    formdata.append("active_status", currentEmployeeCategory.active_status == true? 1 : 0);
-    
+function update(currentEmployeeCategory) {
+    let token = JSON.parse(localStorage.getItem('token'));
+    var raw = JSON.stringify({"id":currentEmployeeCategory.id,"category_name":currentEmployeeCategory.category_name,"priority":currentEmployeeCategory.priority,"active_status":currentEmployeeCategory.active_status == true? 1 : 0,"updated_by":currentEmployeeCategory.updated_by});
     const requestOptions = {
       method: 'PATCH',
-      headers: authHeader(),
-      body: formdata,
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +token },
+      body: raw,
       redirect: 'follow'
     };  
 return fetch(`${apiUrl}employee-category/update`, requestOptions).then(handleResponse);

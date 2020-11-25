@@ -69,8 +69,7 @@ const { isEmptyObject } = require("jquery");
      
       if(req.file){
         body.image =  `uploads/notices/${req.file.filename}`
-      }
-      ;
+      };
       updateNotice(body, (err, results) => {
         if (err) {
           console.log(err);

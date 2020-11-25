@@ -68,21 +68,6 @@ function getById(id) {
     return fetch(`${apiUrl}calendar/calendar/${id}`, requestOptions).then(handleResponse);
 }
 
-// const getById = id => {
-//     return http.get(`calendar-settings/calendar/${id}`);
-//   };
-
-
-// function update(calendar) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(calendar)
-//     };
-
-//     return fetch(`${apiUrl}calendars/${calendar.id}`, requestOptions).then(handleResponse);;
-// }
-
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     const requestOptions = {

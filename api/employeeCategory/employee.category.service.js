@@ -35,7 +35,7 @@ module.exports = {
   //Get EmployeeCategoryInfo By ID
   getEmployeeCategoryInfoById: (id, callBack) => {
     pool.query(
-      `select category_name, priority, active_status, created_by from employee_category where id = ?`,
+      `select id, category_name, priority, active_status, created_by from employee_category where id = ?`,
       [id],
       (error, results, fields) => {
         if (error) {
@@ -48,7 +48,7 @@ module.exports = {
   //Update EmployeeCategoryInfo By ID
   updateEmployeeCategoryInfo: (data, callBack) => {
     pool.query(
-      `update employee_category category_name=?, priority=?, active_status=?, updated_by=? where id=?`,
+      `update employee_category set category_name=?, priority=?, active_status=?, updated_by=? where id=?`,
       [
         data.category_name,
         data.priority,

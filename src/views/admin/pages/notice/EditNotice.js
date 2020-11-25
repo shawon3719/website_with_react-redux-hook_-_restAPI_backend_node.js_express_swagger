@@ -27,10 +27,10 @@ import toolbarOptions  from "src/reusable/toolbarOptions"
 const EditNotice = props => {
   const user = useSelector(state => state.authentication.user);
   const initialNoticeState = {
-    id: props,
+    id          : props,
     title       : '',
     description : '',
-    image : '',
+    image       : '',
     updated_by  : user.firstName+' '+user.lastName,
     priority    : '',
     active_status: '',
@@ -39,6 +39,7 @@ const EditNotice = props => {
   const description  = currentNotice.description;
   const [noticeImage, setNoticeImage] = useState("");
   const [imgData, setImgData] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const EditNotice = props => {
   };
 
   const updateNotice = () => {
-    // setSubmitted(true);
+    setSubmitted(true);
     if (currentNotice.title && currentNotice.description) {
         dispatch(noticeActions.update(currentNotice, noticeImage));
         $('#editModal').modal('hide');
