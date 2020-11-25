@@ -35,7 +35,6 @@ function create(notice, noticeImage) {
             .then(
                 notice => { 
                     dispatch(success());
-                    history.push('/#/notices');
                     dispatch(alertActions.success('Notice has been created successfully..'));
                 },
                 error => {
@@ -58,7 +57,6 @@ function update(currentNotice, noticeImage) {
             .then(
                 notice => { 
                     dispatch(success());
-                    // history.push('/#/notices');
                     dispatch(alertActions.success('Notice has been updated successfully..'));
                 },
                 error => {

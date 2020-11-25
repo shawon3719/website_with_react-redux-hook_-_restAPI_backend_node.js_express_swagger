@@ -29,7 +29,7 @@ const upload = multer({
 router.get("/all", getEmployeeInfo);
 router.post("/create",checkToken, upload.single('profile_photo'), addEmployeeValidation, createEmployeeInfo);
 router.get("/employee/:id", checkToken, getEmployeeInfoById);
-router.patch("/update", checkToken, updateEmployeeInfo);
+router.patch("/update", checkToken, upload.single('profile_photo'), updateEmployeeInfo);
 router.delete("/delete/:id", checkToken, deleteEmployeeInfo);
 
 module.exports = router;

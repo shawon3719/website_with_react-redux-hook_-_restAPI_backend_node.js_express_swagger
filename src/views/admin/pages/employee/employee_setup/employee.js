@@ -220,15 +220,6 @@ const EmployeesList = props => {
           {currentEmployee ? (
             <EditEmployee
             id = {currentEmployee.id}
-            employeeName        = {currentEmployee.employeeName}
-            title             = {currentEmployee.title}
-            email             = {currentEmployee.email}
-            employee_url        = {currentEmployee.employee_url}
-            phone_no          = {currentEmployee.phone_no}
-            mobile            = {currentEmployee.mobile}
-            address           = {currentEmployee.address}
-            active_status     = {true}
-            priority          = {currentEmployee.priority}
           />
         ) : 
         (

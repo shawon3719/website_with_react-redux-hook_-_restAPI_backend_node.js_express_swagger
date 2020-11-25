@@ -11,9 +11,13 @@ const getCalendar = id => {
 const getEmployeeCategory = id => {
   return http.get(`employee-category/employeeCategory/${id}`);
 };
+const getEmployee = id => {
+  return http.get(`employee/employee/${id}`);
+};
 export default {
   getSlider,
   getNotice,
   getCalendar,
-  getEmployeeCategory
+  getEmployeeCategory,
+  getEmployee
 };

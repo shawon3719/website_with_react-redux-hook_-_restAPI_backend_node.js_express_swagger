@@ -244,7 +244,9 @@ function CreateEmployee() {
                             {
                       employeeCategories.items &&
                       employeeCategories.items.map((employeeCategory, index) => (
-                            <option value={employeeCategory.category_name}>{employeeCategory.category_name}</option>
+                        employeeCategory.active_status == 1?
+                            <option value={employeeCategory.id}>{employeeCategory.category_name}</option>
+                            : ''
                       ))}
                           </CSelect>
                           {submitted && !employee.employee_category &&

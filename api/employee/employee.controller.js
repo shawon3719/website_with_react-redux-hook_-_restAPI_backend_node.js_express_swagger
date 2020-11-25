@@ -67,6 +67,9 @@ module.exports = {
   //update employee info
   updateEmployeeInfo: (req, res) => {
     const body = req.body;
+    if(req.file){
+      body.profile_photo = `uploads/profile_photo/${req.file.filename}`
+    };
     updateEmployeeInfo(body, (err, results) => {
       if (err) {
         console.log(err);

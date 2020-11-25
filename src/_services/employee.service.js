@@ -1,6 +1,7 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
 import http from "../http-common";
+import { isEmptyObject } from "jquery";
 
 export const employeeService = {
     create,
@@ -54,11 +55,29 @@ function create(employee, employeeImage) {
 function update(currentEmployee, employeeImage) {
     var formdata = new FormData();
     formdata.append("id", currentEmployee.id);
-    formdata.append("title", currentEmployee.title);
-    formdata.append("description", currentEmployee.description);
-    formdata.append("image", employeeImage, employeeImage.name);
+    formdata.append("employee_id",currentEmployee.employee_id);
+    formdata.append("full_name",currentEmployee.full_name);
+    formdata.append("father_name",currentEmployee.father_name);
+    formdata.append("mother_name",currentEmployee.mother_name);
+    if(!isEmptyObject(employeeImage)){
+        formdata.append("profile_photo", employeeImage, employeeImage.name);
+    }else{
+        formdata.append("profile_photo", currentEmployee.profile_photo);
+    }
+    formdata.append("designation",currentEmployee.designation);
+    formdata.append("nid",currentEmployee.nid);
+    formdata.append("gender",currentEmployee.gender);
+    formdata.append("date_of_birth",currentEmployee.date_of_birth);
+    formdata.append("phone",currentEmployee.phone);
+    formdata.append("email",currentEmployee.email);
+    formdata.append("present_address",currentEmployee.present_address);
+    formdata.append("permanent_address",currentEmployee.permanent_address);
+    formdata.append("joining_date",currentEmployee.joining_date);
+    formdata.append("employee_category",currentEmployee.employee_category);
     formdata.append("priority", currentEmployee.priority);
-    
+    formdata.append("updated_by", currentEmployee.updated_by);
+    formdata.append("active_status", currentEmployee.active_status == true? 1 : 0);
+
     const requestOptions = {
       method: 'PATCH',
       headers: authHeader(),
@@ -75,21 +94,6 @@ function getById(id) {
     };
     return fetch(`${apiUrl}employee/employee/${id}`, requestOptions).then(handleResponse);
 }
-
-// const getById = id => {
-//     return http.get(`employee-settings/employee/${id}`);
-//   };
-
-
-// function update(employee) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(employee)
-//     };
-
-//     return fetch(`${apiUrl}employees/${employee.id}`, requestOptions).then(handleResponse);;
-// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {

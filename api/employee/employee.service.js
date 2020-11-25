@@ -82,7 +82,6 @@ module.exports = {
         data.employee_category,
         data.priority,
         data.active_status,
-        data.created_by,
         data.updated_by,
         data.id,
       ],
