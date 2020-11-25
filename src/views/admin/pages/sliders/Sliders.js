@@ -146,7 +146,8 @@ const SlidersList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th style={{width:"11%"}}>Action</th>
                     </tr>
                   </thead>
@@ -170,6 +171,7 @@ const SlidersList = props => {
                           </td>
                           <td><img src={slider.image} width="100"/></td>
                           <td>{slider.priority}</td>
+                          <td><span className={slider.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{slider.active_status == 1? 'active' : 'inactive'}</span></td>
                           <td>
                             <button 
                               className='btn btn-info btn-xs'
@@ -196,7 +198,8 @@ const SlidersList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>

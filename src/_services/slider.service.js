@@ -1,11 +1,10 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
-import http from "../http-common";
+import { isEmptyObject } from "jquery";
 
 export const sliderService = {
     create,
     getAll,
-    getById,
     update,
     delete: _delete
 };
@@ -24,6 +23,7 @@ function create(slider, sliderImage) {
         formdata.append("image", sliderImage, sliderImage.name);
         formdata.append("created_by", slider.created_by);
         formdata.append("priority", slider.priority);
+        formdata.append("active_status", slider.active_status == true? 1 : 0);
         
         const requestOptions = {
           method: 'POST',
@@ -31,16 +31,6 @@ function create(slider, sliderImage) {
           body: formdata,
           redirect: 'follow'
         };
-
-
-        // return fetch(apiUrl+"sliders/create", requestOptions)
-        //               .then(response => response.text())
-        //               .then((response) => {
-        //                 var obj = JSON.parse(response);
-        //                   console.log(obj);
-        //             })
-        //               .catch(error => console.log('error', error));
-        //   };
         
     return fetch(`${apiUrl}sliders/create`, requestOptions).then(handleResponse);
 }
@@ -50,8 +40,14 @@ function update(currentSlider, sliderImage) {
     formdata.append("id", currentSlider.id);
     formdata.append("title", currentSlider.title);
     formdata.append("description", currentSlider.description);
-    formdata.append("image", sliderImage, sliderImage.name);
+    if(!isEmptyObject(sliderImage)){
+        formdata.append("image", sliderImage, sliderImage.name);
+    }else{
+        formdata.append("image", currentSlider.image);
+    }
     formdata.append("priority", currentSlider.priority);
+    formdata.append("active_status", currentSlider.active_status == true ? 1 : 0);
+    formdata.append("updated_by", currentSlider.updated_by);
     
     const requestOptions = {
       method: 'PATCH',
@@ -62,28 +58,6 @@ function update(currentSlider, sliderImage) {
 return fetch(`${apiUrl}sliders/update`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-//     return fetch(`${apiUrl}sliders/slider/${id}`, requestOptions).then(handleResponse);
-// }
-
-const getById = id => {
-    return http.get(`sliders/slider/${id}`);
-  };
-
-
-// function update(slider) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(slider)
-//     };
-
-//     return fetch(`${apiUrl}sliders/${slider.id}`, requestOptions).then(handleResponse);;
-// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {

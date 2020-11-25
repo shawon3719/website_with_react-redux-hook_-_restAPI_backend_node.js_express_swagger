@@ -6,7 +6,8 @@ const schema = {
     description: joi.string().max(1000).required(),
     created_by: joi.string().required(),
     priority: joi.number().integer().required(),
-    // image: joi.required(),
+    updated_by: joi.string(),
+    active_status: joi.number().integer().required(),
   }),
 };
 

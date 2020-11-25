@@ -12,6 +12,7 @@ import {
   CInput,
   CLabel,
   CSelect,
+  CInputCheckbox,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import {apiUrl} from '../../../../reusable/apiHost';
@@ -23,12 +24,14 @@ import ReactQuill from 'react-quill';
 import toolbarOptions  from "src/reusable/toolbarOptions"
 
 function CreateSlider() {
+    const user = useSelector(state => state.authentication.user);
     const initialSliderState = {
-      title       : '',
-      description : '',
-      image : '',
-      created_by  : localStorage.getItem('profile_name'),
-      priority    : ''
+      title             : '',
+      description       : '',
+      image             : '',
+      created_by        : user.firstName+' '+user.lastName,
+      priority          : '',
+      active_status     : true
     };
     const [slider, setSlider] = useState(initialSliderState);
     const [submitted, setSubmitted] = useState(false);
@@ -54,6 +57,10 @@ function CreateSlider() {
     function handleChange(e) {
         const { name, value } = e.target;
         setSlider(slider => ({ ...slider, [name]: value }));
+    }
+    function handleCheckChange(e) {
+      const { name, checked } = e.target;
+      setSlider(slider => ({ ...slider, [name]: checked }));
     }
 
     function handleDescChange(value) {
@@ -126,7 +133,7 @@ function CreateSlider() {
                               <img width="80" src={imgData} />
                       </div>
                     </CCol>
-                    <CCol md="6">
+                    <CCol md="3">
                         <CFormGroup>
                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
                             <CInput type="number" value={slider.priority} name='priority'  onChange={handleChange} id="priority" placeholder="Enter slider's priority."  className={'form-control' + (submitted && !slider.priority ? ' is-invalid' : '')} />
@@ -134,7 +141,21 @@ function CreateSlider() {
                                 <div className="invalid-feedback">Slider priority is required</div>
                             }
                         </CFormGroup>
-                      </CCol>
+                    </CCol>
+                    <CCol md="3">
+                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
+                            <CInputCheckbox
+                                id="activeStatus"
+                                name="active_status"
+                                checked={slider.active_status}
+                                onChange={handleCheckChange}
+                                custom
+                            />
+                            <CLabel variant="custom-checkbox" htmlFor="activeStatus">
+                            Active
+                            </CLabel>
+                        </CFormGroup>
+                    </CCol>
                   </CFormGroup>
                   <div style={{textAlign: 'center'}}>
                     <CButton type="submit" size="sm" color="success"><CIcon name="cil-scrubber" />
