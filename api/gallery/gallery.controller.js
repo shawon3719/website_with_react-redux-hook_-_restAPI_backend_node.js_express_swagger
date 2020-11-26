@@ -65,7 +65,9 @@ const {
     //update gallery info
     updateGallery: (req, res) => {
       const body = req.body;
-      body.image = `uploads/galleries/${req.file.filename}`;
+      if(req.file){
+        body.image = `uploads/galleries/${req.file.filename}`
+      };
       updateGallery(body, (err, results) => {
         if (err) {
           console.log(err);

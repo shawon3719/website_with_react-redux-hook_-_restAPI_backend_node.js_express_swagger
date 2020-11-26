@@ -14,10 +14,14 @@ const getEmployeeCategory = id => {
 const getEmployee = id => {
   return http.get(`employee/employee/${id}`);
 };
+const getGallery = id => {
+  return http.get(`galleries/gallery/${id}`);
+};
 export default {
   getSlider,
   getNotice,
   getCalendar,
   getEmployeeCategory,
-  getEmployee
+  getEmployee,
+  getGallery
 };

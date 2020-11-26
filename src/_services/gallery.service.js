@@ -1,6 +1,7 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
 import http from "../http-common";
+import { isEmptyObject } from "jquery";
 
 export const galleryService = {
     create,
@@ -44,8 +45,13 @@ function update(currentGallery, galleryImage) {
     var formdata = new FormData();
     formdata.append("id", currentGallery.id);
     formdata.append("title", currentGallery.title);
-    formdata.append("description", currentGallery.description);
-    formdata.append("image", galleryImage, galleryImage.name);
+    if(!isEmptyObject(galleryImage)){
+        formdata.append("image", galleryImage, galleryImage.name);
+    }else{
+        formdata.append("image", currentGallery.image);
+    }
+    formdata.append("updated_by", currentGallery.created_by);
+    formdata.append("active_status", currentGallery.active_status == true? 1 : 0);
     formdata.append("priority", currentGallery.priority);
     
     const requestOptions = {
@@ -57,28 +63,9 @@ function update(currentGallery, galleryImage) {
 return fetch(`${apiUrl}galleries/update`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-//     return fetch(`${apiUrl}galleries/gallery/${id}`, requestOptions).then(handleResponse);
-// }
-
 const getById = id => {
     return http.get(`galleries/gallery/${id}`);
   };
-
-
-// function update(gallery) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(gallery)
-//     };
-
-//     return fetch(`${apiUrl}galleries/${gallery.id}`, requestOptions).then(handleResponse);;
-// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
