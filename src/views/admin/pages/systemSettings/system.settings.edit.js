@@ -9,11 +9,12 @@ import {
   CInput,
   CLabel,
   CInputCheckbox,
+  CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
-// import SystemDataService from "../../../../_services/SystemService";
+import SystemDataService from "../../../../_services/combined.service";
 import { systemActions } from '../../../../_actions/system.action';
 
 const EditSystem = props => {
@@ -39,22 +40,26 @@ const EditSystem = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(systemActions.getById(props.id));
-   console.log(getSystemByID)
-  }, [props.id]);
-
-  const handleChange = event => {
+    getSystem(props.id)
+    }, [props.id]);
+    
+    const getSystem = id => {
+      SystemDataService.getSystem(id)
+        .then(response => {
+          setCurrentSystem(response.data.data);
+        })
+        .catch(e => {
+          console.log(e);
+    });  
+  };
+  const handleInputChange = event => {
     const { name, value } = event.target;
-    setCurrentSystem({ ...currentSystem, [name]: value });
+    setCurrentSystem({ ...currentSystem, [name]: value, updated_by  : user.firstName+' '+user.lastName });
   };
 
-  function handleCheckChange(e) {
-    const { name, checked } = e.target;
-    setCurrentSystem(currentSystem => ({ ...currentSystem, [name]: checked }));
-  }
-
-  function handleDescChange (value){
-    setCurrentSystem({ ...currentSystem, description: value });
+  function handleEditCheckChange(e){
+    const { checked } = e.target;
+    setCurrentSystem(currentSystem => ({ ...currentSystem, active_status: checked, updated_by  : user.firstName+' '+user.lastName }));
   }
 
   const handleImageChange = e => {
@@ -66,11 +71,12 @@ const EditSystem = props => {
         });
         reader.readAsDataURL(e.target.files[0]);
     }
+    setCurrentSystem({ ...currentSystem, updated_by  : user.firstName+' '+user.lastName });
   };
 
   const updateSystem = () => {
-    // setSubmitted(true);
-    if (currentSystem.title && currentSystem.description) {
+    setSubmitted(true);
+    if (currentSystem.title && currentSystem.systemName) {
         dispatch(systemActions.update(currentSystem, systemImage));
         $('#editModal').modal('toggle');
         $('.modal-backdrop').remove();   
@@ -94,7 +100,7 @@ const EditSystem = props => {
                     <CCol md="6">
                       <CFormGroup>
                           <CLabel htmlFor="systemName">System Name <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentSystem.systemName ? ' is-invalid' : '')} value={currentSystem.systemName} id="systemName" name='systemName' onChange={handleChange} placeholder="Enter System's Name." />
+                          <CInput className={'form-control' + (submitted && !currentSystem.systemName ? ' is-invalid' : '')} value={currentSystem.systemName} name='systemName' onChange={handleInputChange} placeholder="Enter System's Name." />
                           {submitted && !currentSystem.systemName &&
                                 <div className="invalid-feedback">System Name is required</div>
                             }
@@ -103,7 +109,7 @@ const EditSystem = props => {
                     <CCol md="6">
                       <CFormGroup>
                           <CLabel htmlFor="title">Title <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentSystem.title ? ' is-invalid' : '')} value={currentSystem.title} id="title" name='title' onChange={handleChange} placeholder="Enter System's Title." />
+                          <CInput className={'form-control' + (submitted && !currentSystem.title ? ' is-invalid' : '')} value={currentSystem.title} name='title' onChange={handleInputChange} placeholder="Enter System's Title." />
                           {submitted && !currentSystem.title &&
                                 <div className="invalid-feedback">Title is required</div>
                             }
@@ -112,7 +118,7 @@ const EditSystem = props => {
                     <CCol md="6">
                       <CFormGroup>
                           <CLabel htmlFor="description">email <span className="requiredText">*</span></CLabel>
-                          <CInput className={'form-control' + (submitted && !currentSystem.email ? ' is-invalid' : '')} value={currentSystem.email} id="email" name='email' onChange={handleChange} placeholder="Enter System's Email." />
+                          <CInput className={'form-control' + (submitted && !currentSystem.email ? ' is-invalid' : '')} value={currentSystem.email}  name='email' onChange={handleInputChange} placeholder="Enter System's Email." />
                           {submitted && !currentSystem.email &&
                                 <div className="invalid-feedback">Description is required</div>
                             }
@@ -121,7 +127,7 @@ const EditSystem = props => {
                     <CCol md="6">
                       <CFormGroup>
                           <CLabel htmlFor="system_logo">System Logo</CLabel>
-                          <CInput type="file" name="system_logo"  onChange={handleImageChange} id="systemLogo"  />
+                          <CInput type="file" name="system_logo"  onChange={handleImageChange}   />
                           {/* {submitted && !system.image &&
                                 <div className="invalid-feedback">System logo is required</div>
                             } */}
@@ -133,7 +139,7 @@ const EditSystem = props => {
                     <CCol md="6">
                         <CFormGroup>
                             <CLabel htmlFor="phone_no">Phone Number <span className="requiredText">*</span></CLabel>
-                            <CInput type="number" value={currentSystem.phone_no} name='phone_no'  onChange={handleChange} id="phone_no" placeholder="Enter system's phone no."  className={'form-control' + (submitted && !currentSystem.phone_no ? ' is-invalid' : '')} />
+                            <CInput type="number" value={currentSystem.phone_no} name='phone_no'  onChange={handleInputChange}  placeholder="Enter system's phone no."  className={'form-control' + (submitted && !currentSystem.phone_no ? ' is-invalid' : '')} />
                             {submitted && !currentSystem.phone_no &&
                                 <div className="invalid-feedback">System phone no. is required</div>
                             }
@@ -142,7 +148,7 @@ const EditSystem = props => {
                     <CCol md="6">
                     <CFormGroup>
                         <CLabel htmlFor="mobile">Mobile <span className="requiredText">*</span></CLabel>
-                        <CInput type="number" value={currentSystem.mobile} name='mobile'  onChange={handleChange} id="mobile" placeholder="Enter system's mobile"  className={'form-control' + (submitted && !currentSystem.mobile ? ' is-invalid' : '')} />
+                        <CInput type="number" value={currentSystem.mobile} name='mobile'  onChange={handleInputChange} placeholder="Enter system's mobile"  className={'form-control' + (submitted && !currentSystem.mobile ? ' is-invalid' : '')} />
                         {submitted && !currentSystem.mobile &&
                             <div className="invalid-feedback">System mobile is required</div>
                         }
@@ -151,7 +157,7 @@ const EditSystem = props => {
                     <CCol md="6">
                     <CFormGroup>
                         <CLabel htmlFor="system_url">System URL <span className="requiredText">*</span></CLabel>
-                        <CInput type="text" value={currentSystem.system_url} name='system_url'  onChange={handleChange} id="system_url" placeholder="Enter system's url"  className={'form-control' + (submitted && !currentSystem.system_url ? ' is-invalid' : '')} />
+                        <CInput type="text" value={currentSystem.system_url} name='system_url'  onChange={handleInputChange}  placeholder="Enter system's url"  className={'form-control' + (submitted && !currentSystem.system_url ? ' is-invalid' : '')} />
                         {submitted && !currentSystem.system_url &&
                             <div className="invalid-feedback">System url is required</div>
                         }
@@ -160,27 +166,30 @@ const EditSystem = props => {
                     <CCol md="3">
                         <CFormGroup>
                             <CLabel htmlFor="priority">Priority <span className="requiredText">*</span></CLabel>
-                            <CInput type="number" value={currentSystem.priority} name='priority' onChange={handleChange} id="priority" placeholder="Enter system's priority"  className={'form-control' + (submitted && !currentSystem.priority ? ' is-invalid' : '')} />
+                            <CInput type="number" value={currentSystem.priority} name='priority' onChange={handleInputChange}  placeholder="Enter system's priority"  className={'form-control' + (submitted && !currentSystem.priority ? ' is-invalid' : '')} />
                         </CFormGroup>
                     </CCol>
                     <CCol md="3">
-                        <CFormGroup variant="custom-checkbox" className="my-2 mt-4">
-                            <CInputCheckbox
-                                id="activeStatus"
-                                name="active_status"
-                                checked={currentSystem.active_status}
-                                onChange={handleCheckChange}
-                                custom
-                            />
-                            <CLabel variant="custom-checkbox" htmlFor="activeStatus">
-                            Active
-                            </CLabel>
-                        </CFormGroup>
+                      <CFormGroup row>
+                        <CCol style={{ color: currentSystem.active_status == 1? 'green': 'red'}} tag="label" sm="12" className="col-form-label">
+                          {currentSystem.active_status == 1? " Active" : " Inactive"}
+                        </CCol>
+                        <CCol sm="12">
+                          <CSwitch
+                            className="mr-1"
+                            color = {currentSystem.active_status == 1? "success" : "danger"}
+                            checked = {currentSystem.active_status == 1? true : false}
+                            onChange={handleEditCheckChange}
+                            shape="pill"
+                            variant="outline"
+                          />
+                        </CCol>
+                      </CFormGroup>
                     </CCol>
                     <CCol md="12">
                     <CFormGroup>
                         <CLabel htmlFor="address">Address <span className="requiredText">*</span></CLabel>
-                        <CInput type="text" value={currentSystem.address} name='address'  onChange={handleChange} id="address" placeholder="Enter system's address"  className={'form-control' + (submitted && !currentSystem.address ? ' is-invalid' : '')} />
+                        <CInput type="text" value={currentSystem.address} name='address'  onChange={handleInputChange} placeholder="Enter system's address"  className={'form-control' + (submitted && !currentSystem.address ? ' is-invalid' : '')} />
                         {submitted && !currentSystem.address &&
                             <div className="invalid-feedback">System address is required</div>
                         }

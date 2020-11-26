@@ -17,11 +17,15 @@ const getEmployee = id => {
 const getGallery = id => {
   return http.get(`galleries/gallery/${id}`);
 };
+const getSystem = id => {
+  return http.get(`system-settings/system/${id}`);
+};
 export default {
   getSlider,
   getNotice,
   getCalendar,
   getEmployeeCategory,
   getEmployee,
-  getGallery
+  getGallery,
+  getSystem
 };

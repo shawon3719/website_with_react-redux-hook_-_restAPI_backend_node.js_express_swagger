@@ -67,6 +67,9 @@ module.exports = {
   //update system info
   updateSystemInfo: (req, res) => {
     const body = req.body;
+    if(req.file){
+      body.system_logo = `uploads/system_logo/${req.file.filename}`
+    };
     updateSystemInfo(body, (err, results) => {
       if (err) {
         console.log(err);
