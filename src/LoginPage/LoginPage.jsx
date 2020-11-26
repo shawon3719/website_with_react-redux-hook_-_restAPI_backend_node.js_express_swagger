@@ -35,7 +35,8 @@ function LoginPage() {
 
     // reset login status
     useEffect(() => { 
-        dispatch(userActions.logout()); 
+      localStorage.clear()
+      dispatch(userActions.logout()); 
     }, []);
 
     function handleChange(e) {
