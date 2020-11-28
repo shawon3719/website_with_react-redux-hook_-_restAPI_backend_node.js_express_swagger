@@ -8,7 +8,6 @@ import {
   CFormGroup,
   CInput,
   CLabel,
-  CInputCheckbox,
   CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
@@ -29,7 +28,7 @@ const EditCalendar = props => {
   };
   const [currentCalendar, setCurrentCalendar] = useState(initialCalendarState);
   const [calendarImage, setCalendarImage] = useState("");
-  const [imgData, setImgData] = useState(null);
+  // const [imgData, setImgData] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
 
@@ -63,7 +62,7 @@ const EditCalendar = props => {
         setCalendarImage(e.target.files[0]);
         const reader = new FileReader();
         reader.addEventListener("load", () => {
-          setImgData(reader.result);
+          // setImgData(reader.result);
         });
         reader.readAsDataURL(e.target.files[0]);
     }

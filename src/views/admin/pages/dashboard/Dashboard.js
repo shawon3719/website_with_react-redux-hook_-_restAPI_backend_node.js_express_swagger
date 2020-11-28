@@ -165,7 +165,7 @@ function HomePage() {
                       employees.items.sort((a, b) => a.joining_date > b.joining_date ? 1:-1).map((employee, index) => (
               <li>
                 <span className="new-users-pic">
-                  <img src={employee.profile_photo} alt />
+                  <img src={employee.profile_photo} alt={employee.full_name} />
                 </span>
                 <span className="new-users-text">
                   <a href="#" className="new-users-name">{employee.full_name}</a>

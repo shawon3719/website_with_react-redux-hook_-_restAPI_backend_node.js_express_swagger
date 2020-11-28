@@ -7,7 +7,6 @@ import {
   CFormGroup,
   CInput,
   CLabel,
-  CInputCheckbox,
   CSelect,
   CTextarea,
   CSwitch,
