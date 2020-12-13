@@ -39,6 +39,8 @@ class App extends Component {
               <Route exact path="/employee-setup" name="Employee_Setup" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/employee-category" name="Employee_Category" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/all-employee" name="All_Employee" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/academic-program" name="Academic-Program" render={props => <TheAdminLayout {...props}/>} />
+              {/* <Route exact path="/all-employee" name="All_Employee" render={props => <TheAdminLayout {...props}/>} /> */}
               
 
               {/* <Route exact path="/contact" name="Pages" render={props => <TheAdminLayout {...props}/>} /> */}

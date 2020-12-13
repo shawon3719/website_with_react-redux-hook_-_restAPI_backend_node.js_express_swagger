@@ -33,12 +33,12 @@ export default [
     _tag: 'CSidebarNavTitle',
     _children: ['Base Setup']
   },
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'Page Setup',
-  //   to: '/page-setup',
-  //   icon: 'cil-star',
-  // },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Page Setup',
+    to: '/page-setup',
+    icon: 'cil-star',
+  },
   // {
   //   _tag: 'CSidebarNavDropdown',
   //   name: 'Academic Setup',
@@ -48,12 +48,12 @@ export default [
   //     {
   //       _tag: 'CSidebarNavItem',
   //       name: 'Program Setup',
-  //       to: '/employee-category',
+  //       to: '/academic-program',
   //     },
   //     {
   //       _tag: 'CSidebarNavItem',
   //       name: 'Course Setup',
-  //       to: 'all-employee',
+  //       to: '/academic-course',
   //     },
   //   ],
   // },
@@ -83,7 +83,7 @@ export default [
       {
         _tag: 'CSidebarNavItem',
         name: 'Manage Employee',
-        to: 'all-employee',
+        to: '/all-employee',
       },
     ],
   },

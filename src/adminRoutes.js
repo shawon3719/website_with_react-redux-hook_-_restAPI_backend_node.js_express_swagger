@@ -11,6 +11,7 @@ const System_Settings  = React.lazy(() => import('./views/admin/pages/systemSett
 const Calendar_Settings  = React.lazy(() => import('./views/admin/pages/calendar/calendar.settings'));
 const EmployeeCategory  = React.lazy(() => import('./views/admin/pages/employee/category/emloyee.category'));
 const AllEmployee  = React.lazy(() => import('./views/admin/pages/employee/employee_setup/employee'));
+const AcademicProgram  = React.lazy(() => import('./views/admin/pages/academic_setup/program/program'));
 
 const routes = [
   // Admin routes
@@ -23,7 +24,8 @@ const routes = [
   { path: '/system-settings', exact: true, name: 'System Settings', component: System_Settings },
   { path: '/calendar-settings', exact: true, name: 'Calendar Settings', component: Calendar_Settings },
   { path: '/employee-category', exact: true, name: 'Employee Category Settings', component: EmployeeCategory },
-  { path: '/all-employee', exact: true, name: 'All Employee Settings', component: AllEmployee }
+  { path: '/all-employee', exact: true, name: 'All Employee Settings', component: AllEmployee },
+  { path: '/academic-program', exact: true, name: 'All Academic Program', component: AcademicProgram }
 ];
 
 export default routes;
