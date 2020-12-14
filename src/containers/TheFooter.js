@@ -55,12 +55,19 @@ const TheFooter = () => {
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-12 col-sm-12 footer-col-4">
+          <div className="col-lg-3 col-md-12 col-sm-12 footer-col-4">
             <div className="widget">
               <h5 className="footer-title">Address</h5>
+              <ul>
+                <li>Email:<a href="mailto:info@kyanc.edu.bd">info@kyanc.edu.bd</a>
+                  <br></br>Mobile: +880 1915 477 962
+                  <br></br>Tel: +880 7516 3760-4
+                  <br></br>Fax: +880 7516 3853
+                </li>
+              </ul>
               <p className="text-capitalize m-b20">Vill: Enayetpur, P.O: Enayetpur, P.S: Chowhali<br></br>Dist.: Sirajgonj</p>
               <div className="subscribe-form m-b20">
-                {/* <form className="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
+                {/* <form className="subscription-form" action="#" method="post">
                   <div className="ajax-message" />
                   <div className="input-group">
                     <input name="email" required="required" className="form-control" placeholder="Your Email Address" type="email" />
@@ -72,17 +79,16 @@ const TheFooter = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-5 col-md-7 col-sm-12">
+          <div className="col-12 col-lg-6 col-md-7 col-sm-12">
             <div className="row">
               <div className="col-6 col-lg-6 col-md-4 col-sm-4">
                 <div className="widget footer_widget">
-                  <h5 className="footer-title">Contact Us</h5>
+                  <h5 className="footer-title">Sister Concern</h5>
                   <ul>
-                    <li>Email: info@kyanc.edu.bd
-                      <br></br>Mobile: +880 1915 477 962
-                      <br></br>Tel: +880 7516 3760-4
-                      <br></br>Fax: +880 7516 3853
-                    </li>
+                  <li><a target="_blank" href="http://kyau.edu.bd/kyau/" >Khwaja Yunus Ali University</a>
+                  <br></br><a target="_blank" href="http://kyamch.org/newsite/" >Khwaja Yunus Ali Medical College & Hospital</a>
+                  <br></br><a target="_blank" href="http://kyamc.edu.bd/" >Khwaja Yunus Ali Medical College</a>
+                  <br></br><a target="_blank" href="#" >Khwaja Yunus Ali laboratory School & College</a></li>
                   </ul>
                 </div>
               </div>
@@ -90,8 +96,8 @@ const TheFooter = () => {
                 <div className="widget footer_widget">
                   <h5 className="footer-title">Courses</h5>
                   <ul>
-                    <li><a href="courses.html">Diploma in Nursing Science & Midwifery</a></li>
-                    <li><a href="courses-details.html">Post Basic BSc. in Nursing</a></li>
+                    <li><Link to="/courses">Diploma in Nursing Science & Midwifery</Link></li>
+                    <li><Link to="/courses">Post Basic BSc. in Nursing</Link></li>
                   </ul>
                 </div>
               </div>
