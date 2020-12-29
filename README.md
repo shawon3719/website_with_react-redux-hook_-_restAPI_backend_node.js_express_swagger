@@ -65,13 +65,31 @@ $ npm run build
 
 ### Deploy To Docker
 
-Run `docker build -t my-react-app .` to build the docker image of the project. Run `docker run -p 3007:3007 my-react-app` to run the image.
+Run `docker build -t my-react-app .` to build the docker image of the project.  Run `docker ps -a` to view all the available image. Run `docker run -p 3007:3007 my-react-app` to run the image.
 
 ```bash
 # You can also run this docker image from any docker enabled PC.
 $ docker run -p 3007:3007 shawon3719/kyanc-react-website 
 ```
 
+Docker images can be hosted and shared in special image registries. The most popular is Docker Hub, a GitHub among Docker registries, in which you can host private and public images. Let's push an image to Docker Hub now:
+
+Sign up at `hub.docker.com`
+Build the image again using your Docker Hub credentials:
+```bash
+ $ docker build -t [USERNAME]/hello-world .
+#Log in to Docker Hub with your credentials:
+ $ docker login
+```
+Push the image to Docker Hub:
+```bash
+ $ docker push [USERNAME]/hello-world
+```
+To delete a running image:
+```bash
+$ docker rmi imagename:tag
+#Example: $ docker rmi kyanc-rect-website:latest
+```
 ## What's included
 
 Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
