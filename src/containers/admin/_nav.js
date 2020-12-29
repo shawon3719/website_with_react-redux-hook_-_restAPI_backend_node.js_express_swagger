@@ -33,12 +33,12 @@ export default [
     _tag: 'CSidebarNavTitle',
     _children: ['Base Setup']
   },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Page Setup',
-    to: '/page-setup',
-    icon: 'cil-star',
-  },
+  // {
+  //   _tag: 'CSidebarNavItem',
+  //   name: 'Page Setup',
+  //   to: '/page-setup',
+  //   icon: 'cil-star',
+  // },
   // {
   //   _tag: 'CSidebarNavDropdown',
   //   name: 'Academic Setup',

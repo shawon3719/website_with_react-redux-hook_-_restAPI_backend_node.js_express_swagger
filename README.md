@@ -63,6 +63,15 @@ Run `build` to build the project. The build artifacts will be stored in the `bui
 $ npm run build
 ```
 
+### Deploy To Docker
+
+Run `docker build -t my-react-app .` to build the docker image of the project. Run `docker run -p 3007:3007 my-react-app` to run the image.
+
+```bash
+# You can also run this docker image from any docker enabled PC.
+$ docker run -p 3007:3007 shawon3719/kyanc-react-website 
+```
+
 ## What's included
 
 Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations. You'll see something like this:
@@ -72,11 +81,19 @@ Shawon-React#v3.0.0
 ├── public/          #static files
 │   └── index.html   #html template
 │
-├── api/             #static files
-│   ├── userAPI      #user API Setup
-│   └── SliderAPI    #slider API Setup
-├── src/             #project root
+├── api/                    #static files
+│   ├── userAPI             #user API Setup
+│   └── SliderAPI           #slider API Setup
+│   └── academicCalendar    #academicCalendar API Setup
+│   └── employeeCategory    #employeeCategory API Setup
+│   └── employee            #employee API Setup
+│   └── gallery             #gallery API Setup
+│   └── notice              #notice API Setup
+│   └── program             #program API Setup
+│   └── sytemSetting        #sytemSetting API Setup
+│   └── user                #user API Setup
 ├── auth/            #token validation
+├── src/             #project root
 │   ├── assets/      #assets - js icons object
 │   ├── containers/  #container source - template layout
 |   │   ├── _nav.js  #sidebar config
@@ -92,9 +109,10 @@ Shawon-React#v3.0.0
 ├── validation/      #user request body validation
 │
 ├── server.js/       #server config
-└── package.json
+├── package.json     #all-package config
+└── Dockerfile       #docker config
 ```
-## Creators
+## Creator
 
 **Masudul Hasan Shawon**
 * <https://github.com/shawon3719>

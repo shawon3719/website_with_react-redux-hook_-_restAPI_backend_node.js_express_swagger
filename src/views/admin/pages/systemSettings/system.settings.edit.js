@@ -209,12 +209,11 @@ const EditSystem = props => {
             </div>
           </div>
         </div>
-      ) : 
+      )  : 
       (
         <div>
           <br />
-          {
-            setCurrentSystem(getSystemByID)}
+          <p>Please wait...</p>
         </div>
       )}
     </div>

@@ -16,7 +16,7 @@ module.exports = {
     const body = req.body;
     const salt = genSaltSync(10);
     body.password = hashSync(body.password, salt);
-    body.profile = `uploads/profile/${req.file.filename}`;
+    // body.profile = `uploads/profile/${req.file.filename}`;
     create(body, (err, results) => {
       if (err) {
         console.log(err);
@@ -28,7 +28,7 @@ module.exports = {
       return res.status(200).json({
         success: 1,
         message: "User created successfully",
-        profile_url: `${process.env.REACT_APP_APP_URL}/uploads/images/${req.file.filename}`
+        // profile_url: `${process.env.REACT_APP_APP_URL}/uploads/images/${req.file.filename}`
       });
     });
   },
