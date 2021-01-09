@@ -28,11 +28,21 @@ class App extends Component {
             <Switch>
             {/* //Admin Routes */}
               <Route exact path="/admin" name="Login Page" render={props => <LoginPage {...props}/>} />
-              <Route path="/admin-index" name="Admin Dashboard" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/admin-index" name="Admin Dashboard" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/admin-404" name="Page 404" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/sliders" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/notice-setup" name="Sliders" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/galleries" name="Galleries" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/page-setup" name="Pages" render={props => <TheAdminLayout {...props}/>} />
               <Route exact path="/system-settings" name="System_Setup" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/calendar-settings" name="Calendar_Setup" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/employee-setup" name="Employee_Setup" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/employee-category" name="Employee_Category" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/all-employee" name="All_Employee" render={props => <TheAdminLayout {...props}/>} />
+              <Route exact path="/academic-program" name="Academic-Program" render={props => <TheAdminLayout {...props}/>} />
+              {/* <Route exact path="/all-employee" name="All_Employee" render={props => <TheAdminLayout {...props}/>} /> */}
+              
+
               {/* <Route exact path="/contact" name="Pages" render={props => <TheAdminLayout {...props}/>} /> */}
 
               <Route exact path="/register" name="Register Page" render={props => <Register {...props}/>} />

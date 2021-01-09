@@ -42,7 +42,7 @@ export function systems(state = {}, action) {
         case systemConstants.GETBYID_SUCCESS:
             return {
                 ...state,
-                currentSlider: state.items.filter(system => system.id === action.id)
+                currentSystem: state.items.filter(system => system.id === action.id)
             };
         case systemConstants.GETBYID_FAILURE:
             return {};

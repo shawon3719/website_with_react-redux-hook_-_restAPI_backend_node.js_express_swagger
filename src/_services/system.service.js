@@ -1,6 +1,7 @@
 import { apiUrl } from "../reusable/apiHost"
 import { authHeader } from '../_helpers';
 import http from "../http-common";
+import { isEmptyObject } from "jquery";
 
 export const systemService = {
     create,
@@ -45,10 +46,22 @@ function create(system, systemImage) {
 function update(currentSystem, systemImage) {
     var formdata = new FormData();
     formdata.append("id", currentSystem.id);
-    formdata.append("title", currentSystem.title);
-    formdata.append("description", currentSystem.description);
-    formdata.append("image", systemImage, systemImage.name);
+    if(!isEmptyObject(systemImage)){
+        formdata.append("system_logo", systemImage, systemImage.name);
+    }else{
+        formdata.append("system_logo", currentSystem.system_logo);
+    }
+    formdata.append("systemName", currentSystem.systemName);
+    formdata.append("title",currentSystem.title);
+    formdata.append("email", currentSystem.email);
+    formdata.append("system_url", currentSystem.system_url);
+    formdata.append("phone_no", currentSystem.phone_no);
+    formdata.append("mobile", currentSystem.mobile);
+    formdata.append("address", currentSystem.address);
     formdata.append("priority", currentSystem.priority);
+    formdata.append("updated_by", currentSystem.updated_by);
+    formdata.append("active_status", currentSystem.active_status == true? 1 : 0);
+    
     
     const requestOptions = {
       method: 'PATCH',
@@ -59,28 +72,14 @@ function update(currentSystem, systemImage) {
 return fetch(`${apiUrl}system-settings/update`, requestOptions).then(handleResponse);
 }
 
-// function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
-//     return fetch(`${apiUrl}systems/system/${id}`, requestOptions).then(handleResponse);
-// }
+function getById(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+    return fetch(`${apiUrl}system-settings/system/${id}`, requestOptions).then(handleResponse);
+}
 
-const getById = id => {
-    return http.get(`system-settings/system/${id}`);
-  };
-
-
-// function update(system) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(system)
-//     };
-
-//     return fetch(`${apiUrl}systems/${system.id}`, requestOptions).then(handleResponse);;
-// }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {

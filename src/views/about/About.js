@@ -46,49 +46,49 @@ class About extends Component {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-6 col-sm-6 m-b30">
-            <div className="feature-container">
-              <div className="feature-md text-white m-b20">
-                <a href="#" className="icon-cell"><img src="assets/images/icon/icon1.png" alt /></a> 
-              </div>
-              <div className="icon-content">
-                <h5 className="ttr-tilte">Outcome of Courses</h5>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod..</p>
-              </div>
-            </div>
-          </div>
+          <div className="feature-container">
+                        <div className="feature-md text-white m-b20">
+                          <Link to="/outcome-of-courses" className="icon-cell"><img src="assets/images/icon/icon1.png" alt /></Link> 
+                        </div>
+                        <div className="icon-content">
+                          <h5 className="ttr-tilte">Outcome of Courses</h5>
+                          <p>Outcome Of Diploma-In-Nursing Science & Midwifery Course  <Link to="/outcome-of-courses" className="btn button-md">Read More..</Link> </p>
+                        </div>
+                      </div>
+                    </div>
           <div className="col-lg-3 col-md-6 col-sm-6 m-b30">
-            <div className="feature-container">
-              <div className="feature-md text-white m-b20">
-                <a href="#" className="icon-cell"><img src="assets/images/icon/icon2.png" alt /></a> 
-              </div>
-              <div className="icon-content">
-                <h5 className="ttr-tilte">Message from the Principal</h5>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod..</p>
-              </div>
-            </div>
-          </div>
+          <div className="feature-container">
+                        <div className="feature-md text-white m-b20">
+                          <Link to="/message-of-principle" className="icon-cell"><img src="assets/images/icon/icon2.png" alt /></Link> 
+                        </div>
+                        <div className="icon-content">
+                          <h5 className="ttr-tilte">Message from the Principal</h5>
+                          <p>This is the high time for young men and women to enter <Link to="/message-of-principle" className="btn button-md">Read More..</Link></p>
+                        </div>
+                      </div>
+                    </div>
           <div className="col-lg-3 col-md-6 col-sm-6 m-b30">
-            <div className="feature-container">
-              <div className="feature-md text-white m-b20">
-                <a href="#" className="icon-cell"><img src="assets/images/icon/icon3.png" alt /></a> 
-              </div>
-              <div className="icon-content">
-                <h5 className="ttr-tilte">Key Of Success</h5>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod..</p>
-              </div>
-            </div>
-          </div>
+          <div className="feature-container">
+                        <div className="feature-md text-white m-b20">
+                          <Link to="/vision-and-mission" className="icon-cell"><img src="assets/images/icon/icon3.png" alt /></Link> 
+                        </div>
+                        <div className="icon-content">
+                          <h5 className="ttr-tilte">Key Of Success</h5>
+                          <p>Vision of Khwaja Yunus Ali Nursing College is basically <Link to="/vision-and-mission" className="btn button-md">Read More..</Link></p>
+                        </div>
+                      </div>
+                    </div>
           <div className="col-lg-3 col-md-6 col-sm-6 m-b30">
-            <div className="feature-container">
-              <div className="feature-md text-white m-b20">
-                <a href="#" className="icon-cell"><img src="assets/images/icon/icon4.png" alt /></a> 
-              </div>
-              <div className="icon-content">
-                <h5 className="ttr-tilte">Our Philosophy</h5>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod..</p>
-              </div>
-            </div>
-          </div>
+          <div className="feature-container">
+                        <div className="feature-md text-white m-b20">
+                          <Link to="/philosophy" className="icon-cell"><img src="assets/images/icon/icon4.png" alt /></Link> 
+                        </div>
+                        <div className="icon-content">
+                          <h5 className="ttr-tilte">Our Philosophy</h5>
+                          <p>As women are the most neglected group in our society <Link to="/philosophy" className="btn button-md">Read More..</Link></p>
+                        </div>
+                      </div>
+                    </div>
         </div>
       </div>
     </div>

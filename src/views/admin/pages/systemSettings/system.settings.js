@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // import CreateSystem from './CreateSystem';
 // import EditSystem from './EditSystem';
-import $ from 'jquery'
+import $, { isEmptyObject } from 'jquery'
 // Scripts
 import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/popper.min.js';
@@ -45,6 +45,7 @@ import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import CreateSystem from "./system.settings.create";
 import EditSystem from "./system.settings.edit";
+import { customUrl } from "src/reusable/apiHost"
 
 
 const SystemsList = props => {
@@ -133,7 +134,9 @@ const SystemsList = props => {
         <CCard>                 
           <CCardHeader className="bg-info">
             All Systems List
-
+            {
+              isEmptyObject(systems.items) ?
+            
             <CButton
             className="btn btn-sm btn-success"
             style={{float:"right", border:'.001em solid #22963c'}}
@@ -142,7 +145,9 @@ const SystemsList = props => {
             >
               <i style={{fontSize: '5px!important'}} className="fa fa-plus"></i><span> Add</span>
             </CButton>
-            
+            :
+            ''
+          }
           </CCardHeader>
           {
             systems.items ?
@@ -172,7 +177,7 @@ const SystemsList = props => {
                           <td>{system.title}</td>
                           <td>{system.system_url}</td>
                           <td>{'Email: '+system.email+', Phone: '+system.phone_no+', Mobile: '+system.mobile}</td>
-                          <td><img src={system.system_logo} width="100"/></td>
+                          <td><img src={customUrl+system.system_logo} width="100"/></td>
                           <td>{system.address}</td>
                           <td>{system.priority}</td>
                                         <td><span className={system.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{system.active_status == 1? 'active' : 'inactive'}</span></td>
@@ -221,7 +226,23 @@ const SystemsList = props => {
           }
           </CCard>
           <CreateSystem/>
-          <EditSystem/>
+          {currentSystem ? (
+            <EditSystem
+            id = {currentSystem.id}
+            systemName        = {currentSystem.systemName}
+            title             = {currentSystem.title}
+            email             = {currentSystem.email}
+            system_url        = {currentSystem.system_url}
+            phone_no          = {currentSystem.phone_no}
+            mobile            = {currentSystem.mobile}
+            address           = {currentSystem.address}
+            active_status     = {true}
+            priority          = {currentSystem.priority}
+          />
+        ) : 
+        (
+          <div></div>
+        )}
        
     </div>
 

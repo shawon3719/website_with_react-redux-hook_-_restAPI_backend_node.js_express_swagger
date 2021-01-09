@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { systemActions } from 'src/_actions';
+import { systemActions, employeeActions, noticeActions } from 'src/_actions';
 import { authentication } from 'src/_reducers/authentication.reducer';
+import Moment from 'moment';
 
 function HomePage() {
     // const users = useSelector(state => state.users);
     // const user = useSelector(state => state.authentication.user);
     // const loginStatus = useSelector((action) => action.type);
+    const employees = useSelector(state => state.employees);
+    const notices = useSelector(state => state.notices);
     const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
 
@@ -21,6 +24,9 @@ function HomePage() {
       }
       if(!isLoggedIn){
         window.location.href = '/#/admin'
+      }else{
+        dispatch(employeeActions.getAll());
+        dispatch(noticeActions.getAll());
       }
     }, []);
     return (
@@ -72,7 +78,7 @@ function HomePage() {
             All Category
           </span>
           <span className="wc-stats counter">
-            120 
+            {employees.items && employees.items.length}
           </span>		
           <div className="progress wc-progress">
             <div className="progress-bar" role="progressbar" style={{width: '88%'}} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
@@ -144,6 +150,8 @@ function HomePage() {
   {/* Card END */}
   <div className="row">
     {/* Latest Employee */}
+    {
+            employees.items ?
     <div className="col-lg-8 m-b30">
       <div className="widget-box">
         <div className="wc-title">
@@ -152,47 +160,31 @@ function HomePage() {
         <div className="widget-inner">
           <div className="new-user-list">
             <ul>
+            {
+                      employees.items &&
+                      employees.items.sort((a, b) => a.joining_date > b.joining_date ? 1:-1).map((employee, index) => (
               <li>
                 <span className="new-users-pic">
-                  <img src="assets/images/testimonials/pic1.jpg" alt />
+                  <img src={employee.profile_photo} alt={employee.full_name} />
                 </span>
                 <span className="new-users-text">
-                  <a href="#" className="new-users-name">Mr. Abdul Kadir </a>
-                  <span className="new-users-info">Visual Designer,Google Inc </span>
+                  <a href="#" className="new-users-name">{employee.full_name}</a>
+                  <span className="new-users-info">{employee.designation}</span>
                 </span>
                 <span className="new-users-btn">
-                  <a href="#" className="btn button-sm outline">View More</a>
+                  <Link to="/all-employee" className="btn button-sm outline">View More</Link>
                 </span>
               </li>
-              <li>
-                <span className="new-users-pic">
-                  <img src="assets/images/testimonials/pic2.jpg" alt />
-                </span>
-                <span className="new-users-text">
-                  <a href="#" className="new-users-name"> Milano Esco </a>
-                  <span className="new-users-info">Product Designer, Apple Inc </span>
-                </span>
-                <span className="new-users-btn">
-                  <a href="#" className="btn button-sm outline">View More</a>
-                </span>
-              </li>
-              <li>
-                <span className="new-users-pic">
-                  <img src="assets/images/testimonials/pic1.jpg" alt />
-                </span>
-                <span className="new-users-text">
-                  <a href="#" className="new-users-name">Nick Bold</a>
-                  <span className="new-users-info">Web Developer, Facebook Inc </span>
-                </span>
-                <span className="new-users-btn">
-                  <a href="#" className="btn button-sm outline">View More</a>
-                </span>
-              </li>
-             </ul>
+                      )).reverse().slice(0, 3)}
+              </ul>
           </div>
         </div>
       </div>
     </div>
+    :
+    <span className="spinner-border spinner-border-sm mr-1"></span>
+    }
+    
     {/* Latest Notice*/}
     <div className="col-lg-4 m-b30">
       <div className="widget-box">
@@ -202,34 +194,21 @@ function HomePage() {
         <div className="widget-inner">
           <div className="orders-list">
             <ul>
+            {
+                      notices.items &&
+                      notices.items.sort((a, b) => a.created_at > b.created_at ? 1:-1).map((notice, index) => (
+              
               <li>
                 <span className="orders-title">
-                  <a href="#" className="orders-title-name">BSC. Admission </a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
+                  <a href="#" className="orders-title-name">{notice.title}</a>
+                  <span className="orders-info">Notice #{notice.id} | Published - { Moment(notice.created_at).fromNow()}</span>
                 </span>
                 <span className="orders-btn">
-                  <a href="#" className="btn button-sm red">Inactive</a>
+                  <a href="#" className={notice.active_status == 1 ? 'btn button-sm green' : 'btn button-sm red'}>{notice.active_status == 1 ? 'Active' : 'Inactive'}</a>
                 </span>
               </li>
-              <li>
-                <span className="orders-title">
-                  <a href="#" className="orders-title-name">Diploma Mid-term Exam</a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
-                </span>
-                <span className="orders-btn">
-                  <a href="#" className="btn button-sm red">Inactive</a>
-                </span>
-              </li>
-              <li>
-                <span className="orders-title">
-                  <a href="#" className="orders-title-name">Assistant Teacher Circular </a>
-                  <span className="orders-info">Notice #02357 | Date 12/08/2019</span>
-                </span>
-                <span className="orders-btn">
-                  <a href="#" className="btn button-sm green">Active</a>
-                </span>
-              </li>
-             </ul>
+              )).reverse().slice(0, 2)}
+              </ul>
           </div>
         </div>
       </div>

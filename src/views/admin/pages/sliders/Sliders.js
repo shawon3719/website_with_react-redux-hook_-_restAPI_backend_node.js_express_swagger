@@ -8,7 +8,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-import SliderDataService from "../../../../_services/SliderService";
+// import SliderDataService from "../../../../_services/combined.service";
 import { Link } from "react-router-dom";
 import CreateSlider from './CreateSlider';
 import EditSlider from './EditSlider';
@@ -90,10 +90,6 @@ const SlidersList = props => {
     }
   }
 
-  // const refreshList = () => {
-  //   dispatch(sliderActions.getAll());
-  // };
-
   const setActiveSlider = (slider, index) => {
     setCurrentSlider(slider);
     setCurrentIndex(index);
@@ -150,7 +146,8 @@ const SlidersList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th style={{width:"11%"}}>Action</th>
                     </tr>
                   </thead>
@@ -174,6 +171,7 @@ const SlidersList = props => {
                           </td>
                           <td><img src={slider.image} width="100"/></td>
                           <td>{slider.priority}</td>
+                          <td><span className={slider.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{slider.active_status == 1? 'active' : 'inactive'}</span></td>
                           <td>
                             <button 
                               className='btn btn-info btn-xs'
@@ -200,7 +198,8 @@ const SlidersList = props => {
                       <th>Title</th>
                       <th>Description</th>
                       <th>Image</th>
-                      <th>priority</th>
+                      <th>Priority</th>
+                      <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </tfoot>
@@ -216,7 +215,11 @@ const SlidersList = props => {
         <CreateSlider/>
         {currentSlider ? (
           <EditSlider
-           
+            id = {currentSlider.id}
+            title = {currentSlider.title}
+            description = {currentSlider.description}
+            created_by = {currentSlider.created_by}
+            priority = {currentSlider.priority}
           />
         ) : 
         (

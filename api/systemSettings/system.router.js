@@ -29,7 +29,7 @@ const upload = multer({
 router.get("/all", getSystemInfo);
 router.post("/create",checkToken, upload.single('system_logo'), addSystemValidation, createSystemInfo);
 router.get("/system/:id", checkToken, getSystemInfoById);
-router.patch("/update", checkToken, updateSystemInfo);
+router.patch("/update", checkToken, upload.single('system_logo'), updateSystemInfo);
 router.delete("/delete/:id", checkToken, deleteSystemInfo);
 
 module.exports = router;

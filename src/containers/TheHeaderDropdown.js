@@ -15,11 +15,12 @@ import { userActions } from '../_actions';
 function TheHeaderDropdown() {
   const users = useSelector(state => state.users);
   const user = useSelector(state => state.authentication.user);
+  const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
   const token = localStorage.getItem('token')
   const dispatch = useDispatch();
 
   useEffect(() => {
-      if(token == null || token == ' '){
+    if(isLoggedIn != true){
       dispatch(userActions.logout());
       window.location.href = "/#/admin"
       }
@@ -48,7 +49,11 @@ const TheHeaderDropdownVar = () => {
           color="light"
           className="text-center"
         >
-          <strong>{user && user.firstName+' '+user.lastName}</strong>
+          {
+            user?
+            <strong>{user && user.firstName+' '+user.lastName}</strong>
+            :''
+          }
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem>

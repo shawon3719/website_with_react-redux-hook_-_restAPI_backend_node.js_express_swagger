@@ -4,14 +4,15 @@ module.exports = {
     //Create Sliders
   create: (data, callBack) => {
     pool.query(
-      `insert into slider(title, description, image, priority,created_by)
-            values(?,?,?,?,?)`,
+      `insert into slider(title, description, image, priority, active_status, created_by)
+            values(?,?,?,?,?,?)`,
 
       [
         data.title,
         data.description,
         data.image,
         data.priority,
+        data.active_status,
         data.created_by,
       ],
       (error, results, fields) => {
@@ -25,7 +26,7 @@ module.exports = {
   //Get all Users
   getSliders: (callBack) => {
     pool.query(
-      `select id, title, description, image, priority, created_by, created_at from slider`,
+      `select id, title, description, image, priority, active_status, created_by, created_at from slider`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -38,7 +39,7 @@ module.exports = {
   //Get Sliders By ID
   getSliderBySliderId: (id, callBack) => {
     pool.query(
-      `select id, title, description, image, priority, created_by, created_at from slider where id = ?`,
+      `select id, title, description, image, priority, active_status, created_by, created_at from slider where id = ?`,
       [id],
       (error, results, fields) => {
         if (error) {
@@ -51,12 +52,14 @@ module.exports = {
   //Update Slider By ID
   updateSlider: (data, callBack) => {
     pool.query(
-      `update slider set title=?, description=?, image=?, priority=? where id=?`,
+      `update slider set title=?, description=?, image=?, priority=?, active_status=?, updated_by=? where id=?`,
       [
         data.title,
         data.description,
         data.image,
         data.priority,
+        data.active_status,
+        data.updated_by,
         data.id,
       ],
       (error, results, fields) => {

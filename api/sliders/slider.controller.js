@@ -65,7 +65,9 @@ const {
     //update slider info
     updateSlider: (req, res) => {
       const body = req.body;
-      body.image = `uploads/sliders/${req.file.filename}`;
+      if(req.file){
+        body.image = `uploads/sliders/${req.file.filename}`
+      };
       updateSlider(body, (err, results) => {
         if (err) {
           console.log(err);

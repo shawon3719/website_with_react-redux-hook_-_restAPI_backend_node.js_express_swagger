@@ -1,5 +1,5 @@
 /**
- * About page
+ * Facilities page
  * React and JSX
  * @version 16.5.2
  * @author [Masudul Hasan Shawon](masudul@atilimited.net)
@@ -7,8 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import { Route , withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 
 
 class About extends Component {

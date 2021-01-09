@@ -27,10 +27,14 @@
 .env.test.local
 .env.production.local
 
-public/uploads/profile/profile*
+# public/uploads/profile/profile*
 public/uploads/sliders/image*
 public/uploads/pages/image*
-public/uploads/pages/system_logo*
+public/uploads/system_logo/system_logo*
+public/uploads/calendar_file/calendar_file*
+public/uploads/profile_photo/profile_photo*
+public/uploads/notices/image*
+public/uploads/galleries/image*
 
 npm-debug.log*
 yarn-debug.log*
