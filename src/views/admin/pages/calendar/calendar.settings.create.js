@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { calendarActions } from '../../../../_actions/calendar.action';
 import {
   CButton,

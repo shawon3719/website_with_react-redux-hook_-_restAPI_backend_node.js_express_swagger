@@ -80,8 +80,8 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run dev\"",
-    "server": "pm2 start -f server.js --watch --silent",
-    "dev": "react-scripts start --silent",
+    "server": "pm2 start -f server.js --watch",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "kil": "pm2 kill",
     "test": "react-scripts test",
