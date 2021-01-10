@@ -11,6 +11,7 @@ import CIcon from '@coreui/icons-react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../_actions';
+import { customUrl } from "src/reusable/apiHost";
 
 function TheHeaderDropdown() {
   const users = useSelector(state => state.users);
@@ -36,7 +37,7 @@ const TheHeaderDropdownVar = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={user && user.profile}
+            src={user && customUrl+user.profile}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />

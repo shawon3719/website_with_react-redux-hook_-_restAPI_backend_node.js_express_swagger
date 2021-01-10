@@ -39,7 +39,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { calendarActions } from '../../../../_actions/calendar.action';
 import { userActions } from "src/_actions";
-
+import {customUrl} from "src/reusable/apiHost"
 import ShowMoreText from 'react-show-more-text';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -217,7 +217,7 @@ function handleNextPage(){
                               <div id="placeholderWrapper" style={{ height: 'auto' }} />
                               <div id="pdfWrapper" style={{ width: '22vw' }} ref={pdfWrapper}>
                                   <Document
-                                    file={calendar.calendar_file}
+                                    file={customUrl+calendar.calendar_file}
                                     onLoadSuccess={onDocumentLoadSuccess}
                                     noData="No Calendar Found!"
                                     loading={<span className="spinner-border spinner-border-lg mr-1"></span>}

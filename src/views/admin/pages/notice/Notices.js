@@ -42,6 +42,7 @@ import ShowMoreText from 'react-show-more-text';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import { customUrl } from  "src/reusable/apiHost";
 
 
 const NoticesList = props => {

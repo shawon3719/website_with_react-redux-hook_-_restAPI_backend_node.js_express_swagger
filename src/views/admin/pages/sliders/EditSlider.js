@@ -12,7 +12,7 @@ import {
   CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
-import {apiUrl} from '../../../../reusable/apiHost';
+import {apiUrl, customUrl} from '../../../../reusable/apiHost';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
@@ -121,7 +121,7 @@ const EditSlider = props => {
                       </CFormGroup>
                       <div className="previewSliderImage">
                       <p>Old Image</p>
-                              <img width="80" src={currentSlider.image} />
+                              <img width="80" src={customUrl+currentSlider.image} />
                       </div>
                       <div className="previewSliderImage">
                               <img width="80" src={imgData} />

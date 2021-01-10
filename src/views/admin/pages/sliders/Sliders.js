@@ -43,6 +43,7 @@ import ShowMoreText from 'react-show-more-text';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import { customUrl } from "src/reusable/apiHost";
 
 
 const SlidersList = props => {
@@ -169,7 +170,7 @@ const SlidersList = props => {
                               <ReactQuill value={slider.description} theme="bubble" readOnly />
                             </ShowMoreText> 
                           </td>
-                          <td><img src={slider.image} width="100"/></td>
+                          <td><img src={customUrl+slider.image} width="100"/></td>
                           <td>{slider.priority}</td>
                           <td><span className={slider.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{slider.active_status == 1? 'active' : 'inactive'}</span></td>
                           <td>

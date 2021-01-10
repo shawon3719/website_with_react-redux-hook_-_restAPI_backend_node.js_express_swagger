@@ -43,7 +43,7 @@ import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import CreateEmployee from "./employee.create";
 import EditEmployee from "./employee.edit";
-
+import { customUrl } from "src/reusable/apiHost";
 
 const EmployeesList = props => {
   const employees = useSelector(state => state.employees);
@@ -168,7 +168,7 @@ const EmployeesList = props => {
                           <td><p style={{fontSize:"15px", fontWeight:"bold", color:"darkgreen"}}>{employee.full_name}</p><br/><i>{employee.designation}</i></td>
                           <td>{employee.employee_category}</td>
                           <td><b>Email: </b>{employee.email} <b>Phone: </b>{employee.phone}</td>
-                          <td><img src={employee.profile_photo} width="100"/></td>
+                          <td><img src={customUrl+employee.profile_photo} width="100"/></td>
                           <td><b>DOB: </b>{employee.date_of_birth} <br/><b>Joining Date: </b>{employee.joining_date}<br/><b>Present Address: </b>{employee.present_address}<br/><b>Permanent Address: </b>{employee.permanent_address}</td>
                           <td>{employee.priority}</td>
                                         <td><span className={employee.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{employee.active_status == 1? 'active' : 'inactive'}</span></td>

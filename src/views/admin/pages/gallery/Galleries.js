@@ -38,6 +38,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { galleryActions } from '../../../../_actions/gallery.action';
 import { userActions } from "src/_actions";
+import { customUrl } from "src/reusable/apiHost";
 
 const GalleriesList = props => {
   const galleries = useSelector(state => state.galleries);
@@ -151,7 +152,7 @@ const GalleriesList = props => {
                         <tr>
                           <td>{index+1}</td>
                           <td>{gallery.title}</td>
-                          <td><img src={gallery.image} width="100"/></td>
+                          <td><img src={customUrl+gallery.image} width="100"/></td>
                           <td><span className={gallery.active_status == 1 ? 'badge badge-success badge-pill' : 'badge badge-danger badge-pill'}>{gallery.active_status == 1? 'active' : 'inactive'}</span></td>
                           <td>{gallery.priority}</td>
                           <td>

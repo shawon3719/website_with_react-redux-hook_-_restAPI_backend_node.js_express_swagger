@@ -12,7 +12,7 @@ import {
   CSwitch,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
-import {apiUrl} from '../../../../reusable/apiHost';
+import {apiUrl, customUrl} from '../../../../reusable/apiHost';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';

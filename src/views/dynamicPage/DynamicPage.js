@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from "react";
 import PageDataService from "../../_services/PageService";
 import { scrollToTop } from "../../_reducers/scroll.reducer"
-
+import {customUrl} from "src/reusable/apiHost"
+ 
 const pageNo = window.location.toString().split('=')[1]
 const Dynamic = pageNo => {
 
@@ -73,7 +74,7 @@ const getPage = id => {
               </div>
               <div className="col-lg-4 col-md-12 heading-bx p-lr">
                 <div className="video-bx">
-                  <img src={currentPage.image} alt={currentPage.title+"_iamge"} />
+                  <img src={customUrl+currentPage.image} alt={currentPage.title+"_iamge"} />
                 </div>
               </div>
             </div>

@@ -17,6 +17,7 @@ import {  Document, Page } from "react-pdf";
 import { pdfjs } from 'react-pdf';
 import { CButton } from "@coreui/react";
 import { Link } from 'react-router-dom';
+import {customUrl} from  "src/reusable/apiHost"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
@@ -130,7 +131,7 @@ function handleNextPage(){
                           <div id="placeholderWrapper" style={{ height: 'auto' }} />
                           <div id="pdfWrapper" style={{ width: '90vw' }} ref={pdfWrapper}>
                               <Document
-                                file={calendar.calendar_file}
+                                file={customUrl+calendar.calendar_file}
                                 onLoadSuccess={onDocumentLoadSuccess}
                                 noData="No Calendar Found!"
                                 loading={<span className="spinner-border spinner-border-lg mr-1"></span>}

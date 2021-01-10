@@ -6,6 +6,7 @@ import routes from '../routes'
 import './TheHeader.css'
 import { Link } from 'react-router-dom'
 import { systemActions, noticeActions } from '../_actions';
+import { customUrl } from "src/reusable/apiHost"
 
 const pageNo = window.location.toString()
 const TheHeader = () => {
@@ -71,7 +72,7 @@ useEffect(() => {
             {
                 systems.items &&
                 systems.items.map((system, index) => (
-              <Link to="/"><img src={system.system_logo} alt /></Link>
+              <Link to="/"><img src={customUrl+system.system_logo} alt /></Link>
                 ))}
               {/* <span style={{color: "red"}}>KYANC</span> */}
             </div>

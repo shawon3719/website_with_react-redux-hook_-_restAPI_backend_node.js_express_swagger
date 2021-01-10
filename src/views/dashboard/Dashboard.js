@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sliderActions } from "src/_actions";
 import ReactQuill from "react-quill";
 import { Link } from "react-router-dom";
+import {customUrl} from "src/reusable/apiHost";
 
 const Dashboard = (props) => {
 const sliders = useSelector(state => state.sliders);
@@ -30,7 +31,7 @@ const dispatch = useDispatch();
               <div
                 key={index}
                 className="slider-content"
-                style={{ background: `url('${slider.image}') no-repeat center center` }}
+                style={{ background: `url('${customUrl+slider.image}') no-repeat center center` }}
               >
                 <div className="inner">
                   <h1>{slider.title}</h1>

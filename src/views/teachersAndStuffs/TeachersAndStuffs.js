@@ -13,6 +13,7 @@ import './teacherAndStuff.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { employeeActions, userActions } from "src/_actions";
 import { scrollToTop } from 'src/_reducers/scroll.reducer';
+import {customUrl} from "src/reusable/apiHost";
 
 
 const TeachersAndStuffs = (props) => {
@@ -53,7 +54,7 @@ const TeachersAndStuffs = (props) => {
                       employees.items.map((employee, index) => (
   <li>
     <a href="#">
-      <img src={employee.profile_photo} />
+      <img src={customUrl+employee.profile_photo} />
       <span className="member-title">{employee.full_name}</span>
       <span className="member-title-hover">{employee.designation}</span>
     </a>

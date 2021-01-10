@@ -23,6 +23,7 @@ import { Alert } from "bootstrap";
 import { authHeader } from "src/_helpers";
 import ReactQuill from 'react-quill';
 import toolbarOptions  from "src/reusable/toolbarOptions"
+import { customUrl } from  "src/reusable/apiHost";
 
 const EditNotice = props => {
   const user = useSelector(state => state.authentication.user);
@@ -131,7 +132,7 @@ const EditNotice = props => {
                       </CFormGroup>
                       <div className="previewNoticeImage">
                       <p>Old Image</p>
-                              <img width="80" src={currentNotice.image} />
+                              <img width="80" src={customUrl+currentNotice.image} />
                       </div>
                       <div className="previewNoticeImage">
                               <img width="80" src={imgData} />
